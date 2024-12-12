@@ -2,13 +2,15 @@
 module to maintain the database on received data
 """
 
-import context  # Ensures paho is in PYTHONPATH
 import sqlite3
-import json
+from flask import Flask, request, jsonify
 from datetime import datetime
-import paho.mqtt.client as mqtt
+
+
 
 DB_NAME = "rfid_data.db"
+app = Flask(__name__)
+
 
 def initialize_uid(uid):
     """insert new UIDs to all database tables 
@@ -32,12 +34,11 @@ def initialize_uid(uid):
     conn.close()
 
 
-def update_station_data(data, timestamp, topic):
+def update_station_data(data, timestamp):
     """update database with received data
     
     Args:
-        data (dict): Parsed JSON data to write to the database from stations
-        timestamp (str): Current timestamp
+        data (json): data to write to database from stations
     """
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()    
@@ -60,6 +61,12 @@ def update_station_data(data, timestamp, topic):
             0x07: "at_eol",
             0x08: "at_assembling"
     }
+    stations_mapping = {
+            0x01: "assembling", 
+            0x02: "shelf",
+            0x03: "screwing",
+            0x04: "eol"
+        }
     state_mapping = {
             0x00: "niO",
             0x01: "iO"
@@ -69,8 +76,10 @@ def update_station_data(data, timestamp, topic):
             0x01: "finished"
         }
 
+    station_code = data.get("station")
     current_code = data.get("current")
     current = current_state_mapping.get(current_code, "unknown")
+    station = stations_mapping.get(station_code, "unknown")
 
     finished_code = data.get("finished")
     finished = finished_mapping.get(finished_code, "unknown")
@@ -83,8 +92,8 @@ def update_station_data(data, timestamp, topic):
 
 
     # update the corresponding table 
-    if topic == "rfid/assembling_mcu_send":
-        state = data.get("state")    
+    if station == "assembling":
+        state = data["state"]    
         state = state_mapping.get(state, "unknown")
         cursor.execute("""
         UPDATE assembling
@@ -92,19 +101,19 @@ def update_station_data(data, timestamp, topic):
         WHERE uid = ?
         """, (state, timestamp, uid))
 
-    elif topic == "rfid/shelf_mcu_send":
-        state = data.get("state")
+    elif station == "shelf":
+        state = data["state"]
         state = state_mapping.get(state, "unknown")
-        in_shelf = data.get("in_shelf")
-        position = data.get("position")            
+        in_shelf = data["in_shelf"]
+        position = data["position"]                
         cursor.execute("""
         UPDATE shelf
         SET state = ?, timestamp = ?, in_shelf = ?, position = ?
         WHERE uid = ?
         """, (state, timestamp, in_shelf, position, uid))
 
-    elif topic == "rfid/screwing_mcu_send":
-        state = data.get("state")
+    elif station == "screwing":
+        state = data["state"]
         state = state_mapping.get(state, "unknown")
         cursor.execute("""
         UPDATE screwing
@@ -112,8 +121,8 @@ def update_station_data(data, timestamp, topic):
         WHERE uid = ?
         """, (state, timestamp, uid))
 
-    elif topic == "rfid/eol_mcu_send":
-        state = data.get("state")
+    elif station == "eol":
+        state = data["state"]
         state = state_mapping.get(state, "unknown")
         cursor.execute("""
         UPDATE end_of_line
@@ -124,47 +133,23 @@ def update_station_data(data, timestamp, topic):
     conn.commit()
     conn.close()
 
-def on_connect(mqttc, obj, flags, reason_code, properties):
-    print("reason_code: " + str(reason_code))
 
-
-def on_message(mqttc, obj, msg):
+@app.route('/update', methods=['POST'])
+def update():
+    """
+    Verarbeitet die Daten von einer Station und aktualisiert die Datenbank.
+    """
+    data = request.json  
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    
-    # decode byte string and parse json content
-    try:
-        payload_str = msg.payload.decode("utf-8")  # from bytes to string
-        data = json.loads(payload_str)            # json-string to python dict
-    except (UnicodeDecodeError, json.JSONDecodeError) as e:
-        print(f"Fehler beim Verarbeiten der Nachricht: {e}")
-        return
+
+    if not data:
+        return jsonify({"error": "didn't receive data"}), 400
+
     # update data for specific station
-    update_station_data(data, timestamp, str(msg.topic))
-    print(str(msg.topic) + " " + str(msg.qos) + " " + str(msg.payload))
+    update_station_data(data, timestamp)
+
+    return jsonify({"message": f"Data successfully updated: ", "data": data})
 
 
-def on_subscribe(mqttc, obj, mid, reason_code_list, properties):
-    print("Subscribed: " + str(mid) + " " + str(reason_code_list))
-
-
-def on_log(mqttc, obj, level, string):
-    print(string)
-
-
-# If you want to use a specific client id, use
-# mqttc = mqtt.Client("client-id")
-# but note that the client id must be unique on the broker. Leaving the client
-# id parameter empty will generate a random id for you.
-mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-mqttc.on_message = on_message
-mqttc.on_connect = on_connect
-mqttc.on_subscribe = on_subscribe
-# Uncomment to enable debug messages
-# mqttc.on_log = on_log
-mqttc.connect("10.42.0.1", 1883, 60)
-mqttc.subscribe("rfid/assembling_mcu_send")
-mqttc.subscribe("rfid/shelf_mcu_send")
-mqttc.subscribe("rfid/screwing_mcu_send")
-mqttc.subscribe("rfid/eol_mcu_send")
-
-mqttc.loop_forever()
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)

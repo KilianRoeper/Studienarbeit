@@ -1,0 +1,157 @@
+
+plan
+-tracking iO/ niO of all stations
+iO = 1
+niO = 0
+
+-goal: sorting PIs into shelf and live-tracking the position in the process and position in shelf 
+
+
+Predefining Block Position in Tags to write/read state of station to/from that location:
+
+sending position/time,date of PI in the process at each station
+
+setting: on NFC-Tag
+sending: to central PI
+
+
+
+
+
+
+assem
+-determination of UID to write to NFC-Tag on PI
+-setting: iO/niO for the assembling process
+	(0xA  &  0xB)
+
+sending: 
+{
+UID: Id,
+current: to shelf,
+finished: F,
+assembling:{
+	state: iO/niO,
+	timestamp: time, date
+	}
+}
+
+shelf
+put_into_shelf     if was_at_screwing     else    to_screwing
+
+
+
+
+if put_into_shelf: 
+setting:  iO/niO for shelf (0xC) + position
+
+sending:
+{
+UID: Id,
+current: in_shelf,
+finished: T,
+shelf: {
+	state: iO/niO,
+	timestamp: time, date,
+	in_shelf: T,
+	position: 8Bit,
+	station_states: 4Bit (for each station) 
+	}
+}
+-getting shelf-position from robot
+-reading states of all stations from predefined locations in NFC-Tab
+
+
+
+
+
+if to_screwing:
+setting: iO/niO for shelf (0xC)
+	
+sending: 
+{
+UID: Id,
+current: to_screwing,
+finished: F,
+shelf: {
+	state: iO/niO,
+	timestamp: time, date,
+	in_shelf: F
+	}
+}
+
+
+end 
+setting iO/niO for end of line process (0xE)
+
+sending: 
+{
+UID: id, 
+current: to_shelf,
+finished: F,
+end_of_line: {
+	state: iO/niO,
+	timestamp: time, date
+	}
+}
+
+
+screw
+setting: iO/niO for screwing process (at 0xD)
+
+sending: 
+{
+UID: id, 
+current: to end of line,
+finished: F,
+screwing: {
+	state: iO/niO,
+	timestamp: time, date
+	}
+}
+
+
+
+
+central 
+creating database to keep track of states for all UIDs
+
+json = {
+id: {
+UID: id,
+current: where_in_process,
+finished: T/F,
+assembling: {
+	state: iO/niO,
+	timestamp: time/date,
+	},
+shelf: {
+	state: iO/niO,
+	timestamp: time/date,
+	in_shelf: T/F,
+	position:  4Bit
+	station_states: 4Bit (for each station) 
+	},
+screwing: {
+	state: iO/niO,
+	timestamp: time/date
+	},
+end_of_line: {
+	state: iO/niO,
+	timestamp: time/date
+	}
+},
+{
+another UID
+}
+}
+
+
+
+
+
+
+
+
+
+
+

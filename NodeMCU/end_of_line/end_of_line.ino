@@ -4,19 +4,26 @@
 #include <PN532.h>
 #include <utils.h>
 #include <ESP8266WiFi.h>
+#include <ArduinoMqttClient.h>
 
 
 #define PN532_SS   D1
+
+// connection parameters
+const char* ssid = "rfid_ritz_access_point";
+const char* password = "rfid32_connect";
+
+const char broker[] = "10.42.0.1";
+int port = 1883;
+const char topic_send[] = "rfid/eol_mcu_send";
+const char topic_receive[] = "rfid/eol_mcu_receive";
+bool received_message_from_broker = false;
+String json_data;
 
 // blocks to read/ write at eol station
 uint8_t UID_BLOCK = 10;
 uint8_t END_OF_LINE_BLOCK = 14;
 uint8_t TRACKING_BLOCK = 15;
-
-const char* ssid = "rfid_ritz_access_point";
-const char* password = "rfid32_connect";
-const char* serverIP2 = "10.42.0.1";
-const int serverPort = 8080;
 
 const uint8_t DEBOUNCE_DELAY = 3;
 uint8_t tag_detached_counter = 0;
@@ -24,7 +31,7 @@ bool start_send_during_in_scope_state = true;
 bool start_send_during_detached_state = false;
 
 // built-in-uid params
-uint8_t uid[] = {0}; 
+uint8_t uid[7] = {0}; 
 uint8_t uidLength;
 
 // end-of-line params
@@ -62,6 +69,35 @@ void setup() {
   Serial.print("Got IP: ");  
   Serial.println(WiFi.localIP());
 
+	Serial.print("Attempting to connect to the MQTT broker: ");
+  Serial.println(broker);
+
+  if (!mqttClient.connect(broker, port)) {
+    Serial.print("MQTT connection failed! Error code = ");
+    Serial.println(mqttClient.connectError());
+
+    while (1);
+  }
+
+  Serial.println("You're connected to the MQTT broker!");
+  Serial.println();
+
+  // set the message receive callback
+  mqttClient.onMessage(onMqttMessage);
+
+  Serial.print("Subscribing to topic: ");
+  Serial.println(topic_receive);
+  Serial.println();
+
+  // subscribe to a topic
+  mqttClient.subscribe(topic_receive);
+  
+  // topics can be unsubscribed using:
+  // mqttClient.unsubscribe(topic);
+
+  Serial.print("Topic: ");
+  Serial.println(topic_receive);
+
   nfc.begin();
   uint32_t versiondata = nfc.getFirmwareVersion();
   if (! versiondata) {
@@ -78,6 +114,10 @@ void setup() {
 }
 
 void loop(void) {
+
+  // call poll() regularly to allow the library to receive MQTT messages and
+  // send MQTT keep alive which avoids being disconnected by the broker
+  mqttClient.poll();
 
   uint8_t success = false;
 
@@ -133,7 +173,10 @@ void loop(void) {
           Serial.print("Unable to write to page ");Serial.println(TRACKING_BLOCK);
         }
         // sending at eol
-        send_data_to_central_pi(uid_data, &end_of_line_data[0], &at_tracking_data, &which_station);
+        json_data = prepare_data(uid_data, &end_of_line_data[0], &at_tracking_data);
+        mqttClient.beginMessage(topic_send);
+        mqttClient.print(json_data);
+        mqttClient.endMessage();
       }
       else {
 
@@ -146,7 +189,11 @@ void loop(void) {
     if(start_send_during_detached_state){
       tag_detached_counter += 1;
       if(tag_detached_counter > DEBOUNCE_DELAY){
-        send_data_to_central_pi(uid_data, &end_of_line_data[0], &to_tracking_data[3], &which_station);
+        json_data = prepare_data(uid_data, &end_of_line_data[0], &to_tracking_data[3]);
+        mqttClient.beginMessage(topic_send);
+        mqttClient.print(json_data);
+        mqttClient.endMessage();
+
         tag_detached_counter = 0;
         start_send_during_in_scope_state = true;
         start_send_during_detached_state = false;
@@ -155,7 +202,37 @@ void loop(void) {
   }
 }
 
+void onMqttMessage(int messageSize) {
+  // we received a message, print out the topic and contents
+  Serial.println("Received a message with topic '");
+  Serial.print(mqttClient.messageTopic());
+  Serial.print("', length ");
+  Serial.print(messageSize);
+  Serial.println(" bytes:");
 
+  String receivedData = "";
+  // use the Stream interface to print the contents
+  while (mqttClient.available()) {
+    receivedData += (char)mqttClient.read();
+  }
+  Serial.print(receivedData);
+  Serial.println();
+  Serial.println();
+
+  if(receivedData == "iO"){
+    end_of_line_data_to_write[0] = 0x00;
+    end_of_line_data_to_write[1] = 0x00;
+    end_of_line_data_to_write[2] = 0x00;
+    end_of_line_data_to_write[3] = 0x01;
+  }
+  else{
+    end_of_line_data_to_write[0] = 0x00;
+    end_of_line_data_to_write[1] = 0x00;
+    end_of_line_data_to_write[2] = 0x00;
+    end_of_line_data_to_write[3] = 0x00;
+  }
+  received_message_from_broker = true;
+}
 
 
 

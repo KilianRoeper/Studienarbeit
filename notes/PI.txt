@@ -1,0 +1,13 @@
+raspberrypiRITZ
+ritzpi@raspberrypi.local
+
+username: ritzpi
+Password: njkjjm
+
+--> on Shopfloor Level
+
+Levels:
+-data lake
+-Enterprise 
+-connectivity
+-shop floor
