@@ -1,4 +1,3 @@
-#include <Wire.h>
 #include <SPI.h>
 #include <ArduinoJson.h>
 #include <PN532_SPI.h>
@@ -11,27 +10,29 @@
 #define PN532_SS   D1
 #define EEPROM_UID_OFFSET_ADDR 0x03
 
-// connection parameters
+// wlan connection parameters
 const char* ssid = "rfid_ritz_access_point";
 const char* password = "rfid32_connect";
 
+// mqtt connection parameters
 const char broker[] = "10.42.0.1";
 int port = 1883;
 const char topic_send[] = "rfid/assembling_mcu_send";
 const char topic_receive[] = "rfid/assembling_mcu_receive";
 bool received_message_from_broker = false;
-String json_data;
 
 // blocks to read/ write at assembling station
 uint8_t UID_BLOCK = 10;
 uint8_t ASSEMBLING_BLOCK = 11;
 uint8_t TRACKING_BLOCK = 15;
+
+// uid initialization parameters
 uint32_t FIRST_UID = 0xABCDEF00;
 uint32_t FIRST_OFFSET = 0x00000000;
-
 uint8_t uid_offset = FIRST_OFFSET;
 uint32_t first_uid = FIRST_UID;
 
+// global logic varaibles
 const uint8_t DEBOUNCE_DELAY = 3;
 uint8_t tag_detached_counter = 0;
 bool start_send_during_in_scope_state = true;
@@ -41,7 +42,7 @@ bool start_send_during_detached_state = false;
 uint8_t uid[7] = {0};  
 uint8_t uidLength;
 
-// assembling params
+// initialisation of assembling-station parameters
 uint8_t uid_data[4] = {0};
 uint8_t assembling_data[4] = {0};
 uint8_t assembling_data_to_write[4] = {0};
@@ -55,12 +56,12 @@ PN532 nfc = PN532(intf);
 // I2C connection
 //#include <Wire.h>
 //#include <PN532_I2C.h>
-
 //PN532_I2C intf(Wire);
 //PN532 nfc = PN532(intf);
+
+// wifi and mqtt client 
 WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
-
 
 void setup(void) {
   Serial.begin(115200);
@@ -106,9 +107,6 @@ void setup(void) {
   // topics can be unsubscribed using:
   // mqttClient.unsubscribe(topic);
 
-  Serial.print("Topic: ");
-  Serial.println(topic_receive);
-
   nfc.begin();
   uint32_t versiondata = nfc.getFirmwareVersion();
   if (! versiondata) {
@@ -131,6 +129,7 @@ void loop(void) {
   // send MQTT keep alive which avoids being disconnected by the broker
   mqttClient.poll();
 
+  // set write-success variable
   uint8_t success = false;
 
   // wait until a tag is found
@@ -175,10 +174,16 @@ void loop(void) {
         else {
           Serial.print("Unable to write to page ");Serial.println(TRACKING_BLOCK);
         }
-        // sending at_assembling
-        json_data = prepare_data(uid_data, &assembling_data[0], &at_tracking_data);
+
+        // prepare and serialize the data
+        StaticJsonDocument<256> json_data;
+        String jsonString;
+        prepare_data(json_data, uid_data, &assembling_data[0], &at_tracking_data);
+        serializeJson(json_data, jsonString);
+
+        // sending at_assembling via mqtt
         mqttClient.beginMessage(topic_send);
-        mqttClient.print(json_data);
+        mqttClient.print(jsonString);
         mqttClient.endMessage();
       }
       else {
@@ -186,22 +191,24 @@ void loop(void) {
       }
     }
   }
-  else{
-    // tag detached
-    if(start_send_during_detached_state == true){
-      tag_detached_counter += 1;
-      if(tag_detached_counter >= DEBOUNCE_DELAY){
-        // send to shelf
-        json_data = prepare_data(uid_data, &assembling_data[0], &to_tracking_data[3]);
-        mqttClient.beginMessage(topic_send);
-        mqttClient.print(json_data);
-        mqttClient.endMessage();
-
-        tag_detached_counter = 0;
-        start_send_during_in_scope_state = true;
-        start_send_during_detached_state = false;
-        received_message_from_broker = false;
-      }
+  // tag detached
+  else if(start_send_during_detached_state == true){
+    tag_detached_counter += 1;
+    if(tag_detached_counter >= DEBOUNCE_DELAY){
+      // prepare and serialize the data
+      StaticJsonDocument<256> json_data;
+      String jsonString;
+      prepare_data(json_data, uid_data, &assembling_data[0], &to_tracking_data[3]);
+      serializeJson(json_data, jsonString);
+      // send to shelf
+      mqttClient.beginMessage(topic_send);
+      mqttClient.print(jsonString);
+      mqttClient.endMessage();
+      // alter global logic
+      tag_detached_counter = 0;
+      start_send_during_in_scope_state = true;
+      start_send_during_detached_state = false;
+      received_message_from_broker = false;
     }
   }
 }
@@ -243,7 +250,6 @@ void modify_uid_if_zero(uint8_t uid_block, uint8_t uid_param[4], PN532 &nfc){
 }
 
 void determine_uid(uint8_t uid_param[4], uint8_t *uid_offset, uint32_t *first_uid) {
-
   uint32_t new_uid = *uid_offset + *first_uid;
 
   uid_param[0] = (new_uid >> 24) & 0xFF;
