@@ -5,11 +5,24 @@
 #include <utils.h>
 #include <ESP8266WiFi.h>
 #include <ArduinoMqttClient.h>
-#include <Ticker.h>
 
 #define PN532_SS   D1
 #define MAX_SHELF_POSITIONS 12
 #define UID_LENGTH 4
+#define DEBUG 1  // auf 0 setzen, um Debug auszuschalten
+
+#if DEBUG
+  #define DEBUG_PRINT(x)    Serial.print(x)
+  #define DEBUG_PRINTLN(x)  Serial.println(x)
+  #define DEBUG_PRINT_FMT(x, f) Serial.print(x, f)          // FMT - format
+  #define DEBUG_PRINTLN_FMT(x, f) Serial.println(x, f)
+#else
+  #define DEBUG_PRINT(x)
+  #define DEBUG_PRINTLN(x)
+  #define DEBUG_PRINT_FMT(x, f)
+  #define DEBUG_PRINTLN_FMT(x, f)
+#endif
+
 
 // wlan connection parameters
 const char* ssid = "rfid_ritz_access_point";
@@ -30,23 +43,23 @@ uint8_t SCREWING_BLOCK = 13;
 uint8_t END_OF_LINE_BLOCK = 14;
 uint8_t TRACKING_BLOCK = 15;
 
-// global logic varaibles
-const uint8_t DEBOUNCE_DELAY = 200;
-const uint8_t INSCOPE_TIME = 100;
+// global logic variables
+const unsigned long INSCOPE_TIME = 2000;    // [ms]
 bool start_send_inscope = true;
-bool start_send_inscope_last = true;
 bool start_send_detached = false;
-bool start_send_detached_last = false;
+bool found_tag = false;
+unsigned long detached_time = 0;
+unsigned long inscope_time = 0;
 
 // built-in-uid params
 uint8_t uid[7] = {0};  
 uint8_t uidLength;
 
-// initialisation of shelf-station parameters
+// initialisation of shelf-station params
 uint8_t num_of_iO = 0;
 uint8_t station_iO_niO[4] = {0};
 uint8_t shelf_position[1] = {0};
-uint8_t uid_data[4] = {0};
+uint8_t uid_data[UID_LENGTH] = {0};
 uint8_t shelf_data[4] = {0};
 uint8_t shelf_data_to_write[4] = {0};
 uint8_t to_tracking_data[4] = {0};
@@ -74,57 +87,41 @@ PN532 nfc = PN532(intf);
 WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
 
-// register tickers to handle counters via an ESP8266 interrupt (only has one core, so threading not possible)
-Ticker detachedTicker;
-Ticker inScopeTicker;
-volatile int detached_cnt = 0;
-volatile int inscope_cnt = 0;
-
-// ticker callback to increment detached counter
-void incr_detached(){
-  detached_cnt++;
-}
-
-// ticker callback to increment in_scope counter
-void incr_inscope(){
-  inscope_cnt++;
-}
-
 void setup() {
   Serial.begin(115200);
-  Serial.println("");
-  Serial.println("shelf station");
+  DEBUG_PRINTLN("");
+  DEBUG_PRINTLN("shelf station");
 
-  Serial.print("Connecting to WiFi");
+  DEBUG_PRINT("Connecting to WiFi");
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED){
     delay(1000);
-    Serial.print (".");
+    DEBUG_PRINT(".");
   }
-  Serial.println("");
-  Serial.println("WiFi connected..!");
-  Serial.print("Got IP: ");  
-  Serial.println(WiFi.localIP());
+  DEBUG_PRINTLN("");
+  DEBUG_PRINTLN("WiFi connected..!");
+  DEBUG_PRINT("Got IP: ");  
+  DEBUG_PRINTLN(WiFi.localIP());
 
-	Serial.print("Attempting to connect to the MQTT broker: ");
-  Serial.println(broker);
+	DEBUG_PRINT("Attempting to connect to the MQTT broker: ");
+  DEBUG_PRINTLN(broker);
 
   if (!mqttClient.connect(broker, port)) {
-    Serial.print("MQTT connection failed! Error code = ");
-    Serial.println(mqttClient.connectError());
+    DEBUG_PRINT("MQTT connection failed! Error code = ");
+    DEBUG_PRINTLN(mqttClient.connectError());
 
     while (1);
   }
 
-  Serial.println("You're connected to the MQTT broker!");
-  Serial.println();
+  DEBUG_PRINTLN("You're connected to the MQTT broker!");
+  DEBUG_PRINTLN();
 
   // set the message receive callback
   mqttClient.onMessage(onMqttMessage);
 
-  Serial.print("Subscribing to topic: ");
-  Serial.println(topic_receive);
-  Serial.println();
+  DEBUG_PRINT("Subscribing to topic: ");
+  DEBUG_PRINTLN(topic_receive);
+  DEBUG_PRINTLN();
 
   // subscribe to a topic
   mqttClient.subscribe(topic_receive);
@@ -135,15 +132,15 @@ void setup() {
   nfc.begin();
   uint32_t versiondata = nfc.getFirmwareVersion();
   if (! versiondata) {
-    Serial.print("Didn't find PN532 board");
+    DEBUG_PRINT("Didn't find PN532 board");
     while (1); // halt
   }
   // Got ok data, print it out!
-  Serial.print("Found chip PN5"); Serial.println((versiondata>>24) & 0xFF, HEX);
-  Serial.print("Firmware ver. "); Serial.print((versiondata>>16) & 0xFF, DEC);
-  Serial.print('.'); Serial.println((versiondata>>8) & 0xFF, DEC);
+  DEBUG_PRINT("Found chip PN5"); DEBUG_PRINTLN_FMT((versiondata>>24) & 0xFF, HEX);
+  DEBUG_PRINT("Firmware ver. "); DEBUG_PRINT_FMT((versiondata>>16) & 0xFF, DEC);
+  DEBUG_PRINT('.'); DEBUG_PRINTLN_FMT((versiondata>>8) & 0xFF, DEC);
   nfc.SAMConfig();
-  Serial.println("Waiting for an ISO14443A Card ...");
+  DEBUG_PRINTLN("Waiting for an ISO14443A Card ...");
 }
 
 void loop() {
@@ -157,19 +154,25 @@ void loop() {
   // wait until a tag is found
   bool currentTagState = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
   if(currentTagState) {
-    // reset detached counter if a tag was found
-    detached_cnt = 0;
-    // handle the in-scope counter
-    if (!inScopeTicker.active()){
-      inScopeTicker.attach(0.01, incr_inscope);
-    }
-    if (inscope_cnt >= INSCOPE_TIME){
-      start_send_detached = true;
+    if(!start_send_detached){
+      // handle in-scope timer
+      if (!found_tag){
+        found_tag = true;
+        inscope_time = millis();
+      }
+      DEBUG_PRINT("tag found - time in scope [ms]: ");
+      DEBUG_PRINTLN(millis() - inscope_time);
+      if (millis() - inscope_time >= INSCOPE_TIME){
+        DEBUG_PRINT("INSCOPE_TIME reached after [ms]: ");
+        DEBUG_PRINTLN(millis() - inscope_time);
+        DEBUG_PRINTLN("tag is kept at station");
+        found_tag = false;
+        start_send_detached = true;
+      }
     }
     // handle functionality for a recognized tag
     if (start_send_inscope){
       start_send_inscope = false;
-      start_send_detached = true;
 
       if (uidLength == 7) {
         // processing shelf state
@@ -181,17 +184,19 @@ void loop() {
           tag_mem_print("shelf state", SHELF_BLOCK, shelf_data, nfc);
         }
         else {
-          Serial.print("Unable to write to block ");Serial.println(SHELF_BLOCK);
+          DEBUG_PRINT("Unable to write to block ");DEBUG_PRINTLN(SHELF_BLOCK);
         }
         // processing UID
         success = nfc.mifareultralight_ReadPage(UID_BLOCK, uid_data);
         if (success) {
-          Serial.println("successfully read UID");
-          nfc.PrintHexChar(uid_data, 4);
-          Serial.println();
+          DEBUG_PRINTLN("successfully read UID");
+          if(DEBUG){
+            nfc.PrintHexChar(uid_data, 4);
+          }
+          DEBUG_PRINTLN();
         }
         else {
-          Serial.print("Unable to read/write page ");Serial.println(UID_BLOCK);
+          DEBUG_PRINT("Unable to read/write page ");DEBUG_PRINTLN(UID_BLOCK);
         }
         // processing tracking state
         nfc.mifareultralight_ReadPage(ASSEMBLING_BLOCK, station_iO_niO);
@@ -233,7 +238,7 @@ void loop() {
           tag_mem_print("Tracking state", TRACKING_BLOCK, to_tracking_data, nfc);
         }
         else {
-          Serial.print("Unable to write to page ");Serial.println(TRACKING_BLOCK);
+          DEBUG_PRINT("Unable to write to page ");DEBUG_PRINTLN(TRACKING_BLOCK);
         }
         // prepare and serialize the data
         StaticJsonDocument<256> json_data;
@@ -244,52 +249,38 @@ void loop() {
         serializeJson(json_data, jsonString);
 
         // sending at_shelf via mqtt
-        Serial.println("starting to send via mqtt - at shelf");
+        DEBUG_PRINTLN("send data to PI - in scope");
         mqttClient.beginMessage(topic_send);
         mqttClient.print(jsonString);
         mqttClient.endMessage();
-        Serial.println("finished sending via mqtt");
       }
       else {
-        Serial.println("This doesn't seem to be an NTAG2xx tag (UUID length != 7 bytes)!");
+        DEBUG_PRINTLN("This doesn't seem to be an NTAG2xx tag (UUID length != 7 bytes)!");
       }
     }
   }
   // tag detached
   else if(start_send_detached){
-    inscope_cnt = 0;
-    if(!detachedTicker.active()){
-      detachedTicker.attach(0.01, incr_detached);
-    }
-    if(inScopeTicker.active()){
-      inScopeTicker.detach();
-    }
-    if(detached_cnt > DEBOUNCE_DELAY){
-      // prepare and serialize the data
-      StaticJsonDocument<256> json_data;
-      String jsonString;
-      prepare_data(json_data, uid_data, &shelf_data[0], &to_tracking_data[3]);
-      json_data["in_shelf"] = shelf_data[2]; 
-      json_data["position"] = shelf_data[1];
-      serializeJson(json_data, jsonString);
-      // send via mqtt
-      Serial.println("starting to send via mqtt - dispatched from shelf");
-      mqttClient.beginMessage(topic_send);
-      mqttClient.print(jsonString);
-      mqttClient.endMessage();
-      Serial.println("finished sending via mqtt");
-      // alter global logic 
-      detached_cnt = 0;
-      start_send_inscope = true;
-      start_send_detached = false;
-      if (detachedTicker.active()){
-        detachedTicker.detach();
-      }
-    }
+    // prepare and serialize the data
+    StaticJsonDocument<256> json_data;
+    String jsonString;
+    prepare_data(json_data, uid_data, &shelf_data[0], &to_tracking_data[3]);
+    json_data["in_shelf"] = shelf_data[2]; 
+    json_data["position"] = shelf_data[1];
+    serializeJson(json_data, jsonString);
+    // send via mqtt
+    DEBUG_PRINTLN("send data to PI - detached");
+    mqttClient.beginMessage(topic_send);
+    mqttClient.print(jsonString);
+    mqttClient.endMessage();
+    // alter global logic 
+    start_send_inscope = true;
+    start_send_detached = false;
   }
   else {
-    inscope_cnt = 0;
-    detached_cnt = 0;
+    found_tag = false;
+    start_send_inscope = true;
+    DEBUG_PRINTLN("no tag found");
   }
 }
 
@@ -340,21 +331,21 @@ void determine_shelf_position(uint8_t *shelf_position, uint8_t uid_data[4]) {
 }
 
 void onMqttMessage(int messageSize) {
-  // we received a message, print out the topic and contents
-  Serial.println("Received a message with topic '");
-  Serial.print(mqttClient.messageTopic());
-  Serial.print("', length ");
-  Serial.print(messageSize);
-  Serial.println(" bytes:");
+  // received a message, print out the topic and contents
+  DEBUG_PRINTLN("Received a message with topic '");
+  DEBUG_PRINT(mqttClient.messageTopic());
+  DEBUG_PRINT("', length ");
+  DEBUG_PRINT(messageSize);
+  DEBUG_PRINTLN(" bytes:");
 
   String receivedData = "";
   // use the Stream interface to print the contents
   while (mqttClient.available()) {
     receivedData += (char)mqttClient.read();
   }
-  Serial.print(receivedData);
-  Serial.println();
-  Serial.println();
+  DEBUG_PRINT(receivedData);
+  DEBUG_PRINTLN();
+  DEBUG_PRINTLN();
 
   if(receivedData == "iO"){
     shelf_data_to_write[0] = 0x00;
@@ -369,4 +360,15 @@ void onMqttMessage(int messageSize) {
     shelf_data_to_write[3] = 0x00;
   }
   received_message_from_broker = true;
+}
+
+void tag_mem_print(String what, uint8_t bock_num, uint8_t data[4], PN532 &nfc){
+  DEBUG_PRINT(what);
+  DEBUG_PRINT(" at block ");
+  DEBUG_PRINT(bock_num);
+  DEBUG_PRINT(": ");
+  if(DEBUG){
+    nfc.PrintHexChar(data, 4);
+  }
+  DEBUG_PRINTLN("");
 }
