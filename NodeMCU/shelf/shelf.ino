@@ -23,7 +23,6 @@
   #define DEBUG_PRINTLN_FMT(x, f)
 #endif
 
-
 // wlan connection parameters
 const char* ssid = "rfid_ritz_access_point";
 const char* password = "rfid32_connect";
@@ -33,7 +32,6 @@ const char broker[] = "10.42.0.1";
 int port = 1883;
 const char topic_send[] = "rfid/shelf_mcu_send";
 const char topic_receive[] = "rfid/shelf_mcu_receive";
-bool received_message_from_broker = false;
 
 // blocks to read/ write at shelf station
 uint8_t UID_BLOCK = 10;
@@ -50,18 +48,19 @@ bool start_send_detached = false;
 bool found_tag = false;
 unsigned long detached_time = 0;
 unsigned long inscope_time = 0;
+bool mqtt_message = false;
 
 // built-in-uid params
 uint8_t uid[7] = {0};  
 uint8_t uidLength;
 
 // initialisation of shelf-station params
-uint8_t num_of_iO = 0;
-uint8_t station_iO_niO[4] = {0};
+uint8_t io_cnt = 0;
+uint8_t station_io[4] = {0};
 uint8_t shelf_position[1] = {0};
 uint8_t uid_data[UID_LENGTH] = {0};
 uint8_t shelf_data[4] = {0};
-uint8_t shelf_data_to_write[4] = {0};
+uint8_t shelf_data_temp[4] = {0};
 uint8_t to_tracking_data[4] = {0};
 uint8_t at_tracking_data = 0x02;
 uint8_t which_station = 0x02;
@@ -145,7 +144,7 @@ void setup() {
 
 void loop() {
   // call poll() regularly to allow the library to receive MQTT messages and
-  // send MQTT keep alive which avoids being disconnected by the broker
+  // send MQTT keep alive which avoids being disconnected from the broker
   mqttClient.poll();
 
   // set write-success variable
@@ -171,21 +170,23 @@ void loop() {
       }
     }
     // handle functionality for a recognized tag
-    if (start_send_inscope){
+    if (start_send_inscope | mqtt_message){
       start_send_inscope = false;
+      mqtt_message = false;
 
       if (uidLength == 7) {
-        // processing shelf state
-        random_state(shelf_data_to_write);
-        success = nfc.mifareultralight_WritePage(SHELF_BLOCK, shelf_data_to_write);
 
+        // processing shelf state
+        // random_state(shelf_data_temp);
+        success = nfc.mifareultralight_WritePage(SHELF_BLOCK, shelf_data_temp);
         if (success) {
-          memcpy(shelf_data, shelf_data_to_write, sizeof(shelf_data_to_write));
+          memcpy(shelf_data, shelf_data_temp, sizeof(shelf_data_temp));
           tag_mem_print("shelf state", SHELF_BLOCK, shelf_data, nfc);
         }
         else {
           DEBUG_PRINT("Unable to write to block ");DEBUG_PRINTLN(SHELF_BLOCK);
         }
+
         // processing UID
         success = nfc.mifareultralight_ReadPage(UID_BLOCK, uid_data);
         if (success) {
@@ -198,40 +199,34 @@ void loop() {
         else {
           DEBUG_PRINT("Unable to read/write page ");DEBUG_PRINTLN(UID_BLOCK);
         }
-        // processing tracking state
-        nfc.mifareultralight_ReadPage(ASSEMBLING_BLOCK, station_iO_niO);
-        num_of_iO += station_iO_niO[3];
-        nfc.mifareultralight_ReadPage(SHELF_BLOCK, station_iO_niO);
-        num_of_iO += station_iO_niO[3];
-        nfc.mifareultralight_ReadPage(SCREWING_BLOCK, station_iO_niO);
-        num_of_iO += station_iO_niO[3];
-        nfc.mifareultralight_ReadPage(END_OF_LINE_BLOCK, station_iO_niO);
-        num_of_iO += station_iO_niO[3];
 
-        if (num_of_iO >= 2) {
-          // sending in_shelf
+        // processing tracking state
+        nfc.mifareultralight_ReadPage(ASSEMBLING_BLOCK, station_io);
+        io_cnt += station_io[3];
+        nfc.mifareultralight_ReadPage(SHELF_BLOCK, station_io);
+        io_cnt += station_io[3];
+        nfc.mifareultralight_ReadPage(SCREWING_BLOCK, station_io);
+        io_cnt += station_io[3];
+        nfc.mifareultralight_ReadPage(END_OF_LINE_BLOCK, station_io);
+        io_cnt += station_io[3];
+
+        if (io_cnt >= 2) {
+          // sending tag in_shelf
           to_tracking_data[3] = 0x03;
-          // true for "is in shelf"
+          // is in shelf
           shelf_data[2] = 0x01;
           // shelf position byte
           determine_shelf_position(&shelf_position[0], uid_data);
           shelf_data[1] = shelf_position[0];
         }
         else {
-          // sending to screwing
+          // sending tag to screwing
           to_tracking_data[3] = 0x04;
           // not in_shelf
           shelf_data[2] = 0x00;
           // no shelf position
           shelf_data[1] = 0x00;
         }
-        to_tracking_data[3] = 0x03;
-        // true for "is in shelf"
-        shelf_data[2] = 0x01;
-        // shelf position byte
-        // determine_shelf_position(&shelf_position[0], uid_data);
-        shelf_data[1] = 0x02;
-
         success = nfc.mifareultralight_WritePage(TRACKING_BLOCK, to_tracking_data);
         // writing tracking state
         if (success) {
@@ -348,18 +343,18 @@ void onMqttMessage(int messageSize) {
   DEBUG_PRINTLN();
 
   if(receivedData == "iO"){
-    shelf_data_to_write[0] = 0x00;
-    shelf_data_to_write[1] = 0x00;
-    shelf_data_to_write[2] = 0x00;
-    shelf_data_to_write[3] = 0x01;
+    shelf_data_temp[0] = 0x00;
+    shelf_data_temp[1] = 0x00;
+    shelf_data_temp[2] = 0x00;
+    shelf_data_temp[3] = 0x01;
   }
   else{
-    shelf_data_to_write[0] = 0x00;
-    shelf_data_to_write[1] = 0x00;
-    shelf_data_to_write[2] = 0x00;
-    shelf_data_to_write[3] = 0x00;
+    shelf_data_temp[0] = 0x00;
+    shelf_data_temp[1] = 0x00;
+    shelf_data_temp[2] = 0x00;
+    shelf_data_temp[3] = 0x00;
   }
-  received_message_from_broker = true;
+  mqtt_message = true;
 }
 
 void tag_mem_print(String what, uint8_t bock_num, uint8_t data[4], PN532 &nfc){

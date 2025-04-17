@@ -31,7 +31,6 @@ const char broker[] = "10.42.0.1";
 int port = 1883;
 const char topic_send[] = "rfid/eol_mcu_send";
 const char topic_receive[] = "rfid/eol_mcu_receive";
-bool received_message_from_broker = false;
 
 // blocks to read/ write at eol station
 uint8_t UID_BLOCK = 10;
@@ -45,6 +44,7 @@ bool start_send_detached = false;
 bool found_tag = false;
 unsigned long detached_time = 0;
 unsigned long inscope_time = 0;
+bool mqtt_message = false;
 
 // built-in-uid params
 uint8_t uid[7] = {0}; 
@@ -52,7 +52,7 @@ uint8_t uidLength;
 
 // end-of-line params
 uint8_t uid_data[UID_LENGTH] = {0};
-uint8_t eol_io_data[4] = {0};
+uint8_t io_state_fin[4] = {0};
 uint8_t io_state[4] = {0};
 uint8_t to_tracking_data[4] = {0, 0, 0, 0x01};
 uint8_t at_tracking_data = 0x07;
@@ -136,7 +136,7 @@ void setup() {
 void loop(void) {
 
   // call poll() regularly to allow the library to receive MQTT messages and
-  // send MQTT keep alive which avoids being disconnected by the broker
+  // send MQTT keep alive which avoids being disconnected from the broker
   mqttClient.poll();
 
   // set write-success variable
@@ -162,8 +162,9 @@ void loop(void) {
       }
     }
     // handle functionality for a recognized tag
-    if(start_send_inscope){
+    if(start_send_inscope | mqtt_message){
       start_send_inscope = false;
+      mqtt_message = false;
 
       if (uidLength == 7) {
 
@@ -171,7 +172,7 @@ void loop(void) {
         random_state(io_state);
         success = nfc.mifareultralight_WritePage(END_OF_LINE_BLOCK, io_state);
         if (success) {
-          memcpy(eol_io_data, io_state, sizeof(io_state));
+          memcpy(io_state_fin, io_state, sizeof(io_state));
           tag_mem_print("end of line state", END_OF_LINE_BLOCK, io_state, nfc);
         }
         else {
@@ -203,7 +204,7 @@ void loop(void) {
         // prepare and serialize the data
         StaticJsonDocument<256> json_data;
         String jsonString;
-        prepare_data(json_data, uid_data, &eol_io_data[0], &at_tracking_data);
+        prepare_data(json_data, uid_data, &io_state_fin[0], &at_tracking_data);
         serializeJson(json_data, jsonString);
 
         // sending eol via mqtt
@@ -222,7 +223,7 @@ void loop(void) {
     // prepare and serialize the data
     StaticJsonDocument<256> json_data;
     String jsonString;
-    prepare_data(json_data, uid_data, &eol_io_data[0], &to_tracking_data[3]);
+    prepare_data(json_data, uid_data, &io_state_fin[0], &to_tracking_data[3]);
     serializeJson(json_data, jsonString);
     // send via mqtt
     DEBUG_PRINTLN("send data to PI - detached");
@@ -268,7 +269,7 @@ void onMqttMessage(int messageSize) {
     io_state[2] = 0x00;
     io_state[3] = 0x00;
   }
-  received_message_from_broker = true;
+  mqtt_message = true;
 }
 
 void tag_mem_print(String what, uint8_t bock_num, uint8_t data[4], PN532 &nfc){

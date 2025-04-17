@@ -9,6 +9,20 @@
 
 #define PN532_SS   D1
 #define EEPROM_UID_OFFSET_ADDR 0x03
+#define UID_LENGTH 4
+#define DEBUG 1  // auf 0 setzen, um Debug auszuschalten
+
+#if DEBUG
+  #define DEBUG_PRINT(x)    Serial.print(x)
+  #define DEBUG_PRINTLN(x)  Serial.println(x)
+  #define DEBUG_PRINT_FMT(x, f) Serial.print(x, f)          // FMT - format
+  #define DEBUG_PRINTLN_FMT(x, f) Serial.println(x, f)
+#else
+  #define DEBUG_PRINT(x)
+  #define DEBUG_PRINTLN(x)
+  #define DEBUG_PRINT_FMT(x, f)
+  #define DEBUG_PRINTLN_FMT(x, f)
+#endif
 
 // wlan connection parameters
 const char* ssid = "rfid_ritz_access_point";
@@ -32,20 +46,23 @@ uint32_t FIRST_OFFSET = 0x00000000;
 uint8_t uid_offset = FIRST_OFFSET;
 uint32_t first_uid = FIRST_UID;
 
-// global logic varaibles
-const uint8_t DEBOUNCE_DELAY = 3;
-uint8_t tag_detached_counter = 0;
-bool start_send_during_in_scope_state = true;
-bool start_send_during_detached_state = false;
+// global logic variables
+const unsigned long INSCOPE_TIME = 2000;    // [ms]
+bool start_send_inscope = true;
+bool start_send_detached = false;
+bool found_tag = false;
+unsigned long detached_time = 0;
+unsigned long inscope_time = 0;
+bool mqtt_message = false;
 
 // built-in-uid params
 uint8_t uid[7] = {0};  
 uint8_t uidLength;
 
 // initialisation of assembling-station parameters
-uint8_t uid_data[4] = {0};
+uint8_t uid_data[UID_LENGTH] = {0};
 uint8_t assembling_data[4] = {0};
-uint8_t assembling_data_to_write[4] = {0};
+uint8_t assembling_data_temp[4] = {0};
 uint8_t to_tracking_data[4] = {0, 0, 0, 0x01};
 uint8_t at_tracking_data = 0x08;
 
@@ -65,41 +82,41 @@ MqttClient mqttClient(wifiClient);
 
 void setup(void) {
   Serial.begin(115200);
-  Serial.println("");
-  Serial.println("assembling station");
+  DEBUG_PRINTLN("");
+  DEBUG_PRINTLN("assembling station");
 
   EEPROM.begin(512);
 
-  Serial.print("Connecting to WiFi");
+  DEBUG_PRINT("Connecting to WiFi");
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED){
     delay(1000);
-    Serial.print (".");
+    DEBUG_PRINT (".");
   }
-  Serial.println("");
-  Serial.println("WiFi connected..!");
-  Serial.print("Got IP: ");  
-  Serial.println(WiFi.localIP());
+  DEBUG_PRINTLN("");
+  DEBUG_PRINTLN("WiFi connected..!");
+  DEBUG_PRINT("Got IP: ");  
+  DEBUG_PRINTLN(WiFi.localIP());
 
-	Serial.print("Attempting to connect to the MQTT broker: ");
-  Serial.println(broker);
+	DEBUG_PRINT("Attempting to connect to the MQTT broker: ");
+  DEBUG_PRINTLN(broker);
 
   if (!mqttClient.connect(broker, port)) {
-    Serial.print("MQTT connection failed! Error code = ");
-    Serial.println(mqttClient.connectError());
+    DEBUG_PRINT("MQTT connection failed! Error code = ");
+    DEBUG_PRINTLN(mqttClient.connectError());
 
     while (1);
   }
 
-  Serial.println("You're connected to the MQTT broker!");
-  Serial.println();
+  DEBUG_PRINTLN("You're connected to the MQTT broker!");
+  DEBUG_PRINTLN();
 
   // set the message receive callback
   mqttClient.onMessage(onMqttMessage);
 
-  Serial.print("Subscribing to topic: ");
-  Serial.println(topic_receive);
-  Serial.println();
+  DEBUG_PRINT("Subscribing to topic: ");
+  DEBUG_PRINTLN(topic_receive);
+  DEBUG_PRINTLN();
 
   // subscribe to a topic
   mqttClient.subscribe(topic_receive);
@@ -110,23 +127,22 @@ void setup(void) {
   nfc.begin();
   uint32_t versiondata = nfc.getFirmwareVersion();
   if (! versiondata) {
-    Serial.print("Didn't find PN532 board");
+    DEBUG_PRINT("Didn't find PN532 board");
     while (1); // halt
   }
   // Got ok data, print it out!
-  Serial.println("");
-  Serial.print("Found chip PN5"); Serial.println((versiondata>>24) & 0xFF, HEX);
-  Serial.print("Firmware ver. "); Serial.print((versiondata>>16) & 0xFF, DEC);
-  Serial.print('.'); Serial.println((versiondata>>8) & 0xFF, DEC);
+  DEBUG_PRINTLN("");
+  DEBUG_PRINT("Found chip PN5"); DEBUG_PRINTLN_FMT((versiondata>>24) & 0xFF, HEX);
+  DEBUG_PRINT("Firmware ver. "); DEBUG_PRINT_FMT((versiondata>>16) & 0xFF, DEC);
+  DEBUG_PRINT('.'); DEBUG_PRINTLN_FMT((versiondata>>8) & 0xFF, DEC);
   nfc.SAMConfig();
-  Serial.println("Waiting for an ISO14443A Card ...");
+  DEBUG_PRINTLN("Waiting for an ISO14443A Card ...");
 }
 
 
 void loop(void) {
-
   // call poll() regularly to allow the library to receive MQTT messages and
-  // send MQTT keep alive which avoids being disconnected by the broker
+  // send MQTT keep alive which avoids being disconnected from the broker
   mqttClient.poll();
 
   // set write-success variable
@@ -134,45 +150,56 @@ void loop(void) {
 
   // wait until a tag is found
   bool currentTagState = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
-
-  if(currentTagState == true && received_message_from_broker == true) {
-    // tag in scope
-    tag_detached_counter = 0;
-
-    if(start_send_during_in_scope_state == true){
-      start_send_during_in_scope_state = false;
-      start_send_during_detached_state = true;
+  if(currentTagState) {
+    if(!start_send_detached){
+      // handle in-scope timer
+      if (!found_tag){
+        found_tag = true;
+        inscope_time = millis();
+      }
+      DEBUG_PRINT("tag found - time in scope [ms]: ");
+      DEBUG_PRINTLN(millis() - inscope_time);
+      if (millis() - inscope_time >= INSCOPE_TIME){
+        DEBUG_PRINT("INSCOPE_TIME reached after [ms]: ");
+        DEBUG_PRINTLN(millis() - inscope_time);
+        DEBUG_PRINTLN("tag is kept at station");
+        found_tag = false;
+        start_send_detached = true;
+      }
+    }
+    // handle functionality for a recognized tag
+    if (start_send_inscope | mqtt_message){
+      start_send_inscope = false;
+      mqtt_message = false;
 
       if (uidLength == 7) {
-        // processing assembling state
-        success = nfc.mifareultralight_WritePage(ASSEMBLING_BLOCK, assembling_data_to_write);
 
+        // processing assembling state
+        success = nfc.mifareultralight_WritePage(ASSEMBLING_BLOCK, assembling_data_temp);
         if (success) {
-          memcpy(assembling_data, assembling_data_to_write, sizeof(assembling_data_to_write));
+          memcpy(assembling_data, assembling_data_temp, sizeof(assembling_data_temp));
           tag_mem_print("Assembling state", ASSEMBLING_BLOCK, assembling_data, nfc);
         }
         else {
-          Serial.print("Unable to write to block ");Serial.println(ASSEMBLING_BLOCK);
+          DEBUG_PRINT("Unable to write to block ");DEBUG_PRINTLN(ASSEMBLING_BLOCK);
         }
 
         // processing UID
         success = nfc.mifareultralight_ReadPage(UID_BLOCK, uid_data);
-
         if (success) {
           modify_uid_if_zero(UID_BLOCK, uid_data, nfc);
         }
         else {
-          Serial.print("Unable to read/write page ");Serial.println(UID_BLOCK);
+          DEBUG_PRINT("Unable to read/write page ");DEBUG_PRINTLN(UID_BLOCK);
         }
 
         // processing tracking state -> to_shelf
         success = nfc.mifareultralight_WritePage(TRACKING_BLOCK, to_tracking_data);
-
         if (success) {
           tag_mem_print("Tracking state", TRACKING_BLOCK, to_tracking_data, nfc);
         }
         else {
-          Serial.print("Unable to write to page ");Serial.println(TRACKING_BLOCK);
+          DEBUG_PRINT("Unable to write to page ");DEBUG_PRINTLN(TRACKING_BLOCK);
         }
 
         // prepare and serialize the data
@@ -182,34 +209,36 @@ void loop(void) {
         serializeJson(json_data, jsonString);
 
         // sending at_assembling via mqtt
+        DEBUG_PRINTLN("send data to PI - in scope");
         mqttClient.beginMessage(topic_send);
         mqttClient.print(jsonString);
         mqttClient.endMessage();
       }
       else {
-        Serial.println("This doesn't seem to be an NTAG2xx tag (UUID length != 7 bytes)!");
+        DEBUG_PRINTLN("This doesn't seem to be an NTAG2xx tag (UUID length != 7 bytes)!");
       }
     }
   }
   // tag detached
-  else if(start_send_during_detached_state == true){
-    tag_detached_counter += 1;
-    if(tag_detached_counter >= DEBOUNCE_DELAY){
-      // prepare and serialize the data
-      StaticJsonDocument<256> json_data;
-      String jsonString;
-      prepare_data(json_data, uid_data, &assembling_data[0], &to_tracking_data[3]);
-      serializeJson(json_data, jsonString);
-      // send to shelf
-      mqttClient.beginMessage(topic_send);
-      mqttClient.print(jsonString);
-      mqttClient.endMessage();
-      // alter global logic
-      tag_detached_counter = 0;
-      start_send_during_in_scope_state = true;
-      start_send_during_detached_state = false;
-      received_message_from_broker = false;
-    }
+  else if(start_send_detached){
+    // prepare and serialize the data
+    StaticJsonDocument<256> json_data;
+    String jsonString;
+    prepare_data(json_data, uid_data, &assembling_data[0], &to_tracking_data[3]);
+    serializeJson(json_data, jsonString);
+    // send to shelf via mqtt
+    DEBUG_PRINTLN("send data to PI - detached");
+    mqttClient.beginMessage(topic_send);
+    mqttClient.print(jsonString);
+    mqttClient.endMessage();
+    // alter global logic
+    start_send_inscope = true;
+    start_send_detached = false;
+  }
+  else {
+    found_tag = false;
+    start_send_inscope = true;
+    DEBUG_PRINTLN("no tag found");
   }
 }
 
@@ -227,24 +256,24 @@ void modify_uid_if_zero(uint8_t uid_block, uint8_t uid_param[4], PN532 &nfc){
   if (all_zero) {
 
     get_last_uid_offset_and_first_uid(&uid_offset, &first_uid);
-    Serial.print("offset: ");
-    Serial.println(uid_offset, HEX);
-    Serial.print("first uid: ");
-    Serial.println(first_uid, HEX);
+    DEBUG_PRINT("offset: ");
+    DEBUG_PRINTLN_FMT(uid_offset, HEX);
+    DEBUG_PRINT("first uid: ");
+    DEBUG_PRINTLN_FMT(first_uid, HEX);
     determine_uid(uid_param, &uid_offset, &first_uid);
 
     uid_offset += 1;
     save_uid_offset(&uid_offset);
-    Serial.print("next offset: ");
-    Serial.println(uid_offset, HEX);
+    DEBUG_PRINT("next offset: ");
+    DEBUG_PRINTLN_FMT(uid_offset, HEX);
 
     success = nfc.mifareultralight_WritePage(uid_block, uid_param);
     if (success) {
       tag_mem_print("UID", uid_block, uid_param, nfc);
     }
     else {
-      Serial.print("Unable to write UID to page!");
-      Serial.println(uid_block);
+      DEBUG_PRINT("Unable to write UID to page!");
+      DEBUG_PRINTLN(uid_block);
     }
   } 
 }
@@ -257,8 +286,8 @@ void determine_uid(uint8_t uid_param[4], uint8_t *uid_offset, uint32_t *first_ui
   uid_param[2] = (new_uid >> 8) & 0xFF;
   uid_param[3] = new_uid & 0xFF;
 
-  Serial.print("new uid: ");
-  Serial.println(new_uid, HEX);
+  DEBUG_PRINT("new uid: ");
+  DEBUG_PRINTLN_FMT(new_uid, HEX);
 }
 
 // getting UID offset from EEPROM
@@ -277,32 +306,43 @@ void save_uid_offset(uint8_t *offset) {
 
 void onMqttMessage(int messageSize) {
   // we received a message, print out the topic and contents
-  Serial.println("Received a message with topic '");
-  Serial.print(mqttClient.messageTopic());
-  Serial.print("', length ");
-  Serial.print(messageSize);
-  Serial.println(" bytes:");
+  DEBUG_PRINTLN("Received a message with topic '");
+  DEBUG_PRINT(mqttClient.messageTopic());
+  DEBUG_PRINT("', length ");
+  DEBUG_PRINT(messageSize);
+  DEBUG_PRINTLN(" bytes:");
 
   String receivedData = "";
   // use the Stream interface to print the contents
   while (mqttClient.available()) {
     receivedData += (char)mqttClient.read();
   }
-  Serial.print(receivedData);
-  Serial.println();
-  Serial.println();
+  DEBUG_PRINT(receivedData);
+  DEBUG_PRINTLN();
+  DEBUG_PRINTLN();
 
   if(receivedData == "iO"){
-    assembling_data_to_write[0] = 0x00;
-    assembling_data_to_write[1] = 0x00;
-    assembling_data_to_write[2] = 0x00;
-    assembling_data_to_write[3] = 0x01;
+    assembling_data_temp[0] = 0x00;
+    assembling_data_temp[1] = 0x00;
+    assembling_data_temp[2] = 0x00;
+    assembling_data_temp[3] = 0x01;
   }
   else{
-    assembling_data_to_write[0] = 0x00;
-    assembling_data_to_write[1] = 0x00;
-    assembling_data_to_write[2] = 0x00;
-    assembling_data_to_write[3] = 0x00;
+    assembling_data_temp[0] = 0x00;
+    assembling_data_temp[1] = 0x00;
+    assembling_data_temp[2] = 0x00;
+    assembling_data_temp[3] = 0x00;
   }
-  received_message_from_broker = true;
+  mqtt_message = true;
+}
+
+void tag_mem_print(String what, uint8_t bock_num, uint8_t data[4], PN532 &nfc){
+  DEBUG_PRINT(what);
+  DEBUG_PRINT(" at block ");
+  DEBUG_PRINT(bock_num);
+  DEBUG_PRINT(": ");
+  if(DEBUG){
+    nfc.PrintHexChar(data, 4);
+  }
+  DEBUG_PRINTLN("");
 }
