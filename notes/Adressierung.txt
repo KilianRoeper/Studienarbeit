@@ -32,9 +32,9 @@
 # the Goal is that all products land in the upper shelve
 
 Bock 10: screwed/ not screwed (num_screwed:num_unscrewed:fill:was_screwed)
-Block 11: stacking (fill:fill:fill:was_stacked)
+Block 11: tacking (X:X:X:was_stacked)
 Block 12: refurbishing (num_refurbishement*:has_to_be_refurbished:to_middle_shelve:to_top_shelve)
-Block 13: processing (fill:fill:quality(0/1):finished_processing*1)
+Block 13: processing (X:X:quality(0/1):finished_processing*1)
 
 
 last Block: Date/time of each state changing/ writing Event (consecutive)

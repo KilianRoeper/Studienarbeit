@@ -10,7 +10,7 @@ cursor = conn.cursor()
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS products (
     uid TEXT PRIMARY KEY,
-    tracking TEXT, 
+    current TEXT, 
     timestamp TEXT,
     finished BOOLEAN
 );
@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS shelf (
     uid TEXT PRIMARY KEY,
     state TEXT DEFAULT NULL,
     timestamp TEXT DEFAULT NULL,
+    in_shelf BOOLEAN DEFAULT NULL,
     position INTEGER DEFAULT NULL,
     FOREIGN KEY (uid) REFERENCES products(uid) ON DELETE CASCADE
 );

@@ -11,10 +11,11 @@ import paho.mqtt.client as mqtt
 DB_NAME = "rfid_data.db"
 
 def initialize_uid(uid):
-    """insert new UIDs to all database tables 
+    """
+    insert new UIDs to all database tables 
 
-    Args:
-        uid (bytestring): uid of the nfc tag
+    @param uid: uid of the nfc tag
+    :type uid: bytestring
     """
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -35,21 +36,21 @@ def initialize_uid(uid):
 def update_station_data(data, timestamp, topic):
     """update database with received data
     
-    Args:
-        data (dict): Parsed JSON data to write to the database from stations
-        timestamp (str): Current timestamp
+    @param data: Parsed JSON data to write to the database from stations
+    @param timestamp: Current timestamp
+    :type data: dict
+    :type timestamp: str
     """
     conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()    
+    cursor = conn.cursor() 
     
-    uid_hex = data.get("UID")  
-    uid = "".join(uid_hex)    
+    uid_hex = data.get("UID")
+    uid = "".join(uid_hex)
     if uid == "00000000":
         print("no valid uid")
     else:
         initialize_uid(uid)
-    
-    
+        
     current_state_mapping = {
             0x01: "to_shelf",
             0x02: "at_shelf",
@@ -69,17 +70,17 @@ def update_station_data(data, timestamp, topic):
             0x01: "finished"
         }
 
-    current_code = data.get("current")
-    current = current_state_mapping.get(current_code, "unknown")
+    tracking_code = data.get("tracking")
+    tracking = current_state_mapping.get(tracking_code, "unknown")
 
     finished_code = data.get("finished")
     finished = finished_mapping.get(finished_code, "unknown")
 
     cursor.execute("""
     UPDATE products
-    SET  current = ?, timestamp = ?, finished = ?
+    SET  tracking = ?, timestamp = ?, finished = ?
     WHERE uid = ?
-    """, (current, timestamp, finished, uid))
+    """, (tracking, timestamp, finished, uid))
 
 
     # update the corresponding table 
@@ -95,13 +96,12 @@ def update_station_data(data, timestamp, topic):
     elif topic == "rfid/shelf_mcu_send":
         state = data.get("state")
         state = state_mapping.get(state, "unknown")
-        in_shelf = data.get("in_shelf")
         position = data.get("position")            
         cursor.execute("""
         UPDATE shelf
-        SET state = ?, timestamp = ?, in_shelf = ?, position = ?
+        SET state = ?, timestamp = ?, position = ?
         WHERE uid = ?
-        """, (state, timestamp, in_shelf, position, uid))
+        """, (state, timestamp, position, uid))
 
     elif topic == "rfid/screwing_mcu_send":
         state = data.get("state")
@@ -123,8 +123,46 @@ def update_station_data(data, timestamp, topic):
 
     conn.commit()
     conn.close()
+    
+def print_payload(data, topic):
 
-def on_connect(mqttc, obj, flags, reason_code, properties):
+    uid_hex = data.get("UID")  
+    
+    uid = "".join(uid_hex)
+    tracking = data.get("tracking", False)
+    state = data.get("state", False)
+    finished = data.get("finished", False)
+    position = data.get("position", False)
+    
+    # mappings
+    tracking_map = {
+        1: "zum Regal",
+        2: "beim Regal",
+        3: "im Regal",
+        4: "zum Schrauben",
+        5: "beim Schrauben",
+        6: "zu end of line",
+        7: "bei end of line",
+        8: "beim Zusammenbau",
+        9: "Zum Zusammenbau"
+    }
+    
+    tracking_text = tracking_map.get(tracking, f"Unbekanntes Tracking ({tracking})")
+
+    print("\n")
+    print("-" * 40)
+    print(f"Topic:     {topic}")
+    print(f"UID:       {uid}")
+    print(f"Tracking:  {tracking_text}")
+    print(f"Zustand:   {'in Ordnung' if state else 'nicht in Ordnung'}")
+    print(f"Status:    {'Abgeschlossen' if finished else 'In Bearbeitung'}")    
+    if(position):
+        print(f"Regalfach: {position + 1}")
+    print("-" * 40)
+
+def on_connect(mqttc, userdata, flags, reason_code, properties):
+    subscribe_topics(mqttc, userdata)
+    print("connect...")
     print("reason_code: " + str(reason_code))
 
 
@@ -134,37 +172,32 @@ def on_message(mqttc, obj, msg):
     # decode byte string and parse json content
     try:
         payload_str = msg.payload.decode("utf-8")  # from bytes to string
-        data = json.loads(payload_str)            # json-string to python dict
+        data = json.loads(payload_str)             # json-string to python dict
     except (UnicodeDecodeError, json.JSONDecodeError) as e:
         print(f"Fehler beim Verarbeiten der Nachricht: {e}")
         return
     # update data for specific station
     update_station_data(data, timestamp, str(msg.topic))
-    print(str(msg.topic) + " " + str(msg.qos) + " " + str(msg.payload))
+    print_payload(data, str(msg.topic))
 
 
 def on_subscribe(mqttc, obj, mid, reason_code_list, properties):
-    print("Subscribed: " + str(mid) + " " + str(reason_code_list))
+    print("Subscribed to topic: " + obj[mid - 1])
 
+def subscribe_topics(client, topics):
+    for topic in topics:
+        client.subscribe(topic)
+        
+topics = [
+    "rfid/assembling_mcu_send", 
+    "rfid/shelf_mcu_send", 
+    "rfid/screwing_mcu_send", 
+    "rfid/eol_mcu_send"
+    ]
 
-def on_log(mqttc, obj, level, string):
-    print(string)
-
-
-# If you want to use a specific client id, use
-# mqttc = mqtt.Client("client-id")
-# but note that the client id must be unique on the broker. Leaving the client
-# id parameter empty will generate a random id for you.
-mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, userdata=topics)
 mqttc.on_message = on_message
 mqttc.on_connect = on_connect
 mqttc.on_subscribe = on_subscribe
-# Uncomment to enable debug messages
-# mqttc.on_log = on_log
 mqttc.connect("10.42.0.1", 1883, 60)
-mqttc.subscribe("rfid/assembling_mcu_send")
-mqttc.subscribe("rfid/shelf_mcu_send")
-mqttc.subscribe("rfid/screwing_mcu_send")
-mqttc.subscribe("rfid/eol_mcu_send")
-
 mqttc.loop_forever()

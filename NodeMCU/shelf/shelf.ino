@@ -43,11 +43,10 @@ uint8_t TRACKING_BLOCK = 15;
 
 // global logic variables
 const unsigned long INSCOPE_TIME = 2000;    // [ms]
-bool start_send_inscope = true;
-bool start_send_detached = false;
+bool start_inscope = true;
+bool start_detached = false;
 bool found_tag = false;
-unsigned long detached_time = 0;
-unsigned long inscope_time = 0;
+unsigned long inscope_start_time = 0;
 bool mqtt_message = false;
 
 // built-in-uid params
@@ -153,39 +152,39 @@ void loop() {
   // wait until a tag is found
   bool currentTagState = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
   if(currentTagState) {
-    if(!start_send_detached){
+    if(!start_detached){
       // handle in-scope timer
       if (!found_tag){
         found_tag = true;
-        inscope_time = millis();
+        inscope_start_time = millis();
       }
       DEBUG_PRINT("tag found - time in scope [ms]: ");
-      DEBUG_PRINTLN(millis() - inscope_time);
-      if (millis() - inscope_time >= INSCOPE_TIME){
+      DEBUG_PRINTLN(millis() - inscope_start_time);
+      if (millis() - inscope_start_time >= INSCOPE_TIME){
         DEBUG_PRINT("INSCOPE_TIME reached after [ms]: ");
-        DEBUG_PRINTLN(millis() - inscope_time);
+        DEBUG_PRINTLN(millis() - inscope_start_time);
         DEBUG_PRINTLN("tag is kept at station");
         found_tag = false;
-        start_send_detached = true;
+        start_detached = true;
       }
     }
     // handle functionality for a recognized tag
-    if (start_send_inscope | mqtt_message){
-      start_send_inscope = false;
+    if (start_inscope | mqtt_message){
+      start_inscope = false;
       mqtt_message = false;
 
       if (uidLength == 7) {
 
         // processing shelf state
-        // random_state(shelf_data_temp);
         success = nfc.mifareultralight_WritePage(SHELF_BLOCK, shelf_data_temp);
         if (success) {
           memcpy(shelf_data, shelf_data_temp, sizeof(shelf_data_temp));
-          tag_mem_print("shelf state", SHELF_BLOCK, shelf_data, nfc);
+          print_block("shelf state", SHELF_BLOCK, shelf_data, nfc);
         }
         else {
           DEBUG_PRINT("Unable to write to block ");DEBUG_PRINTLN(SHELF_BLOCK);
         }
+        shelf_data_temp[3] = 0x00;
 
         // processing UID
         success = nfc.mifareultralight_ReadPage(UID_BLOCK, uid_data);
@@ -230,7 +229,7 @@ void loop() {
         success = nfc.mifareultralight_WritePage(TRACKING_BLOCK, to_tracking_data);
         // writing tracking state
         if (success) {
-          tag_mem_print("Tracking state", TRACKING_BLOCK, to_tracking_data, nfc);
+          print_block("Tracking state", TRACKING_BLOCK, to_tracking_data, nfc);
         }
         else {
           DEBUG_PRINT("Unable to write to page ");DEBUG_PRINTLN(TRACKING_BLOCK);
@@ -239,7 +238,6 @@ void loop() {
         StaticJsonDocument<256> json_data;
         String jsonString;
         prepare_data(json_data, uid_data, &shelf_data[0], &at_tracking_data);
-        json_data["in_shelf"] = shelf_data[2]; 
         json_data["position"] = shelf_data[1];
         serializeJson(json_data, jsonString);
 
@@ -255,12 +253,11 @@ void loop() {
     }
   }
   // tag detached
-  else if(start_send_detached){
+  else if(start_detached){
     // prepare and serialize the data
     StaticJsonDocument<256> json_data;
     String jsonString;
     prepare_data(json_data, uid_data, &shelf_data[0], &to_tracking_data[3]);
-    json_data["in_shelf"] = shelf_data[2]; 
     json_data["position"] = shelf_data[1];
     serializeJson(json_data, jsonString);
     // send via mqtt
@@ -269,12 +266,12 @@ void loop() {
     mqttClient.print(jsonString);
     mqttClient.endMessage();
     // alter global logic 
-    start_send_inscope = true;
-    start_send_detached = false;
+    start_inscope = true;
+    start_detached = false;
   }
   else {
     found_tag = false;
-    start_send_inscope = true;
+    start_inscope = true;
     DEBUG_PRINTLN("no tag found");
   }
 }
@@ -357,10 +354,10 @@ void onMqttMessage(int messageSize) {
   mqtt_message = true;
 }
 
-void tag_mem_print(String what, uint8_t bock_num, uint8_t data[4], PN532 &nfc){
-  DEBUG_PRINT(what);
+void print_block(String topic, uint8_t block_num, uint8_t data[4], PN532 &nfc){
+  DEBUG_PRINT(topic);
   DEBUG_PRINT(" at block ");
-  DEBUG_PRINT(bock_num);
+  DEBUG_PRINT(block_num);
   DEBUG_PRINT(": ");
   if(DEBUG){
     nfc.PrintHexChar(data, 4);

@@ -19,15 +19,15 @@ sending: to central PI
 
 
 
-assem
--determination of UID to write to NFC-Tag on PI
--setting: iO/niO for the assembling process
-	(0xA  &  0xB)
+assembling
+- determination of UID to write to NFC-Tag on PI (0xA)
+- setting: iO/niO for the assembling process (0xB)
+- setting tracking (0xF)
 
 sending: 
 {
 UID: Id,
-current: to shelf,
+tracking: to shelf,
 finished: F,
 assembling:{
 	state: iO/niO,
@@ -35,42 +35,36 @@ assembling:{
 	}
 }
 
+
+
+
 shelf
 put_into_shelf     if was_at_screwing     else    to_screwing
 
-
-
-
 if put_into_shelf: 
-setting:  iO/niO for shelf (0xC) + position
+- setting: iO/niO for shelf + position (0xC)
 
 sending:
 {
 UID: Id,
-current: in_shelf,
+tracking: in_shelf,
 finished: T,
 shelf: {
 	state: iO/niO,
 	timestamp: time, date,
-	in_shelf: T,
 	position: 8Bit,
-	station_states: 4Bit (for each station) 
 	}
 }
 -getting shelf-position from robot
--reading states of all stations from predefined locations in NFC-Tab
-
-
-
-
+-reading states of all stations from predefined locations in NFC-Tag
 
 if to_screwing:
-setting: iO/niO for shelf (0xC)
+- setting: iO/niO for shelf (0xC)
 	
 sending: 
 {
 UID: Id,
-current: to_screwing,
+tracking: to_screwing,
 finished: F,
 shelf: {
 	state: iO/niO,
@@ -80,13 +74,16 @@ shelf: {
 }
 
 
-end 
-setting iO/niO for end of line process (0xE)
+
+
+end of line
+- setting iO/niO for end of line process (0xE)
+- setting tracking (0xF)
 
 sending: 
 {
 UID: id, 
-current: to_shelf,
+tracking: to_shelf,
 finished: F,
 end_of_line: {
 	state: iO/niO,
@@ -96,12 +93,13 @@ end_of_line: {
 
 
 screw
-setting: iO/niO for screwing process (at 0xD)
+- setting: iO/niO for screwing process (at 0xD)
+- setting tracking (0xF)
 
 sending: 
 {
 UID: id, 
-current: to end of line,
+tracking: to end of line,
 finished: F,
 screwing: {
 	state: iO/niO,
@@ -118,7 +116,7 @@ creating database to keep track of states for all UIDs
 json = {
 id: {
 UID: id,
-current: where_in_process,
+tracking: where_in_process,
 finished: T/F,
 assembling: {
 	state: iO/niO,
@@ -127,9 +125,7 @@ assembling: {
 shelf: {
 	state: iO/niO,
 	timestamp: time/date,
-	in_shelf: T/F,
 	position:  4Bit
-	station_states: 4Bit (for each station) 
 	},
 screwing: {
 	state: iO/niO,
