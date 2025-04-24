@@ -1,0 +1,88 @@
+\addchap{A Nutzung von Künstliche Intelligenz basierten Werkzeugen}
+\setcounter{chapter}{1}
+
+Im Rahmen dieser Arbeit wurden Künstliche Intelligenz (KI)\index{Künstliche Intelligenz} basierte Werkzeuge benutzt. Tabelle~\ref{tab:anhang_uebersicht_KI_werkzeuge} gibt eine Übersicht über die verwendeten Werkzeuge und den jeweiligen Einsatzzweck.
+
+\begin{table}[hbt]	
+	\centering
+	\renewcommand{\arraystretch}{1.5}	% Skaliert die Zeilenhöhe der Tabelle
+	\captionabove[Liste der verwendeten Künstliche Intelligenz basierten Werkzeuge]{Liste der verwendeten KI basierten Werkzeuge}
+	\label{tab:anhang_uebersicht_KI_werkzeuge}
+	\begin{tabular}{>{\raggedright\arraybackslash}p{0.3\linewidth} >{\raggedright\arraybackslash}p{0.65\linewidth}}
+		\textbf{Werkzeug} & \textbf{Beschreibung der Nutzung}\\
+		\hline 
+		\hline
+		ChatGPT & 	\vspace{-\topsep}
+					\begin{itemize}[noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt] 
+						\item Grundlagenrecherche zu bekannten Prinzipien optischer Sensorik zur Abstandsmessung (siehe Abschnitt \ldots)
+						\item Suche nach Herstellern von Lidar-Sensoren (siehe Abschnitt \ldots)
+						\item \ldots
+				   	\end{itemize} \\
+		ChatPDF &	\vspace{-\topsep}
+					\begin{itemize}[noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt] 
+					\item Recherche und Zusammenfassung von wissenschaftlichen Studien im Themenfeld \ldots
+					\item \ldots
+					\end{itemize} \\ 
+		DeepL	&	\vspace{-\topsep}
+					\begin{itemize}[noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt] 
+					\item Übersetzung des Papers von $[\ldots]$
+					\end{itemize} \\ 
+		Tabnine AI coding assistant &	\vspace{-\topsep}
+							\begin{itemize}[noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt] 
+							\item Aktiviertes Plugin in MS Visual Studio zum Programmieren des \ldots
+							\item \ldots
+							\end{itemize} \\ 
+		\ldots	&	\vspace{-\topsep}
+					\begin{itemize}[noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt] 
+					\item \ldots
+					\end{itemize} \\ 
+		\hline 
+	\end{tabular} 
+\end{table}
+
+\addchap{B Ergänzungen}
+\setcounter{chapter}{2}
+
+\section{Details zu bestimmten theoretischen Grundlagen}
+
+\section{Weitere Details, welche im Hauptteil den Lesefluss behindern}
+
+\addchap{C Details zu Laboraufbauten und Messergebnissen}
+\setcounter{chapter}{3}
+\setcounter{section}{0}
+\setcounter{table}{0}
+\setcounter{figure}{0}
+
+\section{Versuchsanordnung}
+
+\section{Liste der verwendeten Messgeräte}
+
+\section{Übersicht der Messergebnisse}
+
+\section{Schaltplan und Bild der Prototypenplatine}
+
+\addchap{D Zusatzinformationen zu verwendeter Software}
+\setcounter{chapter}{4}
+\setcounter{section}{0}
+\setcounter{table}{0}
+\setcounter{figure}{0}
+
+\section{Struktogramm des Programmentwurfs}
+
+\section{Wichtige Teile des Quellcodes}
+
+\addchap{E Datenblätter}
+\setcounter{chapter}{5}
+\setcounter{section}{0}
+\setcounter{table}{0}
+\setcounter{figure}{0}
+
+%\section{Einbinden von PDF-Seiten aus anderen Dokumenten}
+
+Auf den folgenden Seiten wird eine Möglichkeit gezeigt, wie aus einem anderen PDF-Dokument komplette Seiten übernommen werden können, z.~B. zum Einbindungen von Datenblättern. Der Nachteil dieser Methode besteht darin, dass sämtliche Formateinstellungen (Kopfzeilen, Seitenzahlen, Ränder, etc.) auf diesen Seiten nicht angezeigt werden. Die Methode wird deshalb eher selten gewählt. Immerhin sorgt das Package \textit{\glqq pdfpages\grqq}~für eine korrekte Seitenzahleinstellung auf den im Anschluss folgenden \glqq nativen\grqq~\LaTeX-Seiten.
+
+Eine bessere Alternative ist, einzelne Seiten mit \textit{\glqq$\backslash$includegraphics\grqq}~einzubinden.
+
+\includepdf[pages={2-4}]{docs/EingebundenesPDF.pdf}
+
+\clearpage
