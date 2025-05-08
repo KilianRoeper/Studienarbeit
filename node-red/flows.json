@@ -1,5 +1,201 @@
 [
     {
+        "id": "ba56541079a77bac",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e053d61f24724af0",
+        "type": "mqtt in",
+        "z": "ba56541079a77bac",
+        "name": "",
+        "topic": "rfid/eol_mcu_send",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "126a84eeff63c5a9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 390,
+        "y": 80,
+        "wires": [
+            [
+                "f1619fd79c7d79bd"
+            ]
+        ]
+    },
+    {
+        "id": "5e0cc02a05ed6339",
+        "type": "mqtt in",
+        "z": "ba56541079a77bac",
+        "name": "",
+        "topic": "rfid/shelf_mcu_send",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "126a84eeff63c5a9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "f1619fd79c7d79bd"
+            ]
+        ]
+    },
+    {
+        "id": "f03b21f29ed34ec8",
+        "type": "mqtt in",
+        "z": "ba56541079a77bac",
+        "name": "",
+        "topic": "rfid/assembling_mcu_send",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "126a84eeff63c5a9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 370,
+        "y": 200,
+        "wires": [
+            [
+                "f1619fd79c7d79bd"
+            ]
+        ]
+    },
+    {
+        "id": "58610c1dd83a8e56",
+        "type": "mqtt in",
+        "z": "ba56541079a77bac",
+        "name": "",
+        "topic": "rfid/screwing_mcu_send",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "126a84eeff63c5a9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "f1619fd79c7d79bd"
+            ]
+        ]
+    },
+    {
+        "id": "4b0e7c849593f784",
+        "type": "mqtt out",
+        "z": "ba56541079a77bac",
+        "name": "",
+        "topic": "rfid/eol_mcu_receive",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "126a84eeff63c5a9",
+        "x": 380,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "02bc0d5c96da734c",
+        "type": "inject",
+        "z": "ba56541079a77bac",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "iO",
+        "payloadType": "str",
+        "x": 130,
+        "y": 460,
+        "wires": [
+            [
+                "4b0e7c849593f784",
+                "d2eac2b4c1b06f37",
+                "9549a791e48be194",
+                "9f4dc0d762d2b622"
+            ]
+        ]
+    },
+    {
+        "id": "d2eac2b4c1b06f37",
+        "type": "mqtt out",
+        "z": "ba56541079a77bac",
+        "name": "",
+        "topic": "rfid/shelf_mcu_receive",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "126a84eeff63c5a9",
+        "x": 380,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "9549a791e48be194",
+        "type": "mqtt out",
+        "z": "ba56541079a77bac",
+        "name": "",
+        "topic": "rfid/screwing_mcu_receive",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "126a84eeff63c5a9",
+        "x": 400,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "9f4dc0d762d2b622",
+        "type": "mqtt out",
+        "z": "ba56541079a77bac",
+        "name": "",
+        "topic": "rfid/assembling_mcu_receive",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "126a84eeff63c5a9",
+        "x": 400,
+        "y": 540,
+        "wires": []
+    },
+    {
         "id": "2a77923f86e394ce",
         "type": "ui_template",
         "z": "ba56541079a77bac",
@@ -19,6 +215,104 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "f1619fd79c7d79bd",
+        "type": "function",
+        "z": "ba56541079a77bac",
+        "name": "function 2",
+        "func": "let data = msg.payload;\n\nlet uid = (data.UID || []).join(\"\");\nlet state = data.state ? \"OK\" : \"nicht OK\";\nlet finished = data.finished ? \"Fertig\" : \"In Bearbeitung\";\nlet tracking = data.tracking || 0;\n\nlet coords = [\n  { x: 70, y: 500 },    // not positioned\n  { x: 500, y: 530 },   // to shelf \n  { x: 550, y: 400 },   // at shelf\n  { x: 650, y: 100 },   // in shelf \n  { x: 450, y: 60 },    // to screwing\n  { x: 170, y: 60 },    // at screwing\n  { x: 460, y: 220 },   // to end of line\n  { x: 460, y: 400 },   // at end of line\n  { x: 750, y: 30 },    // at assembling\n  { x: 600, y: 200}     // to assembling\n];\n\nlet tracking_text = [\n  \"nicht positioniert\",\n  \"zum Regal\",\n  \"am Regal\",\n  \"im Regal\",\n  \"zum Schrauben\",\n  \"beim Schrauben\",\n  \"zu end of line\",\n  \"bei end of line\",\n  \"zum Zusammenbau\",\n  \"beim Zusammenbau\"\n]\n\nmsg.table = {\n    UID: uid,\n    tracking: tracking_text[tracking],\n    state: state,\n    finished: finished,\n    x: coords[tracking].x,\n    y: coords[tracking].y\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 180,
+        "wires": [
+            [
+                "2a77923f86e394ce",
+                "b1f09c19fc026e35"
+            ]
+        ]
+    },
+    {
+        "id": "b1f09c19fc026e35",
+        "type": "debug",
+        "z": "ba56541079a77bac",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "table",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "7b671c1d4bd5b42b",
+        "type": "inject",
+        "z": "ba56541079a77bac",
+        "name": "reset all",
+        "props": [
+            {
+                "p": "table",
+                "v": "reset",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 690,
+        "y": 100,
+        "wires": [
+            [
+                "2a77923f86e394ce"
+            ]
+        ]
+    },
+    {
+        "id": "126a84eeff63c5a9",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "10.42.0.1",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
     },
     {
         "id": "68dc7b33a2269221",
