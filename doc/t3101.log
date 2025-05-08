@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.17)  24 APR 2025 23:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.17)  25 APR 2025 13:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1916,12 +1916,12 @@ chapter without number
 
 ]
 chapter without number
-<docs/EingebundenesPDF.pdf, id=240, 597.55246pt x 845.07718pt>
+<docs/EingebundenesPDF.pdf, id=255, 597.55246pt x 845.07718pt>
 File: docs/EingebundenesPDF.pdf Graphic file (type pdf)
 <use docs/EingebundenesPDF.pdf>
 Package pdftex.def Info: docs/EingebundenesPDF.pdf  used on input line 86.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
-<docs/EingebundenesPDF.pdf, id=242, page=2, 597.55246pt x 845.07718pt>
+<docs/EingebundenesPDF.pdf, id=257, page=2, 597.55246pt x 845.07718pt>
 File: docs/EingebundenesPDF.pdf Graphic file (type pdf)
 <use docs/EingebundenesPDF.pdf, page 2>
 Package pdftex.def Info: docs/EingebundenesPDF.pdf , page2 used on input line 8
@@ -1958,7 +1958,7 @@ Package pdftex.def Info: docs/EingebundenesPDF.pdf , page2 used on input line 8
 [18
 
  <./docs/EingebundenesPDF.pdf>]
-<docs/EingebundenesPDF.pdf, id=264, page=3, 597.55246pt x 845.07718pt>
+<docs/EingebundenesPDF.pdf, id=279, page=3, 597.55246pt x 845.07718pt>
 File: docs/EingebundenesPDF.pdf Graphic file (type pdf)
 <use docs/EingebundenesPDF.pdf, page 3>
 Package pdftex.def Info: docs/EingebundenesPDF.pdf , page3 used on input line 8
@@ -1979,7 +1979,7 @@ Package pdftex.def Info: docs/EingebundenesPDF.pdf , page3 used on input line 8
 [19
 
  <./docs/EingebundenesPDF.pdf>]
-<docs/EingebundenesPDF.pdf, id=269, page=4, 597.55246pt x 845.07718pt>
+<docs/EingebundenesPDF.pdf, id=285, page=4, 597.55246pt x 845.07718pt>
 File: docs/EingebundenesPDF.pdf Graphic file (type pdf)
 <use docs/EingebundenesPDF.pdf, page 4>
 Package pdftex.def Info: docs/EingebundenesPDF.pdf , page4 used on input line 8
@@ -2034,7 +2034,7 @@ Overfull \hbox (18.16301pt too wide) in paragraph at lines 86--87
 Gra-fik und kann in L[]T[]X  ein-
  []
 
-<images/MyImage.png, id=297, 195.129pt x 98.2872pt>
+<images/MyImage.png, id=311, 195.129pt x 98.2872pt>
 File: images/MyImage.png Graphic file (type png)
 <use images/MyImage.png>
 Package pdftex.def Info: images/MyImage.png  used on input line 93.
@@ -2179,10 +2179,10 @@ Package logreq Info: Writing requests to 't3101.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 62662 strings out of 473190
- 1449099 string characters out of 5715800
- 2706639 words of memory out of 5000000
- 84811 multiletter control sequences out of 15000+600000
+ 62676 strings out of 473190
+ 1449253 string characters out of 5715800
+ 2706716 words of memory out of 5000000
+ 84818 multiletter control sequences out of 15000+600000
  583340 words of font info for 87 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  108i,19n,122p,10936b,2839s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2213,10 +2213,10 @@ type1/public/cm-super/sfsx2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
 pe1/public/cm-super/sfsx2488.pfb></usr/local/texlive/2025/texmf-dist/fonts/type
 1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
 public/cm-super/sftt1200.pfb>
-Output written on t3101.pdf (41 pages, 596480 bytes).
+Output written on t3101.pdf (41 pages, 603119 bytes).
 PDF statistics:
- 672 PDF objects out of 1000 (max. 8388607)
- 550 compressed objects within 6 object streams
- 153 named destinations out of 1000 (max. 500000)
- 288 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 708 PDF objects out of 1000 (max. 8388607)
+ 586 compressed objects within 6 object streams
+ 160 named destinations out of 1000 (max. 500000)
+ 344 words of extra memory for PDF output out of 10000 (max. 10000000)
 
