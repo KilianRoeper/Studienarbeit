@@ -19,442 +19,124 @@
 
 \refsection{0}
   \datalist[entry]{anyt/global//global/global/global}
-    \entry{Breiing.1997}{book}{}{}
-      \name{author}{2}{}{%
-        {{hash=fc37fec4b38b400a6883d8107e20ce25}{%
-           family={Breiing},
-           familyi={B\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=e2bd92fc640959d8e102a3f3bfc94e97}{%
-           family={Knosala},
-           familyi={K\bibinitperiod},
-           given={R.},
-           giveni={R\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Springer Berlin Heidelberg}%
-      }
-      \strng{namehash}{34b8f7a4e99bda426035b3ac842c9691}
-      \strng{fullhash}{34b8f7a4e99bda426035b3ac842c9691}
-      \strng{fullhashraw}{34b8f7a4e99bda426035b3ac842c9691}
-      \strng{bibnamehash}{34b8f7a4e99bda426035b3ac842c9691}
-      \strng{authorbibnamehash}{34b8f7a4e99bda426035b3ac842c9691}
-      \strng{authornamehash}{34b8f7a4e99bda426035b3ac842c9691}
-      \strng{authorfullhash}{34b8f7a4e99bda426035b3ac842c9691}
-      \strng{authorfullhashraw}{34b8f7a4e99bda426035b3ac842c9691}
-      \field{labelalpha}{BK97}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Es gehört zu den Aufgaben des Ingenieurs, gesellschaftliche, individuelle, ökonomische und ökologische Risiken der von ihm zu entwickelnden technischen Systeme und Verfahren zu bewerten. Dieses Buch zeigt Wege auf, durch mathematisch logische Denkweisen objektive Bewertungsergebnisse zu erzielen, ohne dabei den Menschen als wichtigsten Einflußfaktor außer acht zu lassen. Es behandelt Entscheidungsprobleme geringeren bis größeren Umfangs und zeigt, welche bewährten Methoden zu welchem Entscheidungsniveau in wirtschaftlich vertretbarem Verhältnis stehen. Aus der Perspektive ihrer jahrelangen Erfahrung in Wissenschaft und Industrie beschreiben die Autoren die wichtigen und praxiserprobten Bewertungsmethoden und deren theoretische Hintergründe}
-      \field{isbn}{9783642592294}
-      \field{series}{Springer eBook Collection Computer Science and Engineering}
-      \field{title}{Bewerten technischer Systeme: Theoretische und methodische Grundlagen bewertungstechnischer Entscheidungshilfen}
-      \field{year}{1997}
-      \verb{doi}
-      \verb 10.1007/978-3-642-59229-4
-      \endverb
-      \keyw{Engineering}
-    \endentry
-    \entry{Cohn.2010}{book}{}{}
+    \entry{finkenzeller2023}{book}{}{}
       \name{author}{1}{}{%
-        {{hash=d33712bcde2d63bad054a832b61d01e8}{%
-           family={Cohn},
-           familyi={C\bibinitperiod},
-           given={Mike},
-           giveni={M\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {mitp}%
-      }
-      \strng{namehash}{d33712bcde2d63bad054a832b61d01e8}
-      \strng{fullhash}{d33712bcde2d63bad054a832b61d01e8}
-      \strng{fullhashraw}{d33712bcde2d63bad054a832b61d01e8}
-      \strng{bibnamehash}{d33712bcde2d63bad054a832b61d01e8}
-      \strng{authorbibnamehash}{d33712bcde2d63bad054a832b61d01e8}
-      \strng{authornamehash}{d33712bcde2d63bad054a832b61d01e8}
-      \strng{authorfullhash}{d33712bcde2d63bad054a832b61d01e8}
-      \strng{authorfullhashraw}{d33712bcde2d63bad054a832b61d01e8}
-      \field{labelalpha}{Coh10}
-      \field{sortinit}{C}
-      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{edition}{1. Aufl.}
-      \field{isbn}{9783826658983}
-      \field{title}{{User stories: für die agile Software-Entwicklung mit Scrum, XP u.a.}}
-      \field{year}{2010}
-      \verb{file}
-      \verb http://deposit.dnb.de/cgi-bin/dokserv?id=3406518&prov=M&dok_var=1&dok_ext=htm
-      \endverb
-      \keyw{Agile Softwareentwicklung;Systementwicklung}
-    \endentry
-    \entry{DHBW.2021}{misc}{}{}
-      \name{author}{1}{}{%
-        {{hash=afbe793b375d768a346960db2d0b0e71}{%
-           family={{Duale Hochschule Baden-Württemberg, Fachkommission Technik}},
-           familyi={D\bibinitperiod}}}%
-      }
-      \strng{namehash}{afbe793b375d768a346960db2d0b0e71}
-      \strng{fullhash}{afbe793b375d768a346960db2d0b0e71}
-      \strng{fullhashraw}{afbe793b375d768a346960db2d0b0e71}
-      \strng{bibnamehash}{afbe793b375d768a346960db2d0b0e71}
-      \strng{authorbibnamehash}{afbe793b375d768a346960db2d0b0e71}
-      \strng{authornamehash}{afbe793b375d768a346960db2d0b0e71}
-      \strng{authorfullhash}{afbe793b375d768a346960db2d0b0e71}
-      \strng{authorfullhashraw}{afbe793b375d768a346960db2d0b0e71}
-      \field{labelalpha}{Dua21}
-      \field{sortinit}{D}
-      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{month}{10}
-      \field{title}{{Leitlinien für die Bearbeitung und Dokumentation der Module Praxisprojekt I bis III, Studienarbeit I / II, Bachelorarbeit}}
-      \field{year}{2021}
-      \verb{urlraw}
-      \verb https://www.ravensburg.dhbw.de/fileadmin/user_upload/Dokumente/Dokumente_fuer_Studierende/191212_Leitlinien_Praxismodule_Studien_Bachelorarbeiten.pdf
-      \endverb
-      \verb{url}
-      \verb https://www.ravensburg.dhbw.de/fileadmin/user_upload/Dokumente/Dokumente_fuer_Studierende/191212_Leitlinien_Praxismodule_Studien_Bachelorarbeiten.pdf
-      \endverb
-    \endentry
-    \entry{Lindenlauf.2022}{book}{}{}
-      \name{author}{1}{}{%
-        {{hash=84f3ace2925e330d31dffcbbf0d96a72}{%
-           family={Lindenlauf},
-           familyi={L\bibinitperiod},
-           given={Frank},
-           giveni={F\bibinitperiod}}}%
-      }
-      \list{publisher}{2}{%
-        {Springer Fachmedien Wiesbaden}%
-        {Imprint Springer Spektrum}%
-      }
-      \strng{namehash}{84f3ace2925e330d31dffcbbf0d96a72}
-      \strng{fullhash}{84f3ace2925e330d31dffcbbf0d96a72}
-      \strng{fullhashraw}{84f3ace2925e330d31dffcbbf0d96a72}
-      \strng{bibnamehash}{84f3ace2925e330d31dffcbbf0d96a72}
-      \strng{authorbibnamehash}{84f3ace2925e330d31dffcbbf0d96a72}
-      \strng{authornamehash}{84f3ace2925e330d31dffcbbf0d96a72}
-      \strng{authorfullhash}{84f3ace2925e330d31dffcbbf0d96a72}
-      \strng{authorfullhashraw}{84f3ace2925e330d31dffcbbf0d96a72}
-      \field{labelalpha}{Lin22}
-      \field{sortinit}{L}
-      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Aufbau einer Thesis -- Wissenschaftliches Schreiben -- Formeln, Tabellen, Abbildungen -- Messen, Bewerten, Experimentieren -- Das Projekt »Thesis« -- Software-Werkzeuge. Zum wissenschaftlichen Arbeiten gibt es sehr viel Literatur. Nahezu jede Hochschule macht Vorgaben für Abschlussarbeiten. Trotzdem finden sich oft Defizite in den Punkten, die speziell bei ingenieur- und naturwissenschaftlichen Texten zu beachten sind: bei Abbildungen, Diagrammen, Tabellen, Formelzeichen und Formelsatz, Größen und Einheiten. Der Leitfaden stellt diese Aspekte ins Zentrum. Darüber hinaus zeigt er, wie Technische Regeln als Primärquellen dienen und Sie die Belastbarkeit Ihrer Quellen und die Güte der Arbeit selbst bewerten können. Tipps zur Struktur und zum Schreiben der Arbeit, zum Vorgehen im Projekt »Thesis«, zu hilfreicher Software und möglichen Stolpersteinen runden den Ratgeber ab. Der Inhalt Aufbau einer Thesis Wissenschaftliches Schreiben Diagramme, Tabellen, Formeln Das Projekt »Thesis« Software-Werkzeuge Die Zielgruppen Studierende aller ingenieur- und naturwissenschaftlichen Studiengänge Ingenieure, Naturwissenschaftler und alle, die technische Sachverhalte vermitteln möchten Der Autor Frank Lindenlauf ist Professor für Technische Qualitätssicherung und Prozessgestaltung an der Hochschule Pforzheim im Bereich Wirtschaftsingenieurwesen. Als promovierter Physiker arbeitete er in der Laserentwicklung und im Maschinenbau als Verantwortlicher für Qualität und Messtechnik.}
-      \field{edition}{1st ed. 2022}
-      \field{isbn}{9783658367367}
-      \field{title}{{Wissenschaftliche Arbeiten in den Ingenieur- und Naturwissenschaften: Ein praxisorientierter Leitfaden für Semester- und Abschlussarbeiten}}
-      \field{year}{2022}
-      \verb{doi}
-      \verb 10.1007/978-3-658-36736-7
-      \endverb
-      \keyw{Dissertations,academic;Physics—Study and teaching;Research—Methodology}
-    \endentry
-    \entry{Martin.2020}{book}{}{}
-      \name{author}{1}{}{%
-        {{hash=1041ae168df991c8f9f3f43285c134c1}{%
-           family={Martin},
-           familyi={M\bibinitperiod},
-           given={Robert},
-           giveni={R\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Safari, an O'Reilly Media Company}%
-      }
-      \list{publisher}{2}{%
-        {mitp-Verlag}%
-        {Safari}%
-      }
-      \strng{namehash}{1041ae168df991c8f9f3f43285c134c1}
-      \strng{fullhash}{1041ae168df991c8f9f3f43285c134c1}
-      \strng{fullhashraw}{1041ae168df991c8f9f3f43285c134c1}
-      \strng{bibnamehash}{1041ae168df991c8f9f3f43285c134c1}
-      \strng{authorbibnamehash}{1041ae168df991c8f9f3f43285c134c1}
-      \strng{authornamehash}{1041ae168df991c8f9f3f43285c134c1}
-      \strng{authorfullhash}{1041ae168df991c8f9f3f43285c134c1}
-      \strng{authorfullhashraw}{1041ae168df991c8f9f3f43285c134c1}
-      \field{labelalpha}{Mar20}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Lernen Sie aus Uncle Bobs jahrzehntelanger Erfahrung, worauf es bei der agilen Softwareentwicklung wirklich ankommt Die ursprünglichen agilen Werte und Prinzipien kurz und prägnant für den Praxiseinsatz erläutert Von den unternehmerischen Aspekten über die Kommunikation im Team bis zu den technischen Praktiken wie Test-Driven Development (TDD), einfaches Design und Pair Programming Fast 20 Jahre nach der Veröffentlichung des agilen Manifests ruft der legendäre Softwareentwickler Robert C. Martin (»Uncle Bob«) dazu auf, sich wieder auf die ursprünglichen Werte und Prinzipien zurückzubesinnen, die den eigentlichen Kern der agilen Softwareentwicklung ausmachen und die für die Praxis von zentraler Bedeutung sind. Mit Clean Agile lässt er alle an seiner jahrzehntelangen Erfahrung teilhaben und räumt mit Missverständnissen und Fehlinterpretationen auf, die im Laufe der Jahre entstanden sind. Dabei wendet er sich gleichermaßen an Programmierer und Nicht-Programmierer. Uncle Bob macht deutlich, was agile Softwareentwicklung eigentlich ist, war und immer sein sollte: ein einfaches Konzept, das kleinen Softwareteams hilft, kleine Projekte zu managen - denn daraus setzen sich letztendlich alle großen Projekte zusammen. Dabei konzentriert er sich insbesondere auf die Praktiken des Extreme Programmings (XP), ohne sich in technischen Details zu verlieren. Egal, ob Sie Entwickler, Tester, Projektmanager oder Auftraggeber sind - dieses Buch zeigt Ihnen, worauf es bei der Umsetzung agiler Methoden wirklich ankommt. Aus dem Inhalt: Ursprünge der agilen Softwareentwicklung Agile Werte und Prinzipien Der richtige Einsatz von Scrum Agile Transformation Extreme Programming Unternehmensbezogene Praktiken: User Stories, Velocity, kleine Releases und Akzeptanztests Teambezogene Praktiken: gemeinsame Eigentümerschaft, kontinuierliche Integration und Stand-up-Meetings Technische Praktiken: TDD, Refactoring, einfaches Design und Pair Programming Zertifizierung und Coaching Software Craftsmanship Stimmen zum Buch: »Bobs Frustration spiegelt sich in jedem Satz des Buchs wider - und das zu Recht. Der Zustand, in dem sich die Welt der agilen Softwareentwicklung befindet, ist nichts im Vergleich zu dem, was sie eigentlich sein könnte. Das Buch beschreibt, auf was man sich aus Bobs Sicht konzentrieren sollte, um das zu erreichen, was sein könnte. Und er hat es schon erreicht, deshalb lohnt es sich, ihm zuzuhören.« - Kent Beck »Uncle Bob ist einer der klügsten Menschen, die ich...}
-      \field{edition}{1st edition}
-      \field{title}{{Clean Agile -- Die Essenz der agilen Softwareentwicklung}}
-      \field{year}{2020}
-      \verb{urlraw}
-      \verb https://learning.oreilly.com/library/view/-/9783747501139/?ar
-      \endverb
-      \verb{url}
-      \verb https://learning.oreilly.com/library/view/-/9783747501139/?ar
-      \endverb
-      \keyw{Electronic books}
-    \endentry
-    \entry{Pohl.2021}{book}{}{}
-      \name{author}{2}{}{%
-        {{hash=f7ad85aae1881b93396a2b8c65130577}{%
-           family={Pohl},
-           familyi={P\bibinitperiod},
+        {{hash=41ecbab034ca384b6721520f4d82a83f}{%
+           family={Finkenzeller},
+           familyi={F\bibinitperiod},
            given={Klaus},
            giveni={K\bibinitperiod}}}%
-        {{hash=61d4d17b2d880e99d0c77f6e2bce7f50}{%
-           family={Rupp},
-           familyi={R\bibinitperiod},
-           given={Chris},
-           giveni={C\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Dpunkt.Verlag}%
       }
       \list{publisher}{1}{%
-        {dpunkt Verlag}%
+        {Hanser Verlag}%
       }
-      \strng{namehash}{35927edf77172765b30f85bdfcf2099f}
-      \strng{fullhash}{35927edf77172765b30f85bdfcf2099f}
-      \strng{fullhashraw}{35927edf77172765b30f85bdfcf2099f}
-      \strng{bibnamehash}{35927edf77172765b30f85bdfcf2099f}
-      \strng{authorbibnamehash}{35927edf77172765b30f85bdfcf2099f}
-      \strng{authornamehash}{35927edf77172765b30f85bdfcf2099f}
-      \strng{authorfullhash}{35927edf77172765b30f85bdfcf2099f}
-      \strng{authorfullhashraw}{35927edf77172765b30f85bdfcf2099f}
-      \field{labelalpha}{PR21}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \strng{namehash}{41ecbab034ca384b6721520f4d82a83f}
+      \strng{fullhash}{41ecbab034ca384b6721520f4d82a83f}
+      \strng{fullhashraw}{41ecbab034ca384b6721520f4d82a83f}
+      \strng{bibnamehash}{41ecbab034ca384b6721520f4d82a83f}
+      \strng{authorbibnamehash}{41ecbab034ca384b6721520f4d82a83f}
+      \strng{authornamehash}{41ecbab034ca384b6721520f4d82a83f}
+      \strng{authorfullhash}{41ecbab034ca384b6721520f4d82a83f}
+      \strng{authorfullhashraw}{41ecbab034ca384b6721520f4d82a83f}
+      \field{labelalpha}{Fin23}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{edition}{5., überarbeitete und aktualisierte Auflage}
-      \field{isbn}{9783864908149}
-      \field{title}{{Basiswissen Requirements Engineering: Aus- und Weiterbildung nach IREB-Standard zum Certified Professional for Requirements Engineering Foundation Level}}
-      \field{year}{2021}
-      \verb{file}
-      \verb http://deposit.dnb.de/cgi-bin/dokserv?id=69d694dfa26943f0ba9fd267ce2dcb42&prov=M&dok_var=1&dok_ext=htm
+      \field{edition}{7}
+      \field{isbn}{978-3-446-43943-6}
+      \field{note}{Zugriff am 18.05.2025}
+      \field{title}{RFID Handbuch: Grundlagen und praktische Anwendungen kontaktloser Identifikation}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb http://rfid-handbook.de/downloads/G6E_20120413_212413155-24_978-3-446-42992-5_Leseprobe.pdf
       \endverb
-      \keyw{Anforderungsmanagement;Certified Professional for Requirements Engineering;Certified Professional Requirements Engineer;CPRE;IREB;Projektmangement;Requirements Engineering;Requirements Management;Software Engineering;Software- und Systementwicklung;Softwareentwicklung}
+      \verb{url}
+      \verb http://rfid-handbook.de/downloads/G6E_20120413_212413155-24_978-3-446-42992-5_Leseprobe.pdf
+      \endverb
     \endentry
-    \entry{Schluter.2023}{book}{}{}
+    \entry{nodered_official}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=09e261d3d3e5ca7c079b1064f08ca012}{%
-           family={Schlüter},
-           familyi={S\bibinitperiod},
-           given={Nadine},
-           giveni={N\bibinitperiod}}}%
+        {{hash=74b7bf63c2cc84232ca31459d6a98aef}{%
+           family={{Node-RED Community}},
+           familyi={N\bibinitperiod}}}%
       }
-      \list{institution}{1}{%
-        {Springer-Verlag GmbH}%
+      \strng{namehash}{74b7bf63c2cc84232ca31459d6a98aef}
+      \strng{fullhash}{74b7bf63c2cc84232ca31459d6a98aef}
+      \strng{fullhashraw}{74b7bf63c2cc84232ca31459d6a98aef}
+      \strng{bibnamehash}{74b7bf63c2cc84232ca31459d6a98aef}
+      \strng{authorbibnamehash}{74b7bf63c2cc84232ca31459d6a98aef}
+      \strng{authornamehash}{74b7bf63c2cc84232ca31459d6a98aef}
+      \strng{authorfullhash}{74b7bf63c2cc84232ca31459d6a98aef}
+      \strng{authorfullhashraw}{74b7bf63c2cc84232ca31459d6a98aef}
+      \field{labelalpha}{Nod24}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zugriff am 18.05.2025}
+      \field{title}{Node-RED – Flow-based programming for the Internet of Things}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://nodered.org
+      \endverb
+      \verb{url}
+      \verb https://nodered.org
+      \endverb
+    \endentry
+    \entry{oasis_mqtt_spec}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=6ec60ab9ce327f5a12fbab109e691c73}{%
+           family={OASIS},
+           familyi={O\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Springer Berlin Heidelberg}%
+      \strng{namehash}{6ec60ab9ce327f5a12fbab109e691c73}
+      \strng{fullhash}{6ec60ab9ce327f5a12fbab109e691c73}
+      \strng{fullhashraw}{6ec60ab9ce327f5a12fbab109e691c73}
+      \strng{bibnamehash}{6ec60ab9ce327f5a12fbab109e691c73}
+      \strng{authorbibnamehash}{6ec60ab9ce327f5a12fbab109e691c73}
+      \strng{authornamehash}{6ec60ab9ce327f5a12fbab109e691c73}
+      \strng{authorfullhash}{6ec60ab9ce327f5a12fbab109e691c73}
+      \strng{authorfullhashraw}{6ec60ab9ce327f5a12fbab109e691c73}
+      \field{labelalpha}{OAS19}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html}}
+      \field{note}{Zugegriffen am 14.05.2025}
+      \field{title}{MQTT Version 5.0}
+      \field{year}{2019}
+    \endentry
+    \entry{siemensSCEGuide}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=bb85ee2f18e5585401e17ed32ff948f6}{%
+           family={{Siemens AG}},
+           familyi={S\bibinitperiod}}}%
       }
-      \strng{namehash}{09e261d3d3e5ca7c079b1064f08ca012}
-      \strng{fullhash}{09e261d3d3e5ca7c079b1064f08ca012}
-      \strng{fullhashraw}{09e261d3d3e5ca7c079b1064f08ca012}
-      \strng{bibnamehash}{09e261d3d3e5ca7c079b1064f08ca012}
-      \strng{authorbibnamehash}{09e261d3d3e5ca7c079b1064f08ca012}
-      \strng{authornamehash}{09e261d3d3e5ca7c079b1064f08ca012}
-      \strng{authorfullhash}{09e261d3d3e5ca7c079b1064f08ca012}
-      \strng{authorfullhashraw}{09e261d3d3e5ca7c079b1064f08ca012}
-      \field{labelalpha}{Sch23}
+      \list{location}{1}{%
+        {Nürnberg, Deutschland}%
+      }
+      \list{organization}{1}{%
+        {Siemens AG, Digital Industries}%
+      }
+      \strng{namehash}{bb85ee2f18e5585401e17ed32ff948f6}
+      \strng{fullhash}{bb85ee2f18e5585401e17ed32ff948f6}
+      \strng{fullhashraw}{bb85ee2f18e5585401e17ed32ff948f6}
+      \strng{bibnamehash}{bb85ee2f18e5585401e17ed32ff948f6}
+      \strng{authorbibnamehash}{bb85ee2f18e5585401e17ed32ff948f6}
+      \strng{authornamehash}{bb85ee2f18e5585401e17ed32ff948f6}
+      \strng{authorfullhash}{bb85ee2f18e5585401e17ed32ff948f6}
+      \strng{authorfullhashraw}{bb85ee2f18e5585401e17ed32ff948f6}
+      \field{labelalpha}{Sie21}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{edition}{3. Auflage 2023}
-      \field{isbn}{9783662667897}
-      \field{title}{{Generic Systems Engineering: Ein methodischer Ansatz zur Komplexitätsbewältigung}}
-      \field{year}{2023}
-      \verb{doi}
-      \verb 10.1007/978-3-662-66789-7
-      \endverb
-      \verb{file}
-      \verb https://nbn-resolving.org/urn:nbn:de:101:1-2023061404375271739390
-      \endverb
-      \keyw{Anforderungsdefinition;Deutschland;Komplexität;Komplexitätsmanagement;Mechatronik;Methodenworkflow;Produktentwicklung;Produktlebenszyklus;Projektmanagement;Qualitätsmanagement;Qualitätssicherung;Systemdesign;Systems Engineering;Systemtechnik;Verbraucherzufriedenheit}
-    \endentry
-    \entry{Tipler.2019}{book}{}{}
-      \name{editor}{4}{}{%
-        {{hash=ff86ef6fbcd6436b08e4b48a7f82dac4}{%
-           family={Tipler},
-           familyi={T\bibinitperiod},
-           given={Paul\bibnamedelima Allen},
-           giveni={P\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
-        {{hash=028521cb21b446864a6a4f23dbe0e505}{%
-           family={Mosca},
-           familyi={M\bibinitperiod},
-           given={Gene},
-           giveni={G\bibinitperiod}}}%
-        {{hash=6cc4e7b4a2eb156c43fb992b31bd417f}{%
-           family={Kersten},
-           familyi={K\bibinitperiod},
-           given={Peter},
-           giveni={P\bibinitperiod}}}%
-        {{hash=84a4f17e49c58e2bb6d4fc131112a250}{%
-           family={Wagner},
-           familyi={W\bibinitperiod},
-           given={Jenny},
-           giveni={J\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {Berlin}%
-      }
-      \list{publisher}{1}{%
-        {Springer Spektrum}%
-      }
-      \strng{namehash}{e4c3840c738a2e37921fe0f800466b46}
-      \strng{fullhash}{ae29294409c4e4fe8c37c02af1584b66}
-      \strng{fullhashraw}{ae29294409c4e4fe8c37c02af1584b66}
-      \strng{bibnamehash}{e4c3840c738a2e37921fe0f800466b46}
-      \strng{editorbibnamehash}{e4c3840c738a2e37921fe0f800466b46}
-      \strng{editornamehash}{e4c3840c738a2e37921fe0f800466b46}
-      \strng{editorfullhash}{ae29294409c4e4fe8c37c02af1584b66}
-      \strng{editorfullhashraw}{ae29294409c4e4fe8c37c02af1584b66}
-      \field{labelalpha}{Tip+19}
-      \field{sortinit}{T}
-      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
-      \field{labelnamesource}{editor}
-      \field{labeltitlesource}{title}
-      \field{edition}{8., korrigierte und erweiterte Auflage}
-      \field{isbn}{9783662582800}
-      \field{series}{Lehrbuch}
-      \field{title}{Physik: Für Studierende der Naturwissenschaften und Technik}
-      \field{year}{2019}
-      \verb{file}
-      \verb https://d-nb.info/1172616485/04
-      \endverb
-      \keyw{Atomphysik;Elektrodynamik;Experimentalphysik;Mechanik;Moderne Physik;Optik;Physik;Physik für Nebenfächer;Physik für Wissenschaftler und Ingenieure;Physikaufgaben;Quantenmechanik;Thermodynamik;Tipler Lehrbuch;Übungsaufgaben Physik}
-    \endentry
-    \entry{Wirdemann.2022}{book}{}{}
-      \name{author}{3}{}{%
-        {{hash=9b098fc32f7708582cfd3c098d3f8547}{%
-           family={Wirdemann},
-           familyi={W\bibinitperiod},
-           given={Ralf},
-           giveni={R\bibinitperiod}}}%
-        {{hash=ca1df44a088921cb0bbd4fb614fb86b2}{%
-           family={Ritscher},
-           familyi={R\bibinitperiod},
-           given={Astrid},
-           giveni={A\bibinitperiod}}}%
-        {{hash=9a7c6ca934a03e9a8f280c8d01e316bf}{%
-           family={Mainusch},
-           familyi={M\bibinitperiod},
-           given={Johannes},
-           giveni={J\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Carl Hanser Verlag}%
-      }
-      \list{publisher}{1}{%
-        {Hanser}%
-      }
-      \strng{namehash}{aafe2f16c7c61b69f8997a3c652ea656}
-      \strng{fullhash}{aafe2f16c7c61b69f8997a3c652ea656}
-      \strng{fullhashraw}{aafe2f16c7c61b69f8997a3c652ea656}
-      \strng{bibnamehash}{aafe2f16c7c61b69f8997a3c652ea656}
-      \strng{authorbibnamehash}{aafe2f16c7c61b69f8997a3c652ea656}
-      \strng{authornamehash}{aafe2f16c7c61b69f8997a3c652ea656}
-      \strng{authorfullhash}{aafe2f16c7c61b69f8997a3c652ea656}
-      \strng{authorfullhashraw}{aafe2f16c7c61b69f8997a3c652ea656}
-      \field{labelalpha}{WRM22}
-      \field{sortinit}{W}
-      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{- Erfahren Sie, wie Sie Anforderungen im Sinne des Kunden mit Hilfe von User Stories beschreiben und im Product Backlog verwalten. - Lesen Sie, wie User Stories den Flow eines Scrum-Projekts steuern und das Team bei der Entwicklung werthaltiger Software leiten. - Lernen Sie, wie Sie die Geschäftsregeln einer User Story als Akzeptanztests beschreiben und so die Basis für akzeptanzgetriebene Entwicklung schaffen. - Erlernen Sie die Anwendung von Story Maps als neue Methode zur ganzheitlichen Anforderungsanalyse. - Lernen Sie, wie Sie Scrum in mobilen Arbeitsumgebungen einführen und dem Team über die ersten Hürden hinweghelfen. - Ihr exklusiver Vorteil: E-Book inside beim Kauf des gedruckten Buches Scrum als Framework für die Agile Softwareentwicklung erfreut sich zunehmender Beliebtheit. Kombiniert mit User Stories wird daraus ein unschlagbares Doppel. Scrum definiert mit Hilfe einfacher Regeln und klarer Verantwortlichkeiten einen Rahmen für agile Softwareprojekte. User Stories beschreiben Anforderungen aus Sicht des Anwendenden und liefern einen greifbaren Mehrwert. Dieses Buch erklärt die Grundlagen beider Konzepte und beschreibt, wie Sie User Stories in die Elemente und Abläufe von Scrum einbinden. Angefangen vom Schreiben und Priorisieren eines User-Story-basierten Product Backlog bis hin zur User-Story-getriebenen Sprint- und Releaseplanung lernen Sie alles, was für den erfolgreichen Einsatz von User Stories in Ihrem Scrum-Projekt wichtig ist. Das neue Kapitel „Mobiles Arbeiten“ beschäftigt sich mit den Anforderungen und Möglichkeiten des agilen Arbeitens in mobilen Kontexten. Es beschreibt unsere Erfahrungen beim Arbeiten mit mobilen Scrum-Teams und liefert Tipps und Ideen für das Führen solcher Teams. „Egal, ob man Scrum und User Stories einsetzt oder nicht: Mit diesem Buch lernt wohl jeder noch etwas dazu.“ Steffen Gemkow, ObjectFab AUS DEM INHALT // - Einführung - Beispiel: Scrumcoaches.com - Die Grundlagen von Scrum - User Stories - Agiles Schätzen - Agiles Planen - User Stories für das Product Backlog - User Story Mapping - Sprint-Planung - Sprint-Durchführung - User Stories Akzeptanztesten - Sprint-Retrospektive - Agile Releaseplanung - Mobiles Arbeiten - Verticals – SCRUM@OTTO - Glossar Ralf Wirdemann ist erfahrener Software-Coach mit dem Schwerpunkt agile Softwareentwicklung. Er hat Scrum bereits in einer Reihe von Projekten eingeführt. Er ist Autor zahlreicher Fachartikel und gefragter Sprecher auf Konferenzen.}
-      \field{edition}{4., überarbeitete und erweiterte Auflage}
-      \field{isbn}{9783446474383}
-      \field{series}{{Hanser eLibrary}}
-      \field{title}{{Scrum mit User Stories}}
-      \field{year}{2022}
-      \verb{doi}
-      \verb 10.3139/9783446474383
-      \endverb
-      \verb{urlraw}
-      \verb https://www.hanser-elibrary.com/doi/book/10.3139/9783446474383
-      \endverb
-      \verb{url}
-      \verb https://www.hanser-elibrary.com/doi/book/10.3139/9783446474383
-      \endverb
-      \keyw{Agile Softwareentwicklung;Projektmanagement;Projektorganisation;Scrum}
-    \endentry
-    \entry{Zangemeister.2014}{book}{}{}
-      \name{author}{1}{}{%
-        {{hash=6d957da35acaae25f84caf195f579a35}{%
-           family={Zangemeister},
-           familyi={Z\bibinitperiod},
-           given={Christof},
-           giveni={C\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Zangemeister {\&} Partner}%
-      }
-      \strng{namehash}{6d957da35acaae25f84caf195f579a35}
-      \strng{fullhash}{6d957da35acaae25f84caf195f579a35}
-      \strng{fullhashraw}{6d957da35acaae25f84caf195f579a35}
-      \strng{bibnamehash}{6d957da35acaae25f84caf195f579a35}
-      \strng{authorbibnamehash}{6d957da35acaae25f84caf195f579a35}
-      \strng{authornamehash}{6d957da35acaae25f84caf195f579a35}
-      \strng{authorfullhash}{6d957da35acaae25f84caf195f579a35}
-      \strng{authorfullhashraw}{6d957da35acaae25f84caf195f579a35}
-      \field{labelalpha}{Zan14}
-      \field{sortinit}{Z}
-      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{edition}{5. Auflage 2014 (erweitert)}
-      \field{isbn}{9783923264001}
-      \field{title}{{Nutzwertanalyse in der Systemtechnik: Eine Methodik zur multidimensionalen Bewertung und Auswahl von Projektalternativen}}
-      \field{year}{2014}
-      \verb{file}
-      \verb http://d-nb.info/1080185801/04
-      \endverb
-      \keyw{Nutzwertanalyse}
-    \endentry
-    \entry{Ziegler.2017}{thesis}{}{}
-      \name{author}{1}{}{%
-        {{hash=8142c299c2a225ac7864c9f6c2aa5921}{%
-           family={Ziegler},
-           familyi={Z\bibinitperiod},
-           given={Julius},
-           giveni={J\bibinitperiod}}}%
-      }
-      \list{institution}{2}{%
-        {KIT Scientific Publishing}%
-        {Karlsruher Institut für Technologie}%
-      }
-      \list{location}{1}{%
-        {Karlsruhe}%
-      }
-      \strng{namehash}{8142c299c2a225ac7864c9f6c2aa5921}
-      \strng{fullhash}{8142c299c2a225ac7864c9f6c2aa5921}
-      \strng{fullhashraw}{8142c299c2a225ac7864c9f6c2aa5921}
-      \strng{bibnamehash}{8142c299c2a225ac7864c9f6c2aa5921}
-      \strng{authorbibnamehash}{8142c299c2a225ac7864c9f6c2aa5921}
-      \strng{authornamehash}{8142c299c2a225ac7864c9f6c2aa5921}
-      \strng{authorfullhash}{8142c299c2a225ac7864c9f6c2aa5921}
-      \strng{authorfullhashraw}{8142c299c2a225ac7864c9f6c2aa5921}
-      \field{labelalpha}{Zie17}
-      \field{sortinit}{Z}
-      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Optimale Trajektorienplanung für Automobile}
-      \field{type}{Dissertation}
-      \field{year}{2017}
-      \verb{file}
-      \verb https://nbn-resolving.org/urn:nbn:de:0072-565300
-      \endverb
-      \verb{urlraw}
-      \verb http://dx.doi.org/10.5445/KSP/1000056530
-      \endverb
-      \verb{url}
-      \verb http://dx.doi.org/10.5445/KSP/1000056530
-      \endverb
-      \keyw{advanced driver assistance systems;Arbeitsraum;Autonomes Fahren;autonomous driving;Einrad;Fahrerassistenzsysteme;Fahrstreifen;Fahrzeug;Fahrzeugregelung;Kraftwagen;robotics;Robotik;trajectory planning;Trajektorienplanung;vehicle control;Verkehrsraum}
+      \field{month}{06}
+      \field{note}{Online verfügbar unter \url{https://www.automation.siemens.com/sce-static/learning-training-documents/classic/guide/00-guide-de.pdf}, zuletzt abgerufen am 18.05.2025}
+      \field{title}{SCE Lernpfad: Übersicht der verfügbaren SCE-Lern-/Lehrunterlagen}
+      \field{year}{2021}
     \endentry
   \enddatalist
 \endrefsection

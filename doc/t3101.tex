@@ -14,6 +14,7 @@ cleardoublepage=empty,			% Stil einer leeren eingefügten Seite bei Kapitelwechs
 parskip,							% Absatzabstand bei Absatzwechsel einfügen
 ngerman
 ]{scrbook}			
+\usepackage{float}
 \usepackage[setspace=false]{scrhack}
 \usepackage[utf8]{inputenc} 	% ermöglicht die direkte Eingabe von Umlauten
 \usepackage[T1]{fontenc} 		% Ausgabe aller zeichen in einer T1-Codierung (wichtig für die Ausgabe von Umlauten!)
@@ -61,10 +62,12 @@ hyperref=true, %% hyperref-Paket verwenden, um Links zu erstellen
 \setcounter{biburllcpenalty}{7000}
 \setcounter{biburlucpenalty}{8000}
 \addbibresource{literature/literatur1.bib} %% Einbinden der bib-Datei. Endung .bib unbedingt ergänzen
-\addbibresource{literature/literatur2.bib} %% Einbinden mehrerer bib-Dateien mit zusätzlichem \addbibresource - Befehl
+%\addbibresource{literature/literatur2.bib} %% Einbinden mehrerer bib-Dateien mit zusätzlichem \addbibresource - Befehl
 
 \usepackage[normalem]{ulem}
 \usepackage{csquotes}
+\usepackage{comment}
+
 
 % Folgende Zeilen sind auszukommentieren, falls runde Klammern und ein vgl. bei Zitaten erscheinen sollen.
 %\makeatletter
@@ -179,6 +182,8 @@ marginal
 \usepgfplotslibrary{smithchart}
 \usepackage{tikz}						% Tikz sollte nach Listings Pakete geladen werden.
 \usetikzlibrary{arrows}
+\usetikzlibrary{arrows.meta, positioning}
+
 
 \hyphenation{Schrift-ar-ten}
 
@@ -254,11 +259,11 @@ marginal
 \include{chapter/anhang}
 \clearpage
 
-\include{chapter/anhang_vorlagen}		% Zeile auskommentieren bei finalem Dokument!
+%\include{chapter/anhang_vorlagen}		% Zeile auskommentieren bei finalem Dokument!
 
 
 \renewcommand{\glossaryname}{Glossar}
-\printglossaries
+%\printglossaries
 %\addcontentsline{toc}{chapter}{\glossaryname}
 
 \renewcommand{\indexname}{Sachwortverzeichnis}

@@ -2370,16 +2370,14 @@
   <!-- SECTION 0 -->
   <bcf:bibdata section="0">
     <bcf:datasource type="file" datatype="bibtex" glob="false">literature/literatur1.bib</bcf:datasource>
-    <bcf:datasource type="file" datatype="bibtex" glob="false">literature/literatur2.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">Pohl.2021</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">Schluter.2023</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">Cohn.2010</bcf:citekey>
-    <bcf:citekey order="3" intorder="2">Martin.2020</bcf:citekey>
-    <bcf:citekey order="3" intorder="3">Wirdemann.2022</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">Breiing.1997</bcf:citekey>
-    <bcf:citekey order="4" intorder="2">Zangemeister.2014</bcf:citekey>
+    <bcf:citekey order="1" intorder="1">finkenzeller2023</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">oasis_mqtt_spec</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">oasis_mqtt_spec</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">oasis_mqtt_spec</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">nodered_official</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">siemensSCEGuide</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="anyt">

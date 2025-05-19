@@ -14,28 +14,12 @@ Im Rahmen dieser Arbeit wurden Künstliche Intelligenz (KI)\index{Künstliche In
 		\hline
 		ChatGPT & 	\vspace{-\topsep}
 					\begin{itemize}[noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt] 
-						\item Grundlagenrecherche zu bekannten Prinzipien optischer Sensorik zur Abstandsmessung (siehe Abschnitt \ldots)
-						\item Suche nach Herstellern von Lidar-Sensoren (siehe Abschnitt \ldots)
-						\item \ldots
+						\item Grundlagenrecherche zu bekannten Prinzipien bei der Nachrichtenübertragung und Kommunikationsprotokollen (\autoref{sec:mqtt})
+						\item Generierung von Beispielcode bei der Softwareimplementierung auf den Mikrocontrollern (\autoref{sec:systementwurf})
+						\item Grammatikalische Überarbeitung von
+						Textpassagen
+						\item Rechtschreibprüfung
 				   	\end{itemize} \\
-		ChatPDF &	\vspace{-\topsep}
-					\begin{itemize}[noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt] 
-					\item Recherche und Zusammenfassung von wissenschaftlichen Studien im Themenfeld \ldots
-					\item \ldots
-					\end{itemize} \\ 
-		DeepL	&	\vspace{-\topsep}
-					\begin{itemize}[noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt] 
-					\item Übersetzung des Papers von $[\ldots]$
-					\end{itemize} \\ 
-		Tabnine AI coding assistant &	\vspace{-\topsep}
-							\begin{itemize}[noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt] 
-							\item Aktiviertes Plugin in MS Visual Studio zum Programmieren des \ldots
-							\item \ldots
-							\end{itemize} \\ 
-		\ldots	&	\vspace{-\topsep}
-					\begin{itemize}[noitemsep,topsep=0pt,partopsep=0pt,parsep=0pt] 
-					\item \ldots
-					\end{itemize} \\ 
 		\hline 
 	\end{tabular} 
 \end{table}
@@ -46,6 +30,8 @@ Im Rahmen dieser Arbeit wurden Künstliche Intelligenz (KI)\index{Künstliche In
 \section{Details zu bestimmten theoretischen Grundlagen}
 
 \section{Weitere Details, welche im Hauptteil den Lesefluss behindern}
+
+\section{Ausführung von Quellcode}
 
 \addchap{C Details zu Laboraufbauten und Messergebnissen}
 \setcounter{chapter}{3}
@@ -71,18 +57,19 @@ Im Rahmen dieser Arbeit wurden Künstliche Intelligenz (KI)\index{Künstliche In
 
 \section{Wichtige Teile des Quellcodes}
 
-\addchap{E Datenblätter}
-\setcounter{chapter}{5}
-\setcounter{section}{0}
-\setcounter{table}{0}
-\setcounter{figure}{0}
+	%\addchap{E Datenblätter}
+	\setcounter{chapter}{5}
+	\setcounter{section}{0}
+	\setcounter{table}{0}
+	\setcounter{figure}{0}
 
 %\section{Einbinden von PDF-Seiten aus anderen Dokumenten}
+\begin{comment}	
+	Auf den folgenden Seiten wird eine Möglichkeit gezeigt, wie aus einem anderen PDF-Dokument komplette Seiten übernommen werden können, z.~B. zum Einbindungen von Datenblättern. Der Nachteil dieser Methode besteht darin, dass sämtliche Formateinstellungen (Kopfzeilen, Seitenzahlen, Ränder, etc.) auf diesen Seiten nicht angezeigt werden. Die Methode wird deshalb eher selten gewählt. Immerhin sorgt das Package \textit{\glqq pdfpages\grqq}~für eine korrekte Seitenzahleinstellung auf den im Anschluss folgenden \glqq nativen\grqq~\LaTeX-Seiten.
+	
+	Eine bessere Alternative ist, einzelne Seiten mit \textit{\glqq$\backslash$includegraphics\grqq}~einzubinden.
+	
+	\includepdf[pages={2-4}]{docs/EingebundenesPDF.pdf}
+\end{comment}
 
-Auf den folgenden Seiten wird eine Möglichkeit gezeigt, wie aus einem anderen PDF-Dokument komplette Seiten übernommen werden können, z.~B. zum Einbindungen von Datenblättern. Der Nachteil dieser Methode besteht darin, dass sämtliche Formateinstellungen (Kopfzeilen, Seitenzahlen, Ränder, etc.) auf diesen Seiten nicht angezeigt werden. Die Methode wird deshalb eher selten gewählt. Immerhin sorgt das Package \textit{\glqq pdfpages\grqq}~für eine korrekte Seitenzahleinstellung auf den im Anschluss folgenden \glqq nativen\grqq~\LaTeX-Seiten.
-
-Eine bessere Alternative ist, einzelne Seiten mit \textit{\glqq$\backslash$includegraphics\grqq}~einzubinden.
-
-\includepdf[pages={2-4}]{docs/EingebundenesPDF.pdf}
-
-\clearpage
+%\clearpage
