@@ -1,15 +1,15 @@
 [0] Config.pm:308> INFO - This is Biber 2.20
 [0] Config.pm:311> INFO - Logfile is 't3101.blg'
-[32] biber-darwin:340> INFO - === Sun May 18, 2025, 19:49:20
-[38] Biber.pm:420> INFO - Reading 't3101.bcf'
-[75] Biber.pm:994> INFO - Found 4 citekeys in bib section 0
-[82] Biber.pm:4463> INFO - Processing section 0
-[86] Biber.pm:4654> INFO - Looking for bibtex file 'literature/literatur1.bib' for section 0
-[87] bibtex.pm:1713> INFO - LaTeX decoding ...
-[90] bibtex.pm:1519> INFO - Found BibTeX data source 'literature/literatur1.bib'
-[119] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[119] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
-[119] Biber.pm:4283> INFO - Sorting list 'anyt/global//global/global/global' of type 'entry' with template 'anyt' and locale 'de-DE'
-[119] Biber.pm:4289> INFO - No sort tailoring available for locale 'de-DE'
-[122] bbl.pm:676> INFO - Writing 't3101.bbl' with encoding 'UTF-8'
-[123] bbl.pm:779> INFO - Output to t3101.bbl
+[30] biber-darwin:340> INFO - === Mon May 19, 2025, 22:45:29
+[37] Biber.pm:420> INFO - Reading 't3101.bcf'
+[74] Biber.pm:994> INFO - Found 6 citekeys in bib section 0
+[81] Biber.pm:4463> INFO - Processing section 0
+[85] Biber.pm:4654> INFO - Looking for bibtex file 'literature/literatur1.bib' for section 0
+[86] bibtex.pm:1713> INFO - LaTeX decoding ...
+[89] bibtex.pm:1519> INFO - Found BibTeX data source 'literature/literatur1.bib'
+[121] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[121] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[121] Biber.pm:4283> INFO - Sorting list 'anyt/global//global/global/global' of type 'entry' with template 'anyt' and locale 'de-DE'
+[121] Biber.pm:4289> INFO - No sort tailoring available for locale 'de-DE'
+[125] bbl.pm:676> INFO - Writing 't3101.bbl' with encoding 'UTF-8'
+[126] bbl.pm:779> INFO - Output to t3101.bbl

@@ -10,29 +10,35 @@
 \contentsline {subsection}{\numberline {2.4.3}Programmiersprachen nach IEC 61131-3}{11}{subsection.2.4.3}%
 \contentsline {subsection}{\numberline {2.4.4}Einsatz im Kontext dieser Arbeit}{11}{subsection.2.4.4}%
 \contentsline {chapter}{\numberline {3}Konzeptentwurf}{13}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Anforderungsanalyse mittels Requirements Engineering}{14}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Hardwarebewertung mithilfe einer Nutzwertanalyse}{14}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Systementwurf}{14}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Ergebnisse}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Umsetzung des Softwaredesigns auf den Mikrocontrollern}{15}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Visualisierung der Prozessdaten in Node-Red}{15}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Zusammenfassung}{16}{chapter.5}%
-\contentsline {chapter}{\nonumberline Literaturverzeichnis}{17}{chapter*.13}%
-\contentsline {chapter}{\nonumberline Verzeichnis verwendeter Formelzeichen und Abkürzungen}{18}{chapter*.14}%
-\contentsline {chapter}{\nonumberline Abbildungsverzeichnis}{19}{chapter*.15}%
-\contentsline {chapter}{\nonumberline Tabellenverzeichnis}{20}{chapter*.16}%
-\contentsline {chapter}{\nonumberline A Nutzung von Künstliche Intelligenz basierten Werkzeugen}{21}{chapter*.17}%
-\contentsline {chapter}{\nonumberline B Ergänzungen}{22}{chapter*.19}%
-\contentsline {section}{\numberline {B.1}Details zu bestimmten theoretischen Grundlagen}{22}{section.B.1}%
-\contentsline {section}{\numberline {B.2}Weitere Details, welche im Hauptteil den Lesefluss behindern}{22}{section.B.2}%
-\contentsline {section}{\numberline {B.3}Ausführung von Quellcode}{22}{section.B.3}%
-\contentsline {chapter}{\nonumberline C Details zu Laboraufbauten und Messergebnissen}{23}{chapter*.20}%
-\contentsline {section}{\numberline {C.1}Versuchsanordnung}{23}{section.C.1}%
-\contentsline {section}{\numberline {C.2}Liste der verwendeten Messgeräte}{23}{section.C.2}%
-\contentsline {section}{\numberline {C.3}Übersicht der Messergebnisse}{23}{section.C.3}%
-\contentsline {section}{\numberline {C.4}Schaltplan und Bild der Prototypenplatine}{23}{section.C.4}%
-\contentsline {chapter}{\nonumberline D Zusatzinformationen zu verwendeter Software}{24}{chapter*.21}%
-\contentsline {section}{\numberline {D.1}Struktogramm des Programmentwurfs}{24}{section.D.1}%
-\contentsline {section}{\numberline {D.2}Wichtige Teile des Quellcodes}{24}{section.D.2}%
-\protect \contentsline {chapter}{Sachwortverzeichnis}{25}{section.D.2}%
+\contentsline {section}{\numberline {3.1}Anforderungsanalyse mittels Requirements Engineering}{13}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Funktionale Anforderungen}{14}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Nicht funktionale Anforderungen}{15}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Hardwarebewertung mithilfe einer Nutzwertanalyse}{15}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}NFC-Tags}{16}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}NFC-Lesegeräte}{17}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Controller-Einheiten}{18}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Zentraleinheit: Raspberry Pi}{18}{subsection.3.2.4}%
+\contentsline {section}{\numberline {3.3}Systementwurf}{19}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Ergebnisse}{20}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Umsetzung des Softwaredesigns auf den Mikrocontrollern}{20}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Visualisierung der Prozessdaten in Node-Red}{20}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Zusammenfassung}{21}{chapter.5}%
+\contentsline {chapter}{\nonumberline Literaturverzeichnis}{22}{chapter*.18}%
+\contentsline {chapter}{\nonumberline Verzeichnis verwendeter Formelzeichen und Abkürzungen}{23}{chapter*.19}%
+\contentsline {chapter}{\nonumberline Abbildungsverzeichnis}{24}{chapter*.20}%
+\contentsline {chapter}{\nonumberline Tabellenverzeichnis}{25}{chapter*.21}%
+\contentsline {chapter}{\nonumberline A Nutzung von Künstliche Intelligenz basierten Werkzeugen}{26}{chapter*.22}%
+\contentsline {chapter}{\nonumberline B Ergänzungen}{27}{chapter*.24}%
+\contentsline {section}{\numberline {B.1}Details zu bestimmten theoretischen Grundlagen}{27}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Weitere Details, welche im Hauptteil den Lesefluss behindern}{27}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Ausführung von Quellcode}{27}{section.B.3}%
+\contentsline {chapter}{\nonumberline C Details zu Laboraufbauten und Messergebnissen}{28}{chapter*.25}%
+\contentsline {section}{\numberline {C.1}Versuchsanordnung}{28}{section.C.1}%
+\contentsline {section}{\numberline {C.2}Liste der verwendeten Messgeräte}{28}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Übersicht der Messergebnisse}{28}{section.C.3}%
+\contentsline {section}{\numberline {C.4}Schaltplan und Bild der Prototypenplatine}{28}{section.C.4}%
+\contentsline {chapter}{\nonumberline D Zusatzinformationen zu verwendeter Software}{29}{chapter*.26}%
+\contentsline {section}{\numberline {D.1}Struktogramm des Programmentwurfs}{29}{section.D.1}%
+\contentsline {section}{\numberline {D.2}Wichtige Teile des Quellcodes}{29}{section.D.2}%
+\protect \contentsline {chapter}{Sachwortverzeichnis}{30}{section.D.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

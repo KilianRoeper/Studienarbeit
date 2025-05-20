@@ -55,6 +55,38 @@
       \verb http://rfid-handbook.de/downloads/G6E_20120413_212413155-24_978-3-446-42992-5_Leseprobe.pdf
       \endverb
     \endentry
+    \entry{nfcforum2024}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=7089490265770a0d61f796e5b912adbe}{%
+           family={{NFC Forum}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{7089490265770a0d61f796e5b912adbe}
+      \strng{fullhash}{7089490265770a0d61f796e5b912adbe}
+      \strng{fullhashraw}{7089490265770a0d61f796e5b912adbe}
+      \strng{bibnamehash}{7089490265770a0d61f796e5b912adbe}
+      \strng{authorbibnamehash}{7089490265770a0d61f796e5b912adbe}
+      \strng{authornamehash}{7089490265770a0d61f796e5b912adbe}
+      \strng{authorfullhash}{7089490265770a0d61f796e5b912adbe}
+      \strng{authorfullhashraw}{7089490265770a0d61f796e5b912adbe}
+      \field{labelalpha}{NFC24}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Tag Type Technical Specifications}
+      \field{urlday}{19}
+      \field{urlmonth}{5}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://nfc-forum.org/build/specifications#tag-type-technical-specifications
+      \endverb
+      \verb{url}
+      \verb https://nfc-forum.org/build/specifications#tag-type-technical-specifications
+      \endverb
+    \endentry
     \entry{nodered_official}{online}{}{}
       \name{author}{1}{}{%
         {{hash=74b7bf63c2cc84232ca31459d6a98aef}{%
@@ -83,6 +115,30 @@
       \verb{url}
       \verb https://nodered.org
       \endverb
+    \endentry
+    \entry{nxp_ntag213f_datasheet}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=70a107d58d4aa1203cc8cde04480d72c}{%
+           family={{NXP Semiconductors}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{70a107d58d4aa1203cc8cde04480d72c}
+      \strng{fullhash}{70a107d58d4aa1203cc8cde04480d72c}
+      \strng{fullhashraw}{70a107d58d4aa1203cc8cde04480d72c}
+      \strng{bibnamehash}{70a107d58d4aa1203cc8cde04480d72c}
+      \strng{authorbibnamehash}{70a107d58d4aa1203cc8cde04480d72c}
+      \strng{authornamehash}{70a107d58d4aa1203cc8cde04480d72c}
+      \strng{authorfullhash}{70a107d58d4aa1203cc8cde04480d72c}
+      \strng{authorfullhashraw}{70a107d58d4aa1203cc8cde04480d72c}
+      \field{labelalpha}{NXP14}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.alldatasheet.com/datasheet-pdf/view/529547/NXP/NTAG213F.html}}
+      \field{note}{Datenblatt, Zugriff am 19. Mai 2025}
+      \field{title}{{NTAG213F - NFC Forum Type 2 Tag with Field Detection}}
+      \field{year}{2014}
     \endentry
     \entry{oasis_mqtt_spec}{misc}{}{}
       \name{author}{1}{}{%
@@ -134,9 +190,18 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{month}{06}
-      \field{note}{Online verfügbar unter \url{https://www.automation.siemens.com/sce-static/learning-training-documents/classic/guide/00-guide-de.pdf}, zuletzt abgerufen am 18.05.2025}
       \field{title}{SCE Lernpfad: Übersicht der verfügbaren SCE-Lern-/Lehrunterlagen}
+      \field{urlday}{18}
+      \field{urlmonth}{5}
+      \field{urlyear}{2025}
       \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.automation.siemens.com/sce-static/learning-training-documents/classic/guide/00-guide-de.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.automation.siemens.com/sce-static/learning-training-documents/classic/guide/00-guide-de.pdf
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

@@ -1,20 +1,155 @@
 \chapter{Konzeptentwurf}
 \label{cha:vorgehen}
 
-Dieses Kapitel beschreibt die methodische Herleitung eines technischen Konzepts zur Umsetzung des in Kapitel~\ref{cha:Grundlagen} vorgestellten Systems. Basierend auf den identifizierten technologischen Grundlagen und Rahmenbedingungen erfolgt zunächst eine strukturierte Analyse der funktionalen und nicht-funktionalen Anforderungen mithilfe etablierter Methoden des Requirements Engineerings.
+Dieses Kapitel beschreibt die methodische Herleitung eines technischen Konzepts zur Umsetzung des in Kapitel~\ref{cha:Grundlagen} vorgestellten Systems. Basierend auf den identifizierten technologischen Grundlagen erfolgt zunächst eine strukturierte Analyse der funktionalen und nicht-funktionalen Anforderungen mithilfe des Requirements Engineerings.
 
-Darauf aufbauend werden verschiedene Lösungsoptionen erarbeitet, hinsichtlich ihrer technischen und wirtschaftlichen Eignung bewertet und schließlich zu einem konsistenten Gesamtkonzept zusammengeführt. Eine zentrale Rolle spielt dabei der Vergleich möglicher Hardwarekomponenten unter Berücksichtigung definierter Bewertungskriterien, welcher durch eine Nutzwertanalyse unterstützt wird.
-
-Ein wesentlicher Bestandteil des Konzepts ist der Systementwurf. In diesem wird die Integration der verwendeten Technologien – wie z.\,B. NFC-Komponenten, die Anbindung der SPS über MQTT sowie die Einbettung in das Gesamtsystem – detailliert beschrieben. Dabei werden auch Aspekte wie die Strukturierung von Speicherbereichen auf NFC-Tags, die Auswahl geeigneter Softwarebibliotheken und die Kommunikationsarchitektur berücksichtigt. 
+Auf dieser Grundlage werden mehrere Lösungsoptionen konzipiert, die für den Einsatz unterschiedlicher Hardwarekomponenten geeignet sind. Ein wesentlicher Bestandteil des Konzepts ist der Systementwurf. In diesem wird die Architektur der miteineinander interagierenden Hardwarekomponenten beschrieben. Außerdem wird erklärt mit welchen Software-Bibliotheken gearbeitet wurde und wie die Informationen im Speicher der NFC-Tags organisiert ist.
 
 Ziel ist es, eine nachvollziehbare und belastbare Begründung für die gewählte Vorgehensweise zu liefern, die die Anforderungen der Anwendung erfüllt und eine verlässliche Grundlage für die anschließende Umsetzung bietet.
-
 
 \section{Anforderungsanalyse mittels Requirements Engineering}
 \label{sec:anforderungsanalyse}
 
+Im Rahmen dieser Arbeit bildet das Requirements Engineering die methodische Basis für die Konzeption eines funktionalen und technisch realisierbaren Systems. Dabei werden sowohl funktionale als auch nicht-funktionale Anforderungen betrachtet. Die gewonnenen Erkenntnisse dienen anschließend als Ausgangspunkt für den Systementwurf und die Auswahl geeigneter technischer Komponenten.
+
+\subsection{Funktionale Anforderungen}
+
+Um die Anforderungen an das zu entwickelnde System bestimmen zu können, soll zunächst die Funktionalität aus der Sicht des Anwenders in Anforderungen festgehalten werden.
+
+\begin{table}[H]
+	\centering
+	\caption{funktionale Systemanforderungen}
+	\label{tab:f_anforderungen}
+	\begin{tabular}{|p{0.075\linewidth}|p{0.75\linewidth}|}
+		\hline
+		\textbf{ID} & \textbf{Anforderung} \\ \hline
+		
+		F01 & Der Anwender soll Produkte auf einer Fertigungskette mittels einer eindeutigen und einmaligen Identifikationsnummer identifizieren können. \\ \hline
+		F02 & Der Anwender soll über die Position und den Zustand der Produkte auf dem Bandumlaufsystem informiert werden können. \\ \hline
+		F03 & Die Positionen und Zustände der Produkte sollen visuell dargestellt werden. \\ \hline
+		F04 & Das Bandumlaufsystem soll basierend auf den Produktzuständen gesteuert werden können. \\ \hline
+		F05 & Die Produkte sollen einen NFC-Tag mit allen relevanten Zustandsinformationen und der eindeutigen Identifikationsnummer tragen. \\ \hline
+		F06 & Über vier NFC-Lesegeräte sollen die Position und die Zustände der Produkte ermittelt und geschrieben werden können. \\ \hline
+		F07 & Die NFC-Lesegeräte müssen ein Verweilen eines Produktes an einer Station erkennen können. \\ \hline
+		F08 & Das Tracking-System soll den letzten Zustand eines Produktes speichern. \\ \hline
+		F09 & Die Speicherung von Zuständen soll auf den NFC-Tags und im System erfolgen. \\ \hline
+	\end{tabular}
+\end{table}
+
+
+\subsection{Nicht funktionale Anforderungen}
+
+Nachdem die Funktion des Systems ermittelt wurde, sollen entsprechende technische, nicht funktionale Anforderungen festgehalten werden. 
+
+\begin{table}[H]
+	\centering
+	\caption{nicht-funktionale Systemanforderungen}
+	\label{tab:nf_anforderungen}
+	\begin{tabular}{|p{0.075\linewidth}|p{0.75\linewidth}|}
+		\hline
+		\textbf{ID} & \textbf{Anforderung} \\ \hline
+
+		NF01 & Die Kommunikation von Informationen von und zu den NFC-Lesegeräten soll über ein leichtgewichtiges Netzwerkprotokoll erfolgen. \\ \hline
+		NF02 & Die Netzwerkkommunikation sollte drahtlos funktionieren. \\ \hline
+		NF03 & MQTT-Nachrichten können mit einer Quality-of-Service-Stufe 0 gesendet werden. \\ \hline
+		NF04 & Die Software der Mikrocontroller soll generisch aufgebaut sein und logische Erweiterungen ermöglichen. \\ \hline
+		NF05 & Diskrepanzen von Zuständen im System und auf den Tags dürfen nicht entstehen. Eine Behandlung des Problems muss in Software abgebildet werden. \\ \hline
+		NF06 & Das Tracking-System soll über eine Anbindung zu einer SPS verfügen. \\ \hline
+		NF07 & Das Bandumlaufsystem soll weiterhin über die bestehende SPS gesteuert werden. \\ \hline
+		NF08 & Node-Red soll als Visualisierungssoftware verwendet werden. \\ \hline
+	\end{tabular}
+\end{table}
+
+
+
 \section{Hardwarebewertung mithilfe einer Nutzwertanalyse}
 \label{sec:hardwarebewertung}
+Die zur Auswahl nötige Bewertung der Hardware soll basierend auf einer Nutzwertanalyse passieren. Drei verschiedene Hardwareklassen sollen betrachtet werden, um den Systemebenen Hardwarekomponenten zuweisen zu können. Dazu gehören die NFC-Tags, die NFC-Lesegeräte und die Controller-Einheiten. 
+
+\subsection{NFC-Tags}
+NFC-Tags unterscheiden sich im Hinblick auf unterschiedliche Faktoren. Dazu zählen beispielsweise: Speicherkapazität,  Form und Größe. Das NFC Forum definiert fünf Tag-Typen (Typ 1 bis Typ 5), die auf existierenden RFID-Technologien basieren [\autoref{tab:nfc_typen}]. 
+
+\begin{table}[H]
+	\centering
+	\caption{Vergleich der NFC-Tag-Typen gemäß NFC Forum \cite{nfcforum2024}}
+	\label{tab:nfc_typen}
+	\begin{tabular}{|p{0.075\linewidth}|p{0.18\linewidth}|p{0.12\linewidth}|p{0.12\linewidth}|p{0.18\linewidth}|p{0.25\linewidth}|}
+		\hline
+		\textbf{Tag-Typ} & \textbf{Technologie-Basis} & \textbf{Speicher} & \textbf{Datenrate} & \textbf{Sicherheit} & \textbf{Besonderheiten} \\
+		\hline
+		Typ 1 & Innovision Topaz & 96B – 2KB & 106kbit/s & Keine Authentifizierung & Kostengünstig, einfache Anwendungen \\
+		Typ 2 & NXP MIFARE Ultralight und NTAG & bis 2KB & 106kbit/s & Einfach & Häufig in Tickets, Werbeanwendungen \\
+		Typ 3 & Sony FeliCa & bis 1MB & 212–424 kbit/s & Zugriffskontrolle möglich & Hohe Geschwindigkeit, verbreitet in Japan \\
+		Typ 4 & NXP DESFire, Smartcard & bis 32KB+ & 106–424 kbit/s & Hohe Sicherheit (AES, ISO 7816) & Zutrittssysteme, sichere Speicherung \\
+		Typ 5 & ST25, NXP ICODE (ISO 15693) & bis ca. 64KB & bis 53kbit/s & Variabel & Größere Reichweite, Industrieeinsatz \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Basierend auf gegebenen Informationen zu den Tag-Typen wurde die Nutzwertanalayse durchgeführt. Die Eigenschaften wurden entsprechend als Bewertungskriterien gewichtet, wodurch nach zusammenzählen der vergebenen Punkte der passende Tag-Typ und aus \ref{tab:nfc_typen} das passende Produkt ermittelt werden konnte. 
+
+Die höchste Gewichtung hat in der Analyse die Lesegeschwindigkeit erhalten, da am Bandumlaufsystem eine Verarbeitung von Informationen in Echtzeit relevant ist. Das folgt daraus, dass der Zustand eines Produktes an einer Station ermittelt und dann auf den Tag geschrieben werden muss [\ref{tab:nutzwertanalyse-nfc-tags}].
+
+\begin{table}[H]
+	\centering
+	\caption{Nutzwertanalyse zur Bewertung von NFC-Tag-Typen (1 - 5, wobei 5: sehr gut}
+	\label{tab:nutzwertanalyse-nfc-tags}
+	\begin{tabular}{|l|c|c|c|c|c|c|}
+		\hline
+		\textbf{Kriterium} & \textbf{Gewichtung} & \textbf{Typ 1} & \textbf{Typ 2} & \textbf{Typ 3} & \textbf{Typ 4} & \textbf{Typ 5} \\ \hline
+		Lesegeschwindigkeit         & 25\% & 2 & 3 & 2 & 4 & 5 \\ \hline
+		Speicherkapazität           & 20\% & 2 & 3 & 4 & 5 & 4 \\ \hline
+		Kosten                      & 20\% & 5 & 4 & 3 & 2 & 3 \\ \hline
+		Kompatibilität              & 15\% & 3 & 4 & 2 & 5 & 4 \\ \hline
+		Energieeffizienz (passiv)   & 10\% & 5 & 5 & 4 & 3 & 4 \\ \hline
+		Verfügbarkeit am Markt      & 10\% & 3 & 5 & 2 & 4 & 4 \\ \hline
+		\textbf{Gesamtnutzwert}     &      & \textbf{3.10} & \textbf{4.00} & \textbf{2.85} & \textbf{4.00} & \textbf{4.10} \\ \hline
+	\end{tabular}
+\end{table}
+
+Tag Typ 2 ist nach dieser Analyse der favorisierte Typ. Für die Arbeit wurde entsprechend ein NXP NTAG213-Tag gewählt. Dieser bietet einen EEPROM-Speicher von 144 Bytes, der in 4 Byte große Seiten (Pages) unterteilt ist. Daraus ergeben sich 36 adressierbare Blöcke. Von diesen sind laut Datenblatt etwa 112 Bytes frei vom Anwender beschreibbar \cite{nxp_ntag213f_datasheet}, da einige Speicherbereiche für Systemfunktionen wie die UID, Konfiguration und Sicherheitsmechanismen reserviert sind. Das genügt für das Schreiben von binärcodierten Zuständen und Tracking-Positionen auf den Tag. Entsprechend wurde eine Codierungstabelle in \autoref{sec:systementwurf} ausgearbeitet. 
+
+\subsection{NFC-Lesegeräte}
+
+Da nach der Auswahl des NFC-Tags eine entsprechende Kompatibilität gewährleistet sein muss, reduziert sich die Vielfalt an geeigneten Lesegeräten. Aus diesem Grund wurde auf eine detaillierte Nutzwertanalyse verzichtet, da es sich nicht um gleichwertig vergleichbare Alternativen handelt, sondern primär um die Auswahl eines technisch kompatiblen und verfügbaren Bauteils.
+
+Insbesondere muss das NFC-Lesegerät den Frequenzbereich von 13{,}56\,MHz unterstützen und mit ISO/IEC 14443 Typ~A kompatibel sein, um mit dem gewählten NTAG213-Tag kommunizieren zu können. Zusätzlich waren Kriterien wie Verfügbarkeit, Preis und Schnittstellenunterstützung entscheidend.
+
+Der PN532 von NXP hat sich als geeignete Wahl erwiesen. Das Modul unterstützt sowohl I\textsuperscript{2}C als auch SPI als Kommunikationsschnittstelle und bietet eine effektive Reichweite von ca. 5–10\,cm. Diese ist für das vorliegende System ausreichend, da die Produkte gezielt an den Sensorstationen positioniert werden und dort die Datenübertragung stattfindet.
+
+Als bevorzugte Schnittstelle zwischen Mikrocontroller und NFC-Modul wurde SPI gewählt, da sie gegenüber I\textsuperscript{2}C eine höhere Datenrate, robustere Signalübertragung und eine bessere Unterstützung bei Echtzeitanforderungen bietet.
+
+
+\subsection{Controller-Einheiten}
+
+\begin{table}[H]
+	\centering
+	\caption{Nutzwertanalyse zur Bewertung der Mikrocontroller(1 - 5, wobei 5: sehr gut)}
+	\label{tab:nwa_ctrl}
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		\textbf{Kriterium} & \textbf{Gewichtung} & \textbf{ESP8266} & \textbf{ESP32} \\ \hline
+		Rechenleistung          & 20\% & 3 & 5 \\ \hline
+		Energieverbrauch        & 25\% & 4 & 3 \\ \hline
+		Kommunikationsschnittstellen & 15\% & 3 & 5 \\ \hline
+		kabellos netzwerkfähig	& 20\% & 5 & 5 \\ \hline
+		Preis                   & 20\% & 5 & 4 \\ \hline
+		\textbf{Gesamtnutzwert} &       & \textbf{4,05} & \textbf{4,3} \\ \hline
+	\end{tabular}
+\end{table}
+
+Die Nutzwertanalyse wurde hier explizit mit zwei verschiedenen Mikrocontrollern durchgeführt. Beide bieten die Möglichkeit Anwendungen mit geringem Komplexitätsgrad zu implementieren, besitzen außerdem Netzwerkfähigkeit, großen Softwaresupport und sind sehr Verfügbar. Deshalb wurde die Nutzwertanalyse der Mikrocontroller insbesondere auf diese beiden Typen fokussiert [\ref{tab:nwa_ctrl}]. 
+
+Das Ergebnis zeigt, dass das ESP32-Modul bemessen am Punktwert besser abschneidet. Dennoch wurde sich in dieser Arbeit für das ESP8266-Modul entschieden, da einige Eigenschaften des ESP32 Modul nicht notwendigerweise benötigt werden. Vergleichsweise ist der ESP8266-Controller mit einem CPU-Core aufgesetzt, der ESP32 hingegen mit zwei. Das ermöglicht eine höhere Rechenleistung und außerdem Multithreading. Das heißt unterschiedliche Aufgaben können parallel abgearbeitet werden, was beispielsweise bei einem Empfang und schreiben einer MQTT Nachricht hilfreich sein könnte. Da jedoch die Nachricht von der Einheit erst vollständig empfangen werden muss, bevor sie geschrieben werden kann, kann ein solches Problem auch sequenziell mit einen Interrupt gelöst werden und benötigt nicht zwangsweise einen weiteren Core. 
+
+Außerdem schneidet der ESP32 im Bereich Kommunikaitonsshcnittstellen deutlich besser ab. Beide Einheiten besitzen jedoch SPI, was für diese Anwendung ausreicht.
+
+
+\subsection{Zentraleinheit: Raspberry Pi}
+
+Für die zentrale Erfassung und Verarbeitung der MQTT-Nachrichten wurde ein Raspberry Pi gewählt. Dieser erfüllt die Anforderungen an Netzwerkkommunikation, permanente Systemlaufzeit sowie eine ausreichende Rechenkapazität zur Steuerung und Visualisierung der Produktionsdaten. Eine Einordnung in die Nutzwertanalyse der Mikrocontroller erfolgte nicht, da der Raspberry Pi in einer anderen Systemebene agiert.
+
+
 
 \section{Systementwurf}
 \label{sec:systementwurf}
