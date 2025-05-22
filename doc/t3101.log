@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.17)  19 MAY 2025 23:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.17)  22 MAY 2025 23:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1536,6 +1536,14 @@ File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
 s/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
 \@indexfile=\write6
 \openout6 = `t3101.idx'.
 
@@ -1544,12 +1552,12 @@ Writing index file t3101.idx
 \@nomenclaturefile=\write7
 \openout7 = `t3101.nlo'.
 
-Package nomencl Info: Writing nomenclature file t3101.nlo on input line 197.
+Package nomencl Info: Writing nomenclature file t3101.nlo on input line 202.
 \glswrite=\write8
 \glo@main@file=\write9
 \openout9 = `t3101.glo'.
 
-Package glossaries Info: Writing glossary file t3101.glo on input line 198.
+Package glossaries Info: Writing glossary file t3101.glo on input line 203.
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
@@ -1560,24 +1568,24 @@ Package csquotes Info: Redefining alias 'default' -> 'ngerman'.
 (./chapter/zusammenfassung.aux) (./chapter/anhang.aux))
 \openout1 = `t3101.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 208.
+LaTeX Font Info:    ... okay on input line 208.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 208.
+LaTeX Font Info:    ... okay on input line 208.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 208.
+LaTeX Font Info:    ... okay on input line 208.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 208.
+LaTeX Font Info:    ... okay on input line 208.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 208.
+LaTeX Font Info:    ... okay on input line 208.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 208.
+LaTeX Font Info:    ... okay on input line 208.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 208.
+LaTeX Font Info:    ... okay on input line 208.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 208.
+LaTeX Font Info:    ... okay on input line 208.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 208.
+LaTeX Font Info:    ... okay on input line 208.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/translations/translations-basic-d
 ictionary-german.trsl
@@ -1585,7 +1593,7 @@ File: translations-basic-dictionary-german.trsl (german translation file `trans
 lations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' f
-or `german'. on input line 203.
+or `german'. on input line 208.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1611,7 +1619,7 @@ e
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: Option `justification=RaggedRight' requires the `ragged2e
-' package on input line 203.
+' package on input line 208.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/ragged2e/ragged2e.sty
 Package: ragged2e 2023/06/22 v3.6 ragged2e Package
@@ -1665,8 +1673,8 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 't3101.bbl' found.
 
 (./t3101.bbl)
-Package biblatex Info: Reference section=0 on input line 203.
-Package biblatex Info: Reference segment=0 on input line 203.
+Package biblatex Info: Reference section=0 on input line 208.
+Package biblatex Info: Reference segment=0 on input line 208.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
@@ -1686,7 +1694,7 @@ onal on input line 72.
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
-Package hyperref Info: Link coloring OFF on input line 203.
+Package hyperref Info: Link coloring OFF on input line 208.
  (./t3101.out) (./t3101.out)
 \@outlinefile=\write10
 \openout10 = `t3101.out'.
@@ -1698,7 +1706,7 @@ Class scrbook Info: loading recommended package `bookmark'.
 (scrbook)           `bookmarkpackage=false' before \begin{document} and
 (scrbook)           you can avoid this message adding:
 (scrbook)             \usepackage{bookmark}
-(scrbook)           before \begin{document} on input line 203.
+(scrbook)           before \begin{document} on input line 208.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
@@ -1709,14 +1717,14 @@ File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO
 \BKM@id=\count536
 ))
 \c@lstlisting=\count537
-Package tocbasic Info: setting babel extension for `lol' on input line 203.
+Package tocbasic Info: setting babel extension for `lol' on input line 208.
 \scr@dte@lstlisting@maxnumwidth=\skip128
 
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
-Package scrbase Info: activating ngerman \contentsname on input line 203.
-Package scrbase Info: activating ngerman \bibname on input line 203.
+Package scrbase Info: activating ngerman \contentsname on input line 208.
+Package scrbase Info: activating ngerman \bibname on input line 208.
 \openout2 = `pages/titelseite.aux'.
 
 (./pages/titelseite.tex
@@ -1978,19 +1986,13 @@ Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
 [11]
-
-
-Overfull \vbox (1.76944pt too high) has occurred while \output is active []
-
-
-[12]
 \openout2 = `chapter/vorgehen.aux'.
 
  (./chapter/vorgehen.tex
 chapter 3.
 
 
-[13
+[12
 
 
 
@@ -2002,13 +2004,13 @@ chapter 3.
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[14]
+[13]
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[15]
+[14]
 Underfull \hbox (badness 10000) in paragraph at lines 78--78
 []|\T1/cmr/bx/n/12 Tag-
  []
@@ -2124,6 +2126,12 @@ Overfull \hbox (21.43387pt too wide) in paragraph at lines 97--108
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
+[15]
+
+
+Overfull \vbox (1.76944pt too high) has occurred while \output is active []
+
+
 [16]
 
 
@@ -2131,31 +2139,51 @@ Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
 [17]
-Overfull \hbox (12.38295pt too wide) in paragraph at lines 145--146
-\T1/cmr/m/n/12 Für die zen-tra-le Er-fas-sung und Ver-ar-bei-tung der MQTT-Nach
-richten wur-de ein Raspber-
- []
-
-)
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
 [18]
+<images/Systemarchitektur.png, id=276, 609.477pt x 367.3725pt>
+File: images/Systemarchitektur.png Graphic file (type png)
+<use images/Systemarchitektur.png>
+Package pdftex.def Info: images/Systemarchitektur.png  used on input line 168.
+(pdftex.def)             Requested size: 348.2631pt x 209.92021pt.
+
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[19]
+[19 <./images/Systemarchitektur.png>]
+
+
+Overfull \vbox (1.76944pt too high) has occurred while \output is active []
+
+
+[20] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
+))
+
+
+Overfull \vbox (1.76944pt too high) has occurred while \output is active []
+
+
+[21]
 \openout2 = `chapter/umsetzung.aux'.
 
  (./chapter/umsetzung.tex
 chapter 4.
 )
 
-[20
+[22
 
 
 
@@ -2168,7 +2196,7 @@ chapter 4.
 chapter 5.
 )
 
-[21
+[23
 
 
 
@@ -2177,21 +2205,21 @@ chapter 5.
 ]
 chapter without number
 
-Overfull \hbox (37.5821pt too wide) in paragraph at lines 236--236
+Overfull \hbox (37.5821pt too wide) in paragraph at lines 241--241
 []\T1/cmr/m/n/12 Siemens AG. \T1/cmr/m/it/12 SCE Lern-pfad: Über-sicht der ver-
 füg-ba-ren SCE-Lern-/Lehrunterlagen\T1/cmr/m/n/12 .
  []
 
 
 
-[22
+[24
 
 
 
 
 ] (./pages/abkuerzungen.tex) (./t3101.nls)
 
-[23
+[25
 
 
 
@@ -2201,7 +2229,7 @@ füg-ba-ren SCE-Lern-/Lehrunterlagen\T1/cmr/m/n/12 .
 
 
 
-[24
+[26
 
 
 
@@ -2211,7 +2239,7 @@ füg-ba-ren SCE-Lern-/Lehrunterlagen\T1/cmr/m/n/12 .
 
 
 
-[25
+[27
 
 
 
@@ -2227,30 +2255,30 @@ Overfull \hbox (2.2323pt too wide) in paragraph at lines 11--25
 
 
 
-[26
-
-
-
-
-]
-chapter without number
-
-
-[27
-
-
-]
-chapter without number
-
-
 [28
+
+
+
+
+]
+chapter without number
+
+
+[29
+
+
+]
+chapter without number
+
+
+[30
 
 
 ]
 chapter without number
 Excluding 'comment' comment.)
 
-[29
+[31
 
 
 ]
@@ -2275,10 +2303,10 @@ Package logreq Info: Writing requests to 't3101.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 60338 strings out of 473190
- 1396280 string characters out of 5715800
- 2523956 words of memory out of 5000000
- 82569 multiletter control sequences out of 15000+600000
+ 61020 strings out of 473190
+ 1411642 string characters out of 5715800
+ 2544605 words of memory out of 5000000
+ 83229 multiletter control sequences out of 15000+600000
  576773 words of font info for 69 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  108i,11n,122p,10918b,3249s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2301,10 +2329,10 @@ xmf-dist/fonts/type1/public/cm-super/sfsx2074.pfb></usr/local/texlive/2025/texm
 f-dist/fonts/type1/public/cm-super/sfsx2488.pfb></usr/local/texlive/2025/texmf-
 dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-di
 st/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on t3101.pdf (36 pages, 435164 bytes).
+Output written on t3101.pdf (38 pages, 509808 bytes).
 PDF statistics:
- 589 PDF objects out of 1000 (max. 8388607)
- 503 compressed objects within 6 object streams
- 107 named destinations out of 1000 (max. 500000)
- 354 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 633 PDF objects out of 1000 (max. 8388607)
+ 543 compressed objects within 6 object streams
+ 116 named destinations out of 1000 (max. 500000)
+ 375 words of extra memory for PDF output out of 10000 (max. 10000000)
 

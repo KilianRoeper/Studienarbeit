@@ -184,7 +184,12 @@ marginal
 \usepgfplotslibrary{smithchart}
 \usepackage{tikz}						% Tikz sollte nach Listings Pakete geladen werden.
 \usetikzlibrary{arrows}
-\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+
+\tikzstyle{component} = [rectangle, rounded corners, minimum width=2.8cm, minimum height=1cm,text centered, draw=black, fill=blue!10]
+\tikzstyle{mqtt} = [->, thick, dashed, color=blue]
+\tikzstyle{wired} = [->, thick, color=black]
+\tikzstyle{legendbox} = [rectangle, draw=none, fill=none, font=\small]
 
 
 \hyphenation{Schrift-ar-ten}

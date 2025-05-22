@@ -115,6 +115,7 @@ MQTT bietet drei verschiedene Stufen der Nachrichten-Zustellungssicherheit (Qual
 \end{itemize}
 
 \section{Node-Red - Eine Steuerungs- und Visualisierungssoftware}
+\label{sec:mes}
 
 Node-RED ist ein von IBM entwickeltes Open-Source-Tool zur visuellen Programmierung, das auf Node.js basiert. Es ermöglicht die Erstellung von Anwendungen durch das Verbinden sogenannter Nodes in einem webbasierten Editor. Ursprünglich für das Internet der Dinge (IoT) konzipiert, findet Node-RED heute Anwendung in Bereichen wie Heimautomation, industrieller Steuerung und Datenintegration \autocite{nodered_official}. 
 
@@ -223,6 +224,7 @@ Ein Beispiel in \textit{Structured Text (ST)} zeigt eine einfache UND-Verknüpfu
 	END_IF;
 \end{lstlisting}
 
-\subsection{Einsatz im Kontext dieser Arbeit}
+\section{Serial Peripheral Protocoll (SPI)}
+\label{sec:spi}
 
-In dieser Arbeit wird eine SPS zur Steuerung einzelner Aktoren innerhalb eines Bandumlaufsystems verwendet. Die Steuerung wird über digitale Ein- und Ausgänge realisiert, während Status- und Diagnosedaten über ein MQTT-Gateway von einem zentralen Raspberry Pi übertragen werden sollen. Die genaue Anbindung sowie die Realisierung der Schnittstelle zwischen Raspberry Pi und SPS werden in \autoref{cha:umsetzung} detailliert beschrieben.
+

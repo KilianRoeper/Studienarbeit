@@ -62,7 +62,7 @@ Nachdem die Funktion des Systems ermittelt wurde, sollen entsprechende technisch
 
 
 
-\section{Hardwarebewertung mithilfe einer Nutzwertanalyse}
+\section{Hardwarebewertung mithilfe der Nutzwertanalyse}
 \label{sec:hardwarebewertung}
 Die zur Auswahl nötige Bewertung der Hardware soll basierend auf einer Nutzwertanalyse passieren. Drei verschiedene Hardwareklassen sollen betrachtet werden, um den Systemebenen Hardwarekomponenten zuweisen zu können. Dazu gehören die NFC-Tags, die NFC-Lesegeräte und die Controller-Einheiten. 
 
@@ -129,27 +129,99 @@ Als bevorzugte Schnittstelle zwischen Mikrocontroller und NFC-Modul wurde SPI ge
 	\begin{tabular}{|l|c|c|c|}
 		\hline
 		\textbf{Kriterium} & \textbf{Gewichtung} & \textbf{ESP8266} & \textbf{ESP32} \\ \hline
-		Rechenleistung          & 20\% & 3 & 5 \\ \hline
-		Energieverbrauch        & 25\% & 4 & 3 \\ \hline
-		Kommunikationsschnittstellen & 15\% & 3 & 5 \\ \hline
-		kabellos netzwerkfähig	& 20\% & 5 & 5 \\ \hline
+		Rechenleistung          & 20\% & 3 & 5 			\\ \hline
+		Energieverbrauch        & 25\% & 4 & 3 		\\ \hline \hline
+ 		GPIO-Pins                     & 15\% & 3 & 5      \\ \hline
+		kabellos netzwerkfähig	& 20\% & 5 & 5 	\\ \hline
 		Preis                   & 20\% & 5 & 4 \\ \hline
 		\textbf{Gesamtnutzwert} &       & \textbf{4,05} & \textbf{4,3} \\ \hline
 	\end{tabular}
 \end{table}
 
-Die Nutzwertanalyse wurde hier explizit mit zwei verschiedenen Mikrocontrollern durchgeführt. Beide bieten die Möglichkeit Anwendungen mit geringem Komplexitätsgrad zu implementieren, besitzen außerdem Netzwerkfähigkeit, großen Softwaresupport und sind sehr Verfügbar. Deshalb wurde die Nutzwertanalyse der Mikrocontroller insbesondere auf diese beiden Typen fokussiert [\ref{tab:nwa_ctrl}]. 
+Die Nutzwertanalyse wurde auf zwei Mikrocontroller eingegrenzt: den ESP8266 und den ESP32. Beide Module bieten eine solide Grundlage zur Implementierung von Anwendungen mit geringer bis mittlerer Komplexität, verfügen über integrierte Netzwerkschnittstellen, sind breit verfügbar und gut dokumentiert (vgl. Tabelle~\ref{tab:nwa_ctrl}). Aufgrund dieser Gemeinsamkeiten wurde auf die Einbeziehung weiterer Hardwarevarianten verzichtet.
 
-Das Ergebnis zeigt, dass das ESP32-Modul bemessen am Punktwert besser abschneidet. Dennoch wurde sich in dieser Arbeit für das ESP8266-Modul entschieden, da einige Eigenschaften des ESP32 Modul nicht notwendigerweise benötigt werden. Vergleichsweise ist der ESP8266-Controller mit einem CPU-Core aufgesetzt, der ESP32 hingegen mit zwei. Das ermöglicht eine höhere Rechenleistung und außerdem Multithreading. Das heißt unterschiedliche Aufgaben können parallel abgearbeitet werden, was beispielsweise bei einem Empfang und schreiben einer MQTT Nachricht hilfreich sein könnte. Da jedoch die Nachricht von der Einheit erst vollständig empfangen werden muss, bevor sie geschrieben werden kann, kann ein solches Problem auch sequenziell mit einen Interrupt gelöst werden und benötigt nicht zwangsweise einen weiteren Core. 
+Das Ergebnis der Analyse zeigt, dass der ESP32 insgesamt eine höhere Nutzwertpunktzahl erreicht. Dennoch fiel die Entscheidung in diesem Projekt zugunsten des ESP8266 aus, da einige der Stärken des ESP32 für den vorliegenden Anwendungsfall nicht ausschlaggebend sind.
 
-Außerdem schneidet der ESP32 im Bereich Kommunikaitonsshcnittstellen deutlich besser ab. Beide Einheiten besitzen jedoch SPI, was für diese Anwendung ausreicht.
+So verfügt der ESP32 über zwei CPU-Kerne, wodurch parallele Prozesse (Multithreading) möglich werden. Dies kann bei gleichzeitiger Verarbeitung von Kommunikations- und Steuerungsaufgaben vorteilhaft sein. Im betrachteten System ist jedoch eine sequenzielle Verarbeitung – etwa durch Interrupt-gesteuerte Abläufe – ausreichend, da beispielsweise das Schreiben auf einen NFC-Tag erst nach vollständigem Empfang der Nachricht über MQTT erfolgt. Somit ergibt sich hier kein zwingender Vorteil für die Mehrkernarchitektur.
 
+Ein weiterer Unterschied besteht in der Anzahl der verfügbaren GPIO-Pins: Der ESP32 bietet mehr konfigurierbare Pins, was insbesondere bei komplexeren Schaltungen hilfreich sein kann. Beim ESP8266 hingegen kam es im Testbetrieb vereinzelt zu Einschränkungen aufgrund mehrfach belegter Pins. Beispielsweise musste das Slave-Select-Signal des SPI-Busses auf einen alternativen Pin gelegt werden, da die ursprüngliche Konfiguration den Flash-Vorgang blockierte. Dennoch stehen auch beim ESP8266 ausreichend Pins zur Verfügung, um die Anforderungen dieses Projekts zuverlässig zu erfüllen.
+
+Hinsichtlich Energieverbrauch und Preis schneidet der ESP8266 besser ab. Diese Vorteile sind auf den geringeren Systemumfang und die reduzierte Hardwarekomplexität zurückzuführen – ein relevantes Kriterium für ressourcenschonende Embedded-Anwendungen. Insgesamt erfüllt der ESP8266 damit alle funktionalen Anforderungen des Systems und stellt eine technisch sinnvolle Wahl dar, um mit dem NFC-Lesegerät zu kommunizieren. Der ESP32 wäre jedoch ebenfalls eine geeignete Alternative mit erweiterter Funktionalität für zukünftige Skalierungen.
 
 \subsection{Zentraleinheit: Raspberry Pi}
 
-Für die zentrale Erfassung und Verarbeitung der MQTT-Nachrichten wurde ein Raspberry Pi gewählt. Dieser erfüllt die Anforderungen an Netzwerkkommunikation, permanente Systemlaufzeit sowie eine ausreichende Rechenkapazität zur Steuerung und Visualisierung der Produktionsdaten. Eine Einordnung in die Nutzwertanalyse der Mikrocontroller erfolgte nicht, da der Raspberry Pi in einer anderen Systemebene agiert.
+
+Für die zentrale Verarbeitung und Weiterleitung der MQTT-Nachrichten wurde ein Raspberry Pi 3B+ als Systemzentrale eingesetzt. Dieses Gerät erfüllt die Anforderungen an eine kontinuierliche Betriebsbereitschaft, stabile Netzwerkkommunikation und eine ausreichende Rechenleistung für die Verwaltung eines erhöhten Nachrichtendurchsatzes. 
+
+Eine Einbeziehung des Raspberry Pi in die zuvor dargestellte Nutzwertanalyse der Mikrocontroller erfolgte bewusst nicht, da er auf einer übergeordneten Systemebene agiert. Während die Mikrocontroller-Einheiten an den Stationen in direktem Kontakt mit den Sensoren stehen und deren Steuerung übernehmen, fungiert der Raspberry Pi als dedizierte Zentraleinheit zur Aggregation und Verteilung der Systemdaten über das MQTT-Protokoll.
+
+Aufgrund der ausgezeichneten Softwareunterstützung, der nativen Kompatibilität mit MQTT-Broker-Implementierungen (z.~B. Mosquitto) sowie der Möglichkeit zur einfachen Netzwerk- und Systemintegration wurde auf eine vergleichende Analyse alternativer Hardwareplattformen verzichtet. Der Raspberry Pi stellte hier eine erprobte und funktional bewährte Lösung dar.
 
 
 
 \section{Systementwurf}
 \label{sec:systementwurf}
+
+\subsection{Organisation der Hardwarekomponenten}
+\begin{figure}[H] % [H] nur mit \usepackage{float}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/Systemarchitektur.png}
+	\caption{Systemarchitektur des NFC-Tracking-Systems (MCU: Microcontroller Unit --> ESP8266)}
+	\label{fig:systemarchitektur}
+\end{figure}
+
+
+Die Hardwarekomponenten des Systems sind entsprechend der in Abbildung \ref{fig:systemarchitektur} dargestellten Architektur organisiert. Ab den Mikrocontrollern erfolgt der Informationsaustausch über das MQTT-Protokoll (vgl. Abschnitt \autoref{sec:mqtt}). Die ESP8266-Mikrocontroller sind über das SPI-Protokoll (Serial Peripheral Interface, vgl. \autoref{sec:spi}) mit den jeweiligen NFC-Lesegeräten (vgl. \autoref{sec:nfc}) verbunden und kommunizieren anschließend drahtlos mit dem zentralen Raspberry Pi.
+
+Der Raspberry Pi fungiert als zentrale Einheit und ist ebenfalls drahtlos mit der speicherprogrammierbaren Steuerung (SPS, vgl. \autoref{sec:sps}) sowie mit dem MES-System (Manufacturing Execution System, vgl. \autoref{sec:mes}) verbunden. Das MES-System setzt sich in dieser Projektbeschreibung ausschließlich aus dem Node-Red-Dashboard zusammen, beinhaltet aber noch weitere Systemkomponenten. 
+
+\subsection{Speicherorganisation der NFC-Tags}
+
+\begin{table}[H]
+	\centering
+	\caption{Mögliche Zustände im Tracking-Block}
+	\label{tab:tracking_states}
+	\begin{tabular}{|c|l|}
+		\hline
+		\textbf{Hex-Wert} & \textbf{Zustand} \\ \hline
+		0x01 & to\_shelf \\ \hline
+		0x02 & at\_shelf \\ \hline
+		0x03 & in\_shelf \\ \hline
+		0x04 & to\_screwing \\ \hline
+		0x05 & at\_screwing \\ \hline
+		0x06 & to\_eol \\ \hline
+		0x07 & at\_eol \\ \hline
+		0x08 & at\_assembling \\ \hline
+		0x09 & to\_assembling \\ \hline
+	\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+	\centering
+	\caption{Zuordnung der Speicherbereiche auf dem NFC-Tag}
+	\label{tab:tag_blocks}
+	\begin{tabular}{|l|c|}
+		\hline
+		\textbf{Datenfeld} & \textbf{Speicherblock (Hex-Adresse)} \\ \hline
+		UID & 0x0A \\ \hline
+		assembling & 0x0B \\ \hline
+		shelf & 0x0C \\ \hline
+		screwing & 0x0D \\ \hline
+		end\_of\_line & 0x0E \\ \hline
+		tracking & 0x0F \\ \hline
+	\end{tabular}
+\end{table}
+
+
+Die Zustände der verschiedenen Stationen werden auf dem NFC-Tag in vordefinierte Speicherblöcke geschrieben (siehe Tabelle~\ref{tab:tag_blocks}). Zur Speicherung eines neuen Zustands, beispielsweise des Montagezustands, wird die folgende Methode verwendet:
+
+\begin{lstlisting}[language=C++, caption={Speicherung eines Zustands im Speicherblock \texttt{ASSEMBLING\_BLOCK}}, label={lst:nfc_write}]
+	success = nfc.mifareultralight_WritePage(ASSEMBLING_BLOCK, io_state_temp);
+\end{lstlisting}
+
+Dabei bezeichnet \texttt{ASSEMBLING\_BLOCK} die Adresse des zu beschreibenden Speicherbereichs (Block \texttt{0x0B}), und \texttt{io\_state\_temp} enthält den zu speichernden Wert, z.\,B. den aktuellen Zustand als 4-Byte-Wort. Die Funktion \texttt{mifareultralight\_WritePage()} gibt an, ob der Schreibvorgang erfolgreich war.
+
+Diese Methode wird für jede Station analog verwendet, wobei jeweils der entsprechende Block gewählt wird.
+
+

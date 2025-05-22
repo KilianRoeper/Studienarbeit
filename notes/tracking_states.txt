@@ -17,10 +17,10 @@ ntpd Server chrony
 blocks in tag:
 
 UID:		    0xA
-assembling: 	0xB
+assembling: 	    0xB
 shelf:		    0xC
 screwing:	    0xD
-end_of_line:    0xE
+end_of_line:        0xE
 tracking: 	    0xF
 
 
