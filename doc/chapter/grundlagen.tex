@@ -68,6 +68,7 @@ Das Protokoll wurde mit dem Ziel entwickelt, eine möglichst leichtgewichtige un
 Im Folgenden werden die zentralen Konzepte des Protokolls näher erläutert: das Publish-/Subscribe-Prinzip, die Rollen von Client und Broker sowie die verschiedenen Quality-of-Service-Stufen.
 
 \subsection*{Publish-/Subscribe-Prinzip}
+\label{sub:pub_sub_mqtt}
 
 MQTT basiert auf einem Publish-/Subscribe-Modell. Ein \emph{Publisher} sendet Nachrichten an ein bestimmtes \emph{Topic}, ohne dabei explizit anzugeben, wer diese Nachrichten empfangen soll. Topics dienen in MQTT als hierarchisches Adressierungsschema zur Organisation von Nachrichten. Sie sind UTF-8-kodierte Strings, die durch Schrägstriche ("/") strukturiert sind, z.B. \texttt{sensor/temperatur/wohnzimmer}. Ein \emph{Subscriber} hingegen abonniert ein oder mehrere Topics und erhält automatisch alle Nachrichten, die zu diesen Topics veröffentlicht werden [\autoref{fig:mqtt_pubsub}].
 

@@ -33,6 +33,41 @@ Im Rahmen dieser Arbeit wurden Künstliche Intelligenz (KI)\index{Künstliche In
 
 \section{Ausführung von Quellcode}
 
+\begin{lstlisting}[caption = MQTT-receive-Funktion vom MCU an der Werkerassistenzstation. ,label=lst:assembling_mqtt_receive]
+	void onMqttMessage(int messageSize) {
+		// we received a message, print out the topic and contents
+		DEBUG_PRINTLN("Received a message with topic '");
+		DEBUG_PRINT(mqttClient.messageTopic());
+		DEBUG_PRINT("', length ");
+		DEBUG_PRINT(messageSize);
+		DEBUG_PRINTLN(" bytes:");
+		
+		String receivedData = "";
+		// use the Stream interface to print the contents
+		while (mqttClient.available()) {
+			receivedData += (char)mqttClient.read();
+		}
+		DEBUG_PRINT(receivedData);
+		DEBUG_PRINTLN();
+		DEBUG_PRINTLN();
+		
+		if(receivedData == "iO"){
+			io_state_temp[0] = 0x00;
+			io_state_temp[1] = 0x00;
+			io_state_temp[2] = 0x00;
+			io_state_temp[3] = 0x01;
+		}
+		else{
+			io_state_temp[0] = 0x00;
+			io_state_temp[1] = 0x00;
+			io_state_temp[2] = 0x00;
+			io_state_temp[3] = 0x00;
+		}
+		mqtt_message = true;
+	}
+\end{lstlisting}
+
+
 \addchap{C Details zu Laboraufbauten und Messergebnissen}
 \setcounter{chapter}{3}
 \setcounter{section}{0}
