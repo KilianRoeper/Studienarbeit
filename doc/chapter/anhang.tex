@@ -24,87 +24,110 @@ Im Rahmen dieser Arbeit wurden Künstliche Intelligenz (KI)\index{Künstliche In
 	\end{tabular} 
 \end{table}
 
-\addchap{B Ergänzungen}
+\addchap{B Ergänzungen - Ausführung von Quellcode}
 \setcounter{chapter}{2}
 
-\section{Details zu bestimmten theoretischen Grundlagen}
-
-\section{Weitere Details, welche im Hauptteil den Lesefluss behindern}
-
-\section{Ausführung von Quellcode}
-
-\begin{lstlisting}[caption = MQTT-receive-Funktion vom MCU an der Werkerassistenzstation. ,label=lst:assembling_mqtt_receive]
-	void onMqttMessage(int messageSize) {
-		// we received a message, print out the topic and contents
-		DEBUG_PRINTLN("Received a message with topic '");
-		DEBUG_PRINT(mqttClient.messageTopic());
-		DEBUG_PRINT("', length ");
-		DEBUG_PRINT(messageSize);
-		DEBUG_PRINTLN(" bytes:");
+\begin{lstlisting}[language=C, caption = {Arduino-Loop-Funktion des ESP8266 an der Werkerassistenzstation. Vollständiger Code: \href{https://github.com/KilianRoeper/Studienarbeit/blob/main/NodeMCU/assembling/assembling.ino}{GitHub.com}},label=lst:assembling_loop]
+	void loop(void) {
+		// call poll() regularly to allow the library to receive MQTT messages and
+		// send MQTT keep alive which avoids being disconnected from the broker
+		mqttClient.poll();
 		
-		String receivedData = "";
-		// use the Stream interface to print the contents
-		while (mqttClient.available()) {
-			receivedData += (char)mqttClient.read();
-		}
-		DEBUG_PRINT(receivedData);
-		DEBUG_PRINTLN();
-		DEBUG_PRINTLN();
+		// set write-success variable
+		uint8_t success = false;
 		
-		if(receivedData == "iO"){
-			io_state_temp[0] = 0x00;
-			io_state_temp[1] = 0x00;
-			io_state_temp[2] = 0x00;
-			io_state_temp[3] = 0x01;
+		// wait until a tag is found
+		bool currentTagState = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
+		if(currentTagState) {
+			if(!start_detached){
+				// handle in-scope timer
+				if (!found_tag){
+					found_tag = true;
+					inscope_start_time = millis();
+				}
+				DEBUG_PRINT("tag found - time in scope [ms]: ");
+				DEBUG_PRINTLN(millis() - inscope_start_time);
+				if (millis() - inscope_start_time >= INSCOPE_TIME){
+					DEBUG_PRINT("INSCOPE_TIME reached after [ms]: ");
+					DEBUG_PRINTLN(millis() - inscope_start_time);
+					DEBUG_PRINTLN("tag is kept at station");
+					found_tag = false;
+					start_detached = true;
+				}
+			}
+			// handle functionality for a recognized tag
+			if (start_inscope | mqtt_message){
+				start_inscope = false;
+				mqtt_message = false;
+				
+				if (uidLength == 7) {
+					
+					// processing assembling state
+					success = nfc.mifareultralight_WritePage(ASSEMBLING_BLOCK, io_state_temp);
+					if (success) {
+						memcpy(io_state, io_state_temp, sizeof(io_state_temp));
+						print_block("Assembling state", ASSEMBLING_BLOCK, io_state, nfc);
+					}
+					else {
+						DEBUG_PRINT("Unable to write to block ");DEBUG_PRINTLN(ASSEMBLING_BLOCK);
+					}
+					io_state_temp[3] = 0x00;
+					
+					// processing UID
+					success = nfc.mifareultralight_ReadPage(UID_BLOCK, uid_data);
+					if (success) {
+						modify_uid_if_zero(UID_BLOCK, uid_data, nfc);
+					}
+					else {
+						DEBUG_PRINT("Unable to read/write page ");DEBUG_PRINTLN(UID_BLOCK);
+					}
+					
+					// processing tracking state -> to_shelf
+					success = nfc.mifareultralight_WritePage(TRACKING_BLOCK, to_tracking_data);
+					if (success) {
+						print_block("Tracking state", TRACKING_BLOCK, to_tracking_data, nfc);
+					}
+					else {
+						DEBUG_PRINT("Unable to write to page ");DEBUG_PRINTLN(TRACKING_BLOCK);
+					}
+					
+					// prepare and serialize the data
+					StaticJsonDocument<256> json_data;
+					String jsonString;
+					prepare_data(json_data, uid_data, &io_state[0], &at_tracking_data);
+					serializeJson(json_data, jsonString);
+					
+					// sending at_assembling via mqtt
+					DEBUG_PRINTLN("send data to PI - in scope");
+					mqttClient.beginMessage(topic_send);
+					mqttClient.print(jsonString);
+					mqttClient.endMessage();
+				}
+				else {
+					DEBUG_PRINTLN("This doesn't seem to be an NTAG2xx tag (UUID length != 7 bytes)!");
+				}
+			}
 		}
-		else{
-			io_state_temp[0] = 0x00;
-			io_state_temp[1] = 0x00;
-			io_state_temp[2] = 0x00;
-			io_state_temp[3] = 0x00;
+		// tag detached
+		else if(start_detached){
+			// prepare and serialize the data
+			StaticJsonDocument<256> json_data;
+			String jsonString;
+			prepare_data(json_data, uid_data, &io_state[0], &to_tracking_data[3]);
+			serializeJson(json_data, jsonString);
+			// send to shelf via mqtt
+			DEBUG_PRINTLN("send data to PI - detached");
+			mqttClient.beginMessage(topic_send);
+			mqttClient.print(jsonString);
+			mqttClient.endMessage();
+			// alter global logic
+			start_inscope = true;
+			start_detached = false;
 		}
-		mqtt_message = true;
+		else {
+			found_tag = false;
+			start_inscope = true;
+			DEBUG_PRINTLN("no tag found");
+		}
 	}
 \end{lstlisting}
-
-
-\addchap{C Details zu Laboraufbauten und Messergebnissen}
-\setcounter{chapter}{3}
-\setcounter{section}{0}
-\setcounter{table}{0}
-\setcounter{figure}{0}
-
-\section{Versuchsanordnung}
-
-\section{Liste der verwendeten Messgeräte}
-
-\section{Übersicht der Messergebnisse}
-
-\section{Schaltplan und Bild der Prototypenplatine}
-
-\addchap{D Zusatzinformationen zu verwendeter Software}
-\setcounter{chapter}{4}
-\setcounter{section}{0}
-\setcounter{table}{0}
-\setcounter{figure}{0}
-
-\section{Struktogramm des Programmentwurfs}
-
-\section{Wichtige Teile des Quellcodes}
-
-	%\addchap{E Datenblätter}
-	\setcounter{chapter}{5}
-	\setcounter{section}{0}
-	\setcounter{table}{0}
-	\setcounter{figure}{0}
-
-%\section{Einbinden von PDF-Seiten aus anderen Dokumenten}
-\begin{comment}	
-	Auf den folgenden Seiten wird eine Möglichkeit gezeigt, wie aus einem anderen PDF-Dokument komplette Seiten übernommen werden können, z.~B. zum Einbindungen von Datenblättern. Der Nachteil dieser Methode besteht darin, dass sämtliche Formateinstellungen (Kopfzeilen, Seitenzahlen, Ränder, etc.) auf diesen Seiten nicht angezeigt werden. Die Methode wird deshalb eher selten gewählt. Immerhin sorgt das Package \textit{\glqq pdfpages\grqq}~für eine korrekte Seitenzahleinstellung auf den im Anschluss folgenden \glqq nativen\grqq~\LaTeX-Seiten.
-	
-	Eine bessere Alternative ist, einzelne Seiten mit \textit{\glqq$\backslash$includegraphics\grqq}~einzubinden.
-	
-	\includepdf[pages={2-4}]{docs/EingebundenesPDF.pdf}
-\end{comment}
-
-%\clearpage

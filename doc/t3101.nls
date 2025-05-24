@@ -1,33 +1,21 @@
 
 \begin{thenomenclature} 
-\nomgroup{A}
-  \item [{$a$}]\begingroup Beschleunigung\nomeqref {5.0}\nompageref{10}
-  \item [{ABS}]\begingroup Antiblockiersystem\nomeqref {5.0}\nompageref{10}
 \nomgroup{E}
-  \item [{EMF}]\begingroup Enhanced Metafile\nomeqref {5.0}\nompageref{10}
-  \item [{ESC}]\begingroup Electronic Stability Control, Fahrdynamikregelung\nomeqref {5.0}\nompageref{10}
-  \item [{etc.}]\begingroup et cetera\nomeqref {5.0}\nompageref{10}
+  \item [{EMF}]\begingroup Enhanced Metafile\nomeqref {5.0}\nompageref{28}
+  \item [{etc.}]\begingroup et cetera\nomeqref {5.0}\nompageref{28}
 \nomgroup{F}
-  \item [{$F$}]\begingroup Kraft\nomeqref {5.0}\nompageref{10}
-  \item [{f.}]\begingroup folgende Seite\nomeqref {5.0}\nompageref{10}
-  \item [{ff.}]\begingroup fortfolgende Seiten\nomeqref {5.0}\nompageref{10}
+  \item [{f.}]\begingroup folgende Seite\nomeqref {5.0}\nompageref{28}
+  \item [{ff.}]\begingroup fortfolgende Seiten\nomeqref {5.0}\nompageref{28}
 \nomgroup{J}
-  \item [{JPG}]\begingroup Joint Photographic Experts Group\nomeqref {5.0}\nompageref{10}
+  \item [{JPG}]\begingroup Joint Photographic Experts Group\nomeqref {5.0}\nompageref{28}
 \nomgroup{K}
-  \item [{KI}]\begingroup Künstliche Intelligenz\nomeqref {5.0}\nompageref{10}
-\nomgroup{M}
-  \item [{$m$}]\begingroup Masse\nomeqref {5.0}\nompageref{10}
+  \item [{KI}]\begingroup Künstliche Intelligenz\nomeqref {5.0}\nompageref{28}
 \nomgroup{P}
-  \item [{$P$}]\begingroup Leistung\nomeqref {5.0}\nompageref{10}
-  \item [{PDF}]\begingroup Portable Document Format\nomeqref {5.0}\nompageref{10}
-  \item [{PNG}]\begingroup Portable Network Graphics\nomeqref {5.0}\nompageref{10}
-\nomgroup{R}
-  \item [{$R$}]\begingroup Widerstand\nomeqref {5.0}\nompageref{10}
-\nomgroup{U}
-  \item [{$U$}]\begingroup Spannung\nomeqref {5.0}\nompageref{10}
+  \item [{PDF}]\begingroup Portable Document Format\nomeqref {5.0}\nompageref{28}
+  \item [{PNG}]\begingroup Portable Network Graphics\nomeqref {5.0}\nompageref{28}
 \nomgroup{V}
-  \item [{vgl.}]\begingroup vergleiche\nomeqref {5.0}\nompageref{10}
+  \item [{vgl.}]\begingroup vergleiche\nomeqref {5.0}\nompageref{28}
 \nomgroup{Z}
-  \item [{z. B.}]\begingroup zum Beispiel\nomeqref {5.0}\nompageref{10}
+  \item [{z. B.}]\begingroup zum Beispiel\nomeqref {5.0}\nompageref{28}
 
 \end{thenomenclature}
