@@ -23,6 +23,7 @@ __pycache__
 *.nlg
 *.nlo
 *.nls
+*.ng
 *.out
 *.run.xml
 *.toc
@@ -32,3 +33,5 @@ __pycache__
 *.cb2
 .*.lb
 ._*
+
+.DS_Store
