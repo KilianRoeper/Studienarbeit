@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.17)  25 MAY 2025 01:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.17)  25 MAY 2025 15:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1560,11 +1560,6 @@ Writing index file t3101.idx
 \openout7 = `t3101.nlo'.
 
 Package nomencl Info: Writing nomenclature file t3101.nlo on input line 223.
-\glswrite=\write8
-\glo@main@file=\write9
-\openout9 = `t3101.glo'.
-
-Package glossaries Info: Writing glossary file t3101.glo on input line 224.
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
@@ -1703,8 +1698,8 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
 Package hyperref Info: Link coloring OFF on input line 229.
  (./t3101.out) (./t3101.out)
-\@outlinefile=\write10
-\openout10 = `t3101.out'.
+\@outlinefile=\write8
+\openout8 = `t3101.out'.
 
 Class scrbook Info: loading recommended package `bookmark'.
 (scrbook)           Using `bookmark' together with `hyperref' is recommended,
@@ -1750,8 +1745,6 @@ Overfull \hbox (14.3576pt too wide) in paragraph at lines 11--17
 
 
 [1
-
-\openout8 = `t3101.ist'.
 
 
 
@@ -1820,8 +1813,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--30
 
 
 ])
-\tf@toc=\write11
-\openout11 = `t3101.toc'.
+\tf@toc=\write9
+\openout9 = `t3101.toc'.
 
 
 
@@ -1986,26 +1979,31 @@ Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 [10] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
-))
+)
+<images/LMQTT.jpeg, id=204, 422.57875pt x 548.0475pt>
+File: images/LMQTT.jpeg Graphic file (type jpg)
+<use images/LMQTT.jpeg>
+Package pdftex.def Info: images/LMQTT.jpeg  used on input line 237.
+(pdftex.def)             Requested size: 261.19899pt x 338.75734pt.
+
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
 [11]
-\openout2 = `chapter/vorgehen.aux'.
-
- (./chapter/vorgehen.tex
-chapter 3.
 
 
-[12
+Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
+[12 <./images/LMQTT.jpeg>]
+<images/spi3.png, id=229, 405.515pt x 329.23pt>
+File: images/spi3.png Graphic file (type png)
+<use images/spi3.png>
+Package pdftex.def Info: images/spi3.png  used on input line 264.
+(pdftex.def)             Requested size: 348.2631pt x 282.7555pt.
 
-
-
-]
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
@@ -2017,7 +2015,38 @@ Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[14]
+[14 <./images/spi3.png>])
+
+
+Overfull \vbox (1.76944pt too high) has occurred while \output is active []
+
+
+[15]
+\openout2 = `chapter/vorgehen.aux'.
+
+ (./chapter/vorgehen.tex
+chapter 3.
+
+
+[16
+
+
+
+
+
+]
+
+
+Overfull \vbox (1.76944pt too high) has occurred while \output is active []
+
+
+[17]
+
+
+Overfull \vbox (1.76944pt too high) has occurred while \output is active []
+
+
+[18]
 Underfull \hbox (badness 10000) in paragraph at lines 78--78
 []|\T1/cmr/bx/n/12 Tag-
  []
@@ -2133,29 +2162,29 @@ Overfull \hbox (21.43387pt too wide) in paragraph at lines 97--108
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[15]
+[19]
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[16]
+[20]
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[17]
+[21]
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[18]
-<images/Systemarchitektur.png, id=255, 609.477pt x 367.3725pt>
+[22]
+<images/Systemarchitektur.png, id=298, 609.477pt x 367.3725pt>
 File: images/Systemarchitektur.png Graphic file (type png)
 <use images/Systemarchitektur.png>
-Package pdftex.def Info: images/Systemarchitektur.png  used on input line 168.
+Package pdftex.def Info: images/Systemarchitektur.png  used on input line 166.
 (pdftex.def)             Requested size: 348.2631pt x 209.92021pt.
 
 
@@ -2163,13 +2192,13 @@ Package pdftex.def Info: images/Systemarchitektur.png  used on input line 168.
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[19 <./images/Systemarchitektur.png>]
+[23 <./images/Systemarchitektur.png>]
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[20] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+[24] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -2183,14 +2212,14 @@ File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[21]
+[25]
 \openout2 = `chapter/umsetzung.aux'.
 
  (./chapter/umsetzung.tex
 chapter 4.
 
 
-[22
+[26
 
 
 
@@ -2202,26 +2231,26 @@ chapter 4.
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[23]
+[27]
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[24]
+[28]
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[25]
+[29]
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[26]
-<images/node-red-band.jpeg, id=338, 2783.39874pt x 1207.51125pt>
+[30]
+<images/node-red-band.jpeg, id=378, 2783.39874pt x 1207.51125pt>
 File: images/node-red-band.jpeg Graphic file (type jpg)
 <use images/node-red-band.jpeg>
 Package pdftex.def Info: images/node-red-band.jpeg  used on input line 167.
@@ -2232,8 +2261,8 @@ Package pdftex.def Info: images/node-red-band.jpeg  used on input line 167.
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[27]
-<images/node-red-flow-receive.png, id=356, 452.892pt x 154.176pt>
+[31]
+<images/node-red-flow-receive.png, id=395, 452.892pt x 154.176pt>
 File: images/node-red-flow-receive.png Graphic file (type png)
 <use images/node-red-flow-receive.png>
 Package pdftex.def Info: images/node-red-flow-receive.png  used on input line 1
@@ -2245,13 +2274,13 @@ Package pdftex.def Info: images/node-red-flow-receive.png  used on input line 1
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[28 <./images/node-red-band.jpeg>]
+[32 <./images/node-red-band.jpeg>]
 Overfull \hbox (4.14127pt too wide) in paragraph at lines 187--189
 \T1/cmr/m/n/12 Emp-fangs-lo-gik ist in []Ab-bil-dung 4.3[][] dar-ge-stellt. Da-
 bei wer-den vier ver-schie-de-ne MQTT-
  []
 
-<images/node-red-flow-send.png, id=364, 298.716pt x 163.20975pt>
+<images/node-red-flow-send.png, id=404, 298.716pt x 163.20975pt>
 File: images/node-red-flow-send.png Graphic file (type png)
 <use images/node-red-flow-send.png>
 Package pdftex.def Info: images/node-red-flow-send.png  used on input line 198.
@@ -2263,7 +2292,7 @@ Package pdftex.def Info: images/node-red-flow-send.png  used on input line 198.
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[29 <./images/node-red-flow-receive.png>]
+[33 <./images/node-red-flow-receive.png>]
 Overfull \hbox (65.16284pt too wide) in paragraph at lines 209--221
  [][] 
  []
@@ -2274,14 +2303,14 @@ Overfull \hbox (65.16284pt too wide) in paragraph at lines 209--221
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[30 <./images/node-red-flow-send.png>]
+[34 <./images/node-red-flow-send.png>]
 \openout2 = `chapter/zusammenfassung.aux'.
 
  (./chapter/zusammenfassung.tex
 chapter 5.
 )
 
-[31
+[35
 
 
 
@@ -2290,41 +2319,53 @@ chapter 5.
 ]
 chapter without number
 
-Overfull \hbox (37.5821pt too wide) in paragraph at lines 262--262
+Overfull \hbox (39.70937pt too wide) in paragraph at lines 262--262
 []\T1/cmr/m/n/12 Siemens AG. \T1/cmr/m/it/12 SCE Lern-pfad: Über-sicht der ver-
 füg-ba-ren SCE-Lern-/Lehrunterlagen\T1/cmr/m/n/12 .
  []
 
 
 
-[32
+[36
 
 
 
 
-] (./pages/abkuerzungen.tex) (./t3101.nls)
-
-[33
+]
 
 
-
-] (./t3101.lof)
-\tf@lof=\write12
-\openout12 = `t3101.lof'.
+Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
+[37] (./pages/abkuerzungen.tex) (./t3101.nls
 
-[34
+[38
+
+
+
+])
+
+
+Overfull \vbox (1.76944pt too high) has occurred while \output is active []
+
+
+[39] (./t3101.lof)
+\tf@lof=\write10
+\openout10 = `t3101.lof'.
+
+
+
+[40
 
 
 
 ] (./t3101.lot)
-\tf@lot=\write13
-\openout13 = `t3101.lot'.
+\tf@lot=\write11
+\openout11 = `t3101.lot'.
 
 
 
-[35
+[41
 
 
 
@@ -2340,7 +2381,7 @@ Overfull \hbox (2.2323pt too wide) in paragraph at lines 11--25
 
 
 
-[36
+[42
 
 
 
@@ -2349,7 +2390,7 @@ Overfull \hbox (2.2323pt too wide) in paragraph at lines 11--25
 chapter without number
 
 
-[37
+[43
 
 
 ]
@@ -2358,26 +2399,19 @@ chapter without number
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[38]
+[44]
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[39])
+[45])
 
 
 Overfull \vbox (1.76944pt too high) has occurred while \output is active []
 
 
-[40]
-No file t3101.ind.
-
-Package glossaries Warning: No \printglossary or \printglossaries found. 
-(Remove \makeglossaries if you don't want any glossaries.) 
-This document will not have a glossary.
-
-(./t3101.aux (./pages/titelseite.aux) (./pages/erklaerung.aux)
+[46] (./t3101.aux (./pages/titelseite.aux) (./pages/erklaerung.aux)
 (./chapter/abstract.aux) (./chapter/einleitung.aux) (./chapter/grundlagen.aux)
 (./chapter/vorgehen.aux) (./chapter/umsetzung.aux)
 (./chapter/zusammenfassung.aux) (./chapter/anhang.aux))
@@ -2392,13 +2426,13 @@ Package logreq Info: Writing requests to 't3101.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 61615 strings out of 473190
- 1422614 string characters out of 5715800
- 2754505 words of memory out of 5000000
- 83679 multiletter control sequences out of 15000+600000
+ 61647 strings out of 473190
+ 1423381 string characters out of 5715800
+ 2759018 words of memory out of 5000000
+ 83701 multiletter control sequences out of 15000+600000
  577421 words of font info for 71 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 108i,12n,122p,10918b,3249s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,12n,122p,10918b,3715s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></u
@@ -2419,10 +2453,10 @@ f-dist/fonts/type1/public/cm-super/sfsx2488.pfb></usr/local/texlive/2025/texmf-
 dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-di
 st/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2025/texmf-dist
 /fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on t3101.pdf (47 pages, 865896 bytes).
+Output written on t3101.pdf (53 pages, 964119 bytes).
 PDF statistics:
- 817 PDF objects out of 1000 (max. 8388607)
- 706 compressed objects within 8 object streams
- 252 named destinations out of 1000 (max. 500000)
- 302 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 894 PDF objects out of 1000 (max. 8388607)
+ 772 compressed objects within 8 object streams
+ 264 named destinations out of 1000 (max. 500000)
+ 336 words of extra memory for PDF output out of 10000 (max. 10000000)
 

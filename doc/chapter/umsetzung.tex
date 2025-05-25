@@ -3,7 +3,7 @@
 \section{Softwaredesign auf den Mikrocontrollern}
 \label{sec:Node-MCU}
 
-\subsection*{Softwarearchitektur und Designtools}
+\subsection{Softwarearchitektur und Designtools}
 
 Die Softwarearchitektur auf den eingesetzten ESP8266-Mikrocontrollern wurde mit der Arduino-IDE angefertigt. Sie gliedert sich in zwei Hauptkomponenten:
 
@@ -13,7 +13,7 @@ Die Softwarearchitektur auf den eingesetzten ESP8266-Mikrocontrollern wurde mit 
 \end{itemize}
 
 
-\subsection*{Systemstart und Initialisierung}
+\subsection{Systemstart und Initialisierung}
 
 Beim Systemstart werden zunächst globale Variablen und Objektinstanzen initialisiert, die für die spätere Kommunikation und Datenverarbeitung erforderlich sind [siehe \autoref{lst:init_globals}]. Dazu zählen:
 
@@ -62,7 +62,7 @@ Das MQTT-Objekt wird außerdem dazu genutzt eine Callback-Funktion zu registrier
 	mqttClient.subscribe(topic_receive);
 \end{lstlisting}
 
-\subsection*{Zustandsverarbeitung und Hauptschleife}
+\subsection{Zustandsverarbeitung und Hauptschleife}
 
 Die Hauptschleife folgt auf allen Mikrocontrollern der selben Logik wurde aber jeweils an die individuellen Anforderungen angepasst. Beispielsweise wird an der Werkerassistenzstation die UID eines Tags vergeben werden, falls es noch nicht geschehen ist. Ein Codeausschnitt dieser Station - explizit die Loop-Funktion - ist im Anhang festgehalten [siehe \autoref{lst:assembling_loop}].
 
@@ -140,7 +140,7 @@ Diese Logik wird fortlaufend in einer Schleife durchlaufen.
 
 \newpage
 
-\subsection*{Kommunikation über MQTT}
+\subsection{Kommunikation über MQTT}
 
 Die Kommunikation mit dem Dashboard erfolgt mithilfe eines Raspberry Pi über das MQTT-Protokoll. Jeder Mikrocontroller veröffentlicht Zustandsänderungen auf einem dedizierten Topic wie \texttt{rfid/shelf\_mcu\_send}. Die Daten werden im JSON-Format übertragen [siehe \autoref{lst:mqtt_json}].
 
@@ -213,7 +213,7 @@ Für Testzwecke wurde ein dedizierter Sende-Flow implementiert (\autoref{fig:sen
 		$rfid/shelf\_mcu\_send$ & Datenübertragung von der Lagerstation zum Dashboard \\ 
 		$rfid/assembling\_mcu\_send$ & Datenübertragung von der Montage-Station zum Dashboard \\ 
 		$rfid/screwing\_mcu\_send$ & Datenübertragung von der Schraubstation zum Dashboard \\ \hline
-		$rfid/eol\_mcu\_receive$ & Steuerbefehl an die EOL-Station \\ 
+		$rfid/eol\_mcu\_receive$ & Steuerbefehl an die EoL-Station \\ 
 		$rfid/shelf\_mcu\_receive$ & Steuerbefehl an die Lagerstation \\ 
 		$rfid/assembling\_mcu\_receive$ & Steuerbefehl an die Montage-Station \\ 
 		$rfid/screwing\_mcu\_receive$ & Steuerbefehl an die Schraubstation \\ \hline

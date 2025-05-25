@@ -115,7 +115,7 @@ Da nach der Auswahl des NFC-Tags eine entsprechende Kompatibilität gewährleist
 
 Insbesondere muss das NFC-Lesegerät den Frequenzbereich von 13{,}56\,MHz unterstützen und mit ISO/IEC 14443 Typ~A kompatibel sein, um mit dem gewählten NTAG213-Tag kommunizieren zu können. Zusätzlich waren Kriterien wie Verfügbarkeit, Preis und Schnittstellenunterstützung entscheidend.
 
-Der PN532 von NXP hat sich als geeignete Wahl erwiesen. Das Modul unterstützt sowohl I\textsuperscript{2}C als auch SPI als Kommunikationsschnittstelle und bietet eine effektive Reichweite von ca. 5–10\,cm. Diese ist für das vorliegende System ausreichend, da die Produkte gezielt an den Sensorstationen positioniert werden und dort die Datenübertragung stattfindet.
+Der PN532 von NXP hat sich als geeignete Wahl erwiesen. Das Modul unterstützt sowohl I\textsuperscript{2}C (Inter Integrated Circuit) als auch SPI als Kommunikationsschnittstelle und bietet eine effektive Reichweite von ca. 5–10\,cm. Diese ist für das vorliegende System ausreichend, da die Produkte gezielt an den Sensorstationen positioniert werden und dort die Datenübertragung stattfindet.
 
 Als bevorzugte Schnittstelle zwischen Mikrocontroller und NFC-Modul wurde SPI gewählt, da sie gegenüber I\textsuperscript{2}C eine höhere Datenrate, robustere Signalübertragung und eine bessere Unterstützung bei Echtzeitanforderungen bietet.
 
@@ -157,8 +157,6 @@ Eine Einbeziehung des Raspberry Pi in die zuvor dargestellte Nutzwertanalyse der
 
 Aufgrund der ausgezeichneten Softwareunterstützung, der nativen Kompatibilität mit MQTT-Broker-Implementierungen (z.~B. Mosquitto) sowie der Möglichkeit zur einfachen Netzwerk- und Systemintegration wurde auf eine vergleichende Analyse alternativer Hardwareplattformen verzichtet. Der Raspberry Pi stellte hier eine erprobte und funktional bewährte Lösung dar.
 
-
-
 \section{Systementwurf}
 \label{sec:systementwurf}
 
@@ -169,7 +167,6 @@ Aufgrund der ausgezeichneten Softwareunterstützung, der nativen Kompatibilität
 	\caption{Systemarchitektur des NFC-Tracking-Systems (MCU: Microcontroller Unit --> ESP8266)}
 	\label{fig:systemarchitektur}
 \end{figure}
-
 
 Die Hardwarekomponenten des Systems sind entsprechend der in Abbildung \ref{fig:systemarchitektur} dargestellten Architektur organisiert. Ab den Mikrocontrollern erfolgt der Informationsaustausch über das MQTT-Protokoll (vgl. Abschnitt \autoref{sec:mqtt}). Die ESP8266-Mikrocontroller sind über das SPI-Protokoll (Serial Peripheral Interface, vgl. \autoref{sec:spi}) mit den jeweiligen NFC-Lesegeräten (vgl. \autoref{sec:nfc}) verbunden und kommunizieren anschließend drahtlos mit dem zentralen Raspberry Pi.
 

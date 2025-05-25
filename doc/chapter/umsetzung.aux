@@ -1,36 +1,40 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Umsetzung der Softwarearchitektur}{22}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Umsetzung der Softwarearchitektur}{26}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{lol}{\addvspace {10\p@ }}
-\newlabel{cha:umsetzung}{{4}{22}{Umsetzung der Softwarearchitektur}{chapter.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Softwaredesign auf den Mikrocontrollern}{22}{section.4.1}\protected@file@percent }
-\newlabel{sec:Node-MCU}{{4.1}{22}{Softwaredesign auf den Mikrocontrollern}{section.4.1}{}}
-\newlabel{lst:init_globals}{{4.1}{24}{Initialisierung globaler Objekte und Variablen}{lstlisting.4.1}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.1}{\ignorespaces Initialisierung globaler Objekte und Variablen}}{24}{lstlisting.4.1}\protected@file@percent }
-\newlabel{lst:mqtt_sub}{{4.2}{24}{Abonnieren des MQTT-Topics in der Setup-Funktion}{lstlisting.4.2}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.2}{\ignorespaces Abonnieren des MQTT-Topics in der Setup-Funktion}}{24}{lstlisting.4.2}\protected@file@percent }
-\newlabel{lst:writing_block}{{4.3}{25}{Funktion zum Schreiben einer Information auf einen Speicherblock am Beispiel der Werkerassistenzstation}{lstlisting.4.3}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.3}{\ignorespaces Funktion zum Schreiben einer Information auf einen Speicherblock am Beispiel der Werkerassistenzstation}}{25}{lstlisting.4.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Ablaufdiagramm der Hauptlogik auf dem Mikrocontroller}}{26}{figure.caption.24}\protected@file@percent }
-\newlabel{fig:flowchart_mcu}{{4.1}{26}{Ablaufdiagramm der Hauptlogik auf dem Mikrocontroller}{figure.caption.24}{}}
-\newlabel{lst:mqtt_json}{{4.4}{27}{Beispiel einer MQTT JSON Nachricht von der Werkerassistenzstation (0x04: zur Schraubstation, 1: iO) (siehe \autoref {tab:tracking_states})}{lstlisting.4.4}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.4}{\ignorespaces Beispiel einer MQTT JSON Nachricht von der Werkerassistenzstation (0x04: zur Schraubstation, 1: iO) (siehe \autoref {tab:tracking_states})}}{27}{lstlisting.4.4}\protected@file@percent }
-\newlabel{lst:mqtt_callback}{{4.5}{27}{Registrierung des Callbacks in der Setup-Funktion}{lstlisting.4.5}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.5}{\ignorespaces Registrierung des Callbacks in der Setup-Funktion}}{27}{lstlisting.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Visualisierung der Prozessdaten in Node-RED}{28}{section.4.2}\protected@file@percent }
-\newlabel{sec:Node-Red}{{4.2}{28}{Visualisierung der Prozessdaten in Node-RED}{section.4.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Node-RED-Dashboard des NFC-Tracking-Systems}}{28}{figure.caption.26}\protected@file@percent }
-\newlabel{fig:dashboard}{{4.2}{28}{Node-RED-Dashboard des NFC-Tracking-Systems}{figure.caption.26}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Node-RED-Flow zum Empfang von Nachrichten}}{29}{figure.caption.27}\protected@file@percent }
-\newlabel{fig:receive_nodes}{{4.3}{29}{Node-RED-Flow zum Empfang von Nachrichten}{figure.caption.27}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Node-RED-Flow zum Senden von Nachrichten an Stationen}}{30}{figure.caption.28}\protected@file@percent }
-\newlabel{fig:send_nodes}{{4.4}{30}{Node-RED-Flow zum Senden von Nachrichten an Stationen}{figure.caption.28}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces MQTT-Topics}}{30}{table.caption.29}\protected@file@percent }
-\newlabel{tab:mqtt_topics}{{4.1}{30}{MQTT-Topics}{table.caption.29}{}}
+\newlabel{cha:umsetzung}{{4}{26}{Umsetzung der Softwarearchitektur}{chapter.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Softwaredesign auf den Mikrocontrollern}{26}{section.4.1}\protected@file@percent }
+\newlabel{sec:Node-MCU}{{4.1}{26}{Softwaredesign auf den Mikrocontrollern}{section.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Softwarearchitektur und Designtools}{26}{subsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Systemstart und Initialisierung}{26}{subsection.4.1.2}\protected@file@percent }
+\newlabel{lst:init_globals}{{4.1}{28}{Initialisierung globaler Objekte und Variablen}{lstlisting.4.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.1}{\ignorespaces Initialisierung globaler Objekte und Variablen}}{28}{lstlisting.4.1}\protected@file@percent }
+\newlabel{lst:mqtt_sub}{{4.2}{28}{Abonnieren des MQTT-Topics in der Setup-Funktion}{lstlisting.4.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.2}{\ignorespaces Abonnieren des MQTT-Topics in der Setup-Funktion}}{28}{lstlisting.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Zustandsverarbeitung und Hauptschleife}{28}{subsection.4.1.3}\protected@file@percent }
+\newlabel{lst:writing_block}{{4.3}{29}{Funktion zum Schreiben einer Information auf einen Speicherblock am Beispiel der Werkerassistenzstation}{lstlisting.4.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.3}{\ignorespaces Funktion zum Schreiben einer Information auf einen Speicherblock am Beispiel der Werkerassistenzstation}}{29}{lstlisting.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Ablaufdiagramm der Hauptlogik auf dem Mikrocontroller}}{30}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:flowchart_mcu}{{4.1}{30}{Ablaufdiagramm der Hauptlogik auf dem Mikrocontroller}{figure.caption.25}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Kommunikation über MQTT}{31}{subsection.4.1.4}\protected@file@percent }
+\newlabel{lst:mqtt_json}{{4.4}{31}{Beispiel einer MQTT JSON Nachricht von der Werkerassistenzstation (0x04: zur Schraubstation, 1: iO) (siehe \autoref {tab:tracking_states})}{lstlisting.4.4}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.4}{\ignorespaces Beispiel einer MQTT JSON Nachricht von der Werkerassistenzstation (0x04: zur Schraubstation, 1: iO) (siehe \autoref {tab:tracking_states})}}{31}{lstlisting.4.4}\protected@file@percent }
+\newlabel{lst:mqtt_callback}{{4.5}{31}{Registrierung des Callbacks in der Setup-Funktion}{lstlisting.4.5}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.5}{\ignorespaces Registrierung des Callbacks in der Setup-Funktion}}{31}{lstlisting.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Visualisierung der Prozessdaten in Node-RED}{32}{section.4.2}\protected@file@percent }
+\newlabel{sec:Node-Red}{{4.2}{32}{Visualisierung der Prozessdaten in Node-RED}{section.4.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Node-RED-Dashboard des NFC-Tracking-Systems}}{32}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:dashboard}{{4.2}{32}{Node-RED-Dashboard des NFC-Tracking-Systems}{figure.caption.26}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Node-RED-Flow zum Empfang von Nachrichten}}{33}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:receive_nodes}{{4.3}{33}{Node-RED-Flow zum Empfang von Nachrichten}{figure.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Node-RED-Flow zum Senden von Nachrichten an Stationen}}{34}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:send_nodes}{{4.4}{34}{Node-RED-Flow zum Senden von Nachrichten an Stationen}{figure.caption.28}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces MQTT-Topics}}{34}{table.caption.29}\protected@file@percent }
+\newlabel{tab:mqtt_topics}{{4.1}{34}{MQTT-Topics}{table.caption.29}{}}
 \@setckpt{chapter/umsetzung}{
-\setcounter{page}{31}
+\setcounter{page}{35}
 \setcounter{equation}{0}
 \setcounter{enumi}{0}
 \setcounter{enumii}{0}
@@ -59,7 +63,7 @@
 \setcounter{citetotal}{0}
 \setcounter{multicitecount}{0}
 \setcounter{multicitetotal}{0}
-\setcounter{instcount}{9}
+\setcounter{instcount}{14}
 \setcounter{maxnames}{3}
 \setcounter{minnames}{1}
 \setcounter{maxitems}{3}
@@ -73,9 +77,9 @@
 \setcounter{refsegment}{0}
 \setcounter{maxextratitle}{0}
 \setcounter{maxextratitleyear}{0}
-\setcounter{maxextraname}{0}
+\setcounter{maxextraname}{2}
 \setcounter{maxextradate}{0}
-\setcounter{maxextraalpha}{0}
+\setcounter{maxextraalpha}{2}
 \setcounter{abbrvpenalty}{50}
 \setcounter{highnamepenalty}{50}
 \setcounter{lownamepenalty}{25}

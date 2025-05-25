@@ -87,8 +87,8 @@ Die zentrale Vermittlungsinstanz in diesem Modell ist der sogenannte \emph{Broke
 		
 		% Nodes
 		\node[process] (publisher) {Publisher};
-		\node[process, right=of publisher] (broker) {Broker};
-		\node[process, right=of broker] (subscriber) {Subscriber};
+		\node[process, right=of publisher, xshift=1.5cm] (broker) {Broker};
+		\node[process, right=of broker, xshift=1.5cm] (subscriber) {Subscriber};
 		
 		% Connection arrows
 		\draw[arrow] (publisher) -- node[above] {CONNECT} (broker);
@@ -98,7 +98,7 @@ Die zentrale Vermittlungsinstanz in diesem Modell ist der sogenannte \emph{Broke
 		
 		\draw[arrow, thick, red] (publisher.south) to[out=-60,in=-120] node[below] {PUBLISH (Message)} (broker.south);
 		
-		\draw[arrow, thick, red] (broker.east) -- node[above] {FORWARD (Message)} (subscriber.west);
+		\draw[arrow, thick, red] (broker.south) to[out=-60,in=-120] node[below] {FORWARD (Message)} (subscriber.south);
 		
 	\end{tikzpicture}
 	\caption{Ablauf des MQTT Publish-/Subscribe-Verfahrens mit Verbindungsaufbau}
@@ -189,15 +189,17 @@ Eine SPS besteht aus mehreren funktionalen Einheiten: einer zentralen Recheneinh
 
 \subsection{Funktionsweise: Der SPS-Zyklus}
 
-Die Arbeitsweise einer SPS basiert auf dem EVA-Prinzip (Eingabe – Verarbeitung – Ausgabe). Dabei werden zyklisch alle Eingänge gelesen, der Steuerungsalgorithmus (z.B. in Form eines SPS-Programms) verarbeitet und anschließend die entsprechenden Ausgänge gesetzt. Dieser Ablauf, auch \textit{SPS-Zyklus} genannt, wiederholt sich kontinuierlich.
+Die Arbeitsweise einer SPS basiert auf dem EVA-Prinzip (Eingabe – Verarbeitung – Ausgabe). Dabei werden zyklisch alle Eingänge gelesen, der Steuerungsalgorithmus (z.B. in Form eines SPS-Programms) verarbeitet diese und anschließend werden die entsprechenden Ausgänge gesetzt. Dieser Ablauf, auch \textit{SPS-Zyklus}[siehe \autoref{fig:sps_zyklus}] genannt, wiederholt sich kontinuierlich.
 
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}[node distance=1.8cm, every node/.style={draw, rectangle, minimum width=3.2cm, minimum height=1cm, font=\sffamily}, ->, thick]
 		\node (e) {Eingaben einlesen};
-		\node[below=of e] (v) {Logik verarbeiten};
+		\node[below=of e,  yshift=-0.1cm] (v) {Logik verarbeiten};
 		\node[below=of v] (a) {Ausgänge setzen};
-		\draw (e) -- (v) -- (a) -- ++(0,-0.5) -- ++(-3,0) -- ++(0,5) -- (e);
+		\draw (e) -- (v);
+		\draw (v) -- (a);
+		\draw (a) -- ++(-3,0) |- (e);
 	\end{tikzpicture}
 	\caption{Zyklus einer SPS-Steuerung}
 	\label{fig:sps_zyklus}
@@ -225,7 +227,53 @@ Ein Beispiel in \textit{Structured Text (ST)} zeigt eine einfache UND-Verknüpfu
 	END_IF;
 \end{lstlisting}
 
-\section{Serial Peripheral Protocoll (SPI)}
+Um das MQTT-Protokoll auf einer SPS zu nutzen, kann die \texttt{LMQTT}-Bibliothek in das Siemens TIA Portal integriert werden. Diese stellt Funktionsbausteine zur Verfügung, die in der Sprache SCL (Structured Control Language) – also ST gemäß IEC 61131-3 – implementiert sind.
+
+Die Ein- und Ausgänge des MQTT-Blocks können im TIA Portal grafisch mit Prozessvariablen, wie etwa Steuersignalen eines Bandumlaufsystems, verbunden werden (siehe \autoref{fig:lmqtt}).
+
+
+\begin{figure}[H] % [H] nur mit \usepackage{float}
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/LMQTT.jpeg}
+	\caption{MQTT Funktionsblock im TIA Portal \autocite{siemensMQTT}}
+	\label{fig:lmqtt}
+\end{figure}
+
+\section{Serial Peripheral Interface (SPI)}
 \label{sec:spi}
 
+Das \textbf{Serial Peripheral Interface (SPI)} ist ein synchrones serielles Kommunikationsprotokoll, das von Motorola in den 1980er-Jahren entwickelt wurde. Es wird häufig zur Kommunikation zwischen Mikrocontrollern und Peripheriegeräten wie Sensoren, Speicherchips oder Display-Treibern eingesetzt.
 
+\subsection*{Grundprinzip}
+
+SPI basiert auf einem \textit{Master-Slave}-Modell, bei dem der Master die Kommunikation initiiert und steuert. Ein oder mehrere Slaves reagieren auf die Befehle des Masters. Die Kommunikation erfolgt über vier Hauptleitungen:
+
+\begin{itemize}
+	\item \textbf{MOSI (Master Out Slave In)} – Datenleitung vom Master zum Slave
+	\item \textbf{MISO (Master In Slave Out)} – Datenleitung vom Slave zum Master
+	\item \textbf{SCLK (Serial Clock)} – Taktsignal, das vom Master bereitgestellt wird
+	\item \textbf{SS / CS (Slave Select / Chip Select)} – Aktivierungssignal für einen spezifischen Slave (aktiv bei Low)
+\end{itemize}
+
+In \autoref{fig:spi3} wird die Funktionalität der Chip Select Leitung genauer beschrieben. Über SPI können mehrere Slaves mit einem Master verbunden werden, was eine gesteuerte Übertragung von Daten an einen ausgewählten Slave ermöglicht \autocite{mct_spi_2019}. Das geschieht mithilfe mehrerer Chip-Select-Leitungen am Master. Die serielle Datenleitung wird mit jedem Slave verbunden, durch Auswahl einer bestimmten Select-Leitung kann jedoch ausgewählt werden, an welchen Slave die Daten gerichtet sind. 
+
+Die Serial-Data-Out-Leitungen können ebenso miteinander verbunden werden, da über die Select-Leitung bekannt ist, von welchem Slave die Daten kommen. Die Taktrate wird über das Serial-Clock-Signal vom Master vorgegeben. In dieser Arbeit ist jedoch nur eine SPI-Kommunikation mit einem Slave an jeweils einer Station relevant, weshalb pro Slave eine Select-Leitung in Snspruch genommen wird [siehe \autoref{sec:systementwurf}]. 
+
+\begin{figure}[H] % [H] nur mit \usepackage{float}
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/spi3.png}
+	\caption{Einzelnes Ansprechen der Slaves mittels Slave-Select-Leitungen (MOSI == SDO: Serial Data Out; MISO == SDI: Serial Data In) \autocite{mct_spi_2019}}
+	\label{fig:spi3}
+\end{figure}
+
+\subsection*{Übertragungsmechanismus}
+
+Die Kommunikation erfolgt bitweise synchron mit dem Taktsignal (SCLK). Bei jedem Taktzyklus wird ein Bit über MOSI (vom Master zum Slave) und gleichzeitig ein Bit über MISO (vom Slave zum Master) übertragen. Dadurch ist eine gleichzeitige (voll-duplex) Datenübertragung möglich.
+
+Die SPI-Konfiguration wird durch vier Parameter definiert:
+\begin{itemize}
+	\item \textbf{Taktfrequenz} – Bestimmt die Geschwindigkeit der Datenübertragung
+	\item \textbf{Datenrahmen} – Meist 8 Bit pro Übertragung
+	\item \textbf{Bitreihenfolge} – MSB (Most Significant Bit) oder LSB (Least Significant Bit) zuerst
+	\item \textbf{Clock Polarity und Phase (CPOL/CPHA)} – Steuert, bei welcher Flanke der Clock die Daten gelesen bzw. geschrieben werden
+\end{itemize}
