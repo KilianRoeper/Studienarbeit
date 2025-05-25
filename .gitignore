@@ -32,6 +32,3 @@ __pycache__
 *.cb2
 .*.lb
 ._*
-
-# ignore pdf 
-t3101.pdf
