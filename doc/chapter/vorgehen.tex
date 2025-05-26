@@ -129,10 +129,10 @@ Als bevorzugte Schnittstelle zwischen Mikrocontroller und NFC-Modul wurde SPI ge
 	\begin{tabular}{|l|c|c|c|}
 		\hline
 		\textbf{Kriterium} & \textbf{Gewichtung} & \textbf{ESP8266} & \textbf{ESP32} \\ \hline
-		Rechenleistung          & 20\% & 3 & 5 			\\ \hline
-		Energieverbrauch        & 25\% & 4 & 3 		\\ \hline \hline
- 		GPIO-Pins                     & 15\% & 3 & 5      \\ \hline
-		kabellos netzwerkfähig	& 20\% & 5 & 5 	\\ \hline
+		Rechenleistung          & 20\% & 3 & 5 \\ \hline
+		Energieverbrauch        & 25\% & 4 & 3 \\ \hline
+ 		GPIO-Pins				& 15\% & 3 & 5 \\ \hline
+		kabellos netzwerkfähig	& 20\% & 5 & 5 \\ \hline
 		Preis                   & 20\% & 5 & 4 \\ \hline
 		\textbf{Gesamtnutzwert} &       & \textbf{4,05} & \textbf{4,3} \\ \hline
 	\end{tabular}
@@ -156,6 +156,34 @@ Für die zentrale Verarbeitung und Weiterleitung der MQTT-Nachrichten wurde ein 
 Eine Einbeziehung des Raspberry Pi in die zuvor dargestellte Nutzwertanalyse der Mikrocontroller erfolgte bewusst nicht, da er auf einer übergeordneten Systemebene agiert. Während die Mikrocontroller-Einheiten an den Stationen in direktem Kontakt mit den Sensoren stehen und deren Steuerung übernehmen, fungiert der Raspberry Pi als dedizierte Zentraleinheit zur Aggregation und Verteilung der Systemdaten über das MQTT-Protokoll.
 
 Aufgrund der ausgezeichneten Softwareunterstützung, der nativen Kompatibilität mit MQTT-Broker-Implementierungen (z.~B. Mosquitto) sowie der Möglichkeit zur einfachen Netzwerk- und Systemintegration wurde auf eine vergleichende Analyse alternativer Hardwareplattformen verzichtet. Der Raspberry Pi stellte hier eine erprobte und funktional bewährte Lösung dar.
+
+\subsection{Gesamtkostenanalyse}
+\label{sec:gesamtkostenanalyse}
+
+\autoref{tab:kostenanalyse} zeigt die Gesamtkostenübersicht aller im Projekt eingesetzten Hardwarekomponenten. Es wurden jeweils übliche Preise von Amazon herangezogen (Stand: Mai 2025). Die Preise verstehen sich als Stückpreise und beinhalten keine Mengenrabatte oder Versandkosten.
+
+\begin{table}[H]
+	\centering
+	\caption{Gesamtkostenanalyse der verwendeten Hardware}
+	\label{tab:kostenanalyse}
+	\begin{tabular}{|p{0.4\linewidth}|c|c|c|}
+		\hline
+		\textbf{Komponente} & \textbf{Anzahl} & \textbf{Einzelpreis [€]} & \textbf{Gesamtpreis [€]} \\
+		\hline
+		NFC-Tag (NTAG213-Set) & 60 & 0{,}13 & 8{,}00 \\
+		NFC-Lesegerät (PN532 Modul) & 4 & 7{,}00 & 28{,}00 \\
+		Mikrocontroller (ESP8266) & 4 & 3{,}50 & 21{,}00 \\
+		Raspberry Pi 3B+ & 1 & 67{,}00 & 67{,}00 \\
+		Jumperwires & 1 & 7{,}00 & 7{,}00 \\
+		Spannungsversorgung (Netzteil) & 4 & 1{,}75 & 7{,}00 \\
+		USB-Kabel & 4 & 1{,}75 & 7{,}00 \\
+		\hline
+		\textbf{Gesamtkosten} & & & \textbf{145{,}00} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Die Gesamtkosten belaufen sich auf ca. \textbf{145,00€} für ein vollständiges Testsystem mit vier Stationen und einer zentralen Steuereinheit. Bei einer Skalierung auf weitere Stationen würden die Kosten für die zusätzlichen ESP8266-Controller, NFC-Lesegeräte, Kabel und Netzteile anfallen. Ein einzelner zusätzlicher Stationsknoten verursacht dabei geschätzte Mehrkosten von etwa \textbf{14,00€} (PN532 + ESP8266 + Spannungsversorgung + USB Kabel).
 
 \section{Systementwurf}
 \label{sec:systementwurf}

@@ -169,7 +169,7 @@ Werden Daten für ein abonniertes Topic empfangen, wird in die registrierte Call
 	\label{fig:dashboard}
 \end{figure}
 
-Zur Visualisierung der Produktpositionen und -zustände innerhalb des Bandumlaufsystems wurde ein interaktives Dashboard mit Node-RED implementiert (siehe \autoref{fig:dashboard}). Dieses Dashboard stellt die vier Stationen geometrisch entsprechend ihrer Anordnung in der Lernfabrik dar. Produkte werden symbolisch als Raspberry-Pi-Icons dargestellt und entlang des virtuellen Förderbands basierend auf ihrem erfassten Tracking-Zustand positioniert.
+Zur Visualisierung der Produktpositionen und Produktzustände wurde ein interaktives Dashboard mit Node-RED implementiert (siehe \autoref{fig:dashboard}). Dieses Dashboard stellt die vier Stationen geometrisch entsprechend ihrer Anordnung in der Lernfabrik dar. Produkte werden symbolisch als Raspberry-Pi-Icons dargestellt und entlang des virtuellen Förderbands basierend auf ihrem erfassten Tracking-Zustand positioniert.
 
 Die aktuelle Systemübersicht umfasst zwei Hauptkomponenten:
 \begin{itemize}
@@ -184,14 +184,33 @@ Die aktuelle Systemübersicht umfasst zwei Hauptkomponenten:
 	\label{fig:receive_nodes}
 \end{figure}
 
-Node-RED ermöglicht eine visuelle und modulare Abbildung der Prozesslogik. Die Empfangslogik ist in \autoref{fig:receive_nodes} dargestellt. Dabei werden vier verschiedene MQTT-Topics abonniert, über die jeweils eine der vier Stationen Nachrichten an das zentrale System sendet. Die empfangenen JSON-Daten werden über \texttt{MQTT-IN}-Nodes verarbeitet und anschließend von \texttt{Function}-Nodes analysiert. Die Logik in diesen Funktionsbausteinen umfasst:
-\begin{itemize}
-	\item Zuordnung der Nachricht zur entsprechenden Station
-	\item Berechnung der exakten Position auf dem Dashboard
-	\item Generierung einer individuellen Tabellenfarbe pro UID
-\end{itemize}
+Node-RED ermöglicht eine visuelle und modulare Abbildung der Prozesslogik. Die Empfangslogik ist in \autoref{fig:receive_nodes} dargestellt. Dabei werden vier verschiedene MQTT-Topics mithilfe des MQTT-In-Nodes abonniert. Diese vier Topics sind die auf denen von den vier Stationen der Zustand gesendet wird. Die empfangenen JSON-Daten werden anschließend von einem Function-Node analysiert. Dieser Node sorgt dafür das die virtuellen Produkte korrekt Positioniert und die Informationen tabellarisch korrekt dargestellt werden. Nach dem Weiterleiten der überarbeiteten Informationen, sorgt der Template-Node für eine korrekte Darstellung im Dashboard. Alle Zugangsinformationen können \autoref{tab:systemkonfiguration} entnommen werden. 
 
-Zusätzlich enthält der Flow einen Reset-Node zum Zurücksetzen des Dashboards sowie einen Debug-Node zur Laufzeitanalyse.
+\begin{table}[H]
+	\centering
+	\caption{Systemkonfiguration Node-RED und MQTT}
+	\label{tab:systemkonfiguration}
+	\begin{tabular}{ll}
+		\toprule
+		\textbf{Komponente} & \textbf{Einstellung / Wert} \\
+		\midrule
+		Node-RED Dashboard Adresse     & \texttt{http://localhost:1880/ui} \\
+		MQTT-Broker Adresse            & \texttt{10.42.0.1} (im MQTT-Node)\\
+		MQTT-Port                      & \texttt{1883} (im MQTT-Node)\\
+		Verbindung                     & Raspberry Pi WiFi Access Point \\
+		SSID                           & \texttt{rfid\_ritz\_access\_point} \\
+		Passwort                       & \texttt{rfid32\_connect} \\
+		Broker-Start                   & Automatisch über Access Point beim \\  & Systemstart des Raspberry Pi\\
+		Remote-Zugang zum Raspberry Pi & ritzpi@raspberrypi.local \\
+		Username Raspberry Pi 	   	   & ritzpi		\\
+		Passwort Raspberry Pi 		   & njkjjm	   \\
+		SCP Datenübertragung vom Pi	   & scp ritzpi@raspberrypi.local:~/file.py . \\
+		SCP Datenübertragung zum Pi	   & scp ./file.py ritzpi@raspberrypi.local:~ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Zusätzlich enthält der Flow einen Reset-Node zum Zurücksetzen des Dashboards sowie einen Debug-Node zur Laufzeitanalyse [siehe \autoref{fig:receive_nodes}].
 
 \begin{figure}[H]
 	\centering
@@ -200,7 +219,11 @@ Zusätzlich enthält der Flow einen Reset-Node zum Zurücksetzen des Dashboards 
 	\label{fig:send_nodes}
 \end{figure}
 
-Für Testzwecke wurde ein dedizierter Sende-Flow implementiert (\autoref{fig:send_nodes}). Dieser ermöglicht das manuelle Senden von Steuerinformationen an die Mikrocontroller an den Stationen über vier weitere MQTT-Topics. Diese haben dieselbe Namenskonvention wie die Empfangs-Topics, enthalten jedoch den Suffix \texttt{\_receive} anstelle von \texttt{\_send}. So kann eine einfache manuelle Steuerung einzelner Produktzustände direkt aus dem Dashboard heraus erfolgen.
+Für Testzwecke wurde ein dedizierter Sende-Flow implementiert (\autoref{fig:send_nodes}). Dieser ermöglicht das manuelle Senden von Zustands-Informationen an die Mikrocontroller an den Stationen über vier weitere MQTT-Topics. Diese haben dieselbe Namenskonvention wie die Empfangs-Topics, enthalten jedoch den Suffix \texttt{mcu\_receive} anstelle von \texttt{mcu\_send}. So kann eine einfache manuelle Steuerung einzelner Produktzustände direkt aus dem Dashboard heraus erfolgen. 
+
+Jeder ESP8266 an einer Station ist zu seinem Topic abonniert und springt in eine Callback-Funktion, um die empfangene MQTT-Nachricht zu verarbeiten und auf einen Tag zu schreiben. Diese Topics können genutzt werden, um den Zustand eines Produkts der an einer Station ermittelt und an die Haupt-SPS weitergeleitet wird, von der SPS aus über MQTT den erhaltenen Zustand weiterzugeben, wodurch das Schreiben vom ESP8266 über den Callback erfolgt. Alle vorhandenen MQTT-Topics sind in \autoref{tab:mqtt_topics} aufgelistet.
+
+Diese abonnierten Topics ermöglichen es die zur Laufzeit am Bandumlaufsystem ermittelten Zustände auf den Tag zu schreiben. Zunächst können die Produktzustände von einer Station an die Haupt-SPS übertragen werden. Von dort wird der Zustand über MQTT weitergeleitet. Der ESP8266 empfängt diesen Zustand auf seinem Topic und schreibt die Info über den Callback-Mechanismus auf den Tag.
 
 \begin{table}[H]
 	\centering
@@ -209,14 +232,14 @@ Für Testzwecke wurde ein dedizierter Sende-Flow implementiert (\autoref{fig:sen
 	\begin{tabular}{|c|l|}
 		\hline
 		\textbf{Topic} & \textbf{Beschreibung} \\ \hline
-		$rfid/eol\_mcu\_send$ & Datenübertragung von der EOL-Station zum Dashboard \\ 
-		$rfid/shelf\_mcu\_send$ & Datenübertragung von der Lagerstation zum Dashboard \\ 
-		$rfid/assembling\_mcu\_send$ & Datenübertragung von der Montage-Station zum Dashboard \\ 
-		$rfid/screwing\_mcu\_send$ & Datenübertragung von der Schraubstation zum Dashboard \\ \hline
-		$rfid/eol\_mcu\_receive$ & Steuerbefehl an die EoL-Station \\ 
-		$rfid/shelf\_mcu\_receive$ & Steuerbefehl an die Lagerstation \\ 
-		$rfid/assembling\_mcu\_receive$ & Steuerbefehl an die Montage-Station \\ 
-		$rfid/screwing\_mcu\_receive$ & Steuerbefehl an die Schraubstation \\ \hline
+		$rfid/eol\_mcu\_send$ & Datenübertragung von der EOL-Station zum Broker \\ 
+		$rfid/shelf\_mcu\_send$ & Datenübertragung von der Lagerstation zum Broker \\ 
+		$rfid/assembling\_mcu\_send$ & Datenübertragung von der Montage-Station zum Broker \\ 
+		$rfid/screwing\_mcu\_send$ & Datenübertragung von der Schraubstation zum Broker \\ \hline
+		$rfid/eol\_mcu\_receive$ & Datenübertragung vom Broker an die EoL-Station \\ 
+		$rfid/shelf\_mcu\_receive$ & Datenübertragung vom Broker an die Lagerstation\\ 
+		$rfid/assembling\_mcu\_receive$ & Datenübertragung vom Broker an die Montage-Station\\ 
+		$rfid/screwing\_mcu\_receive$ & Datenübertragung vom Broker an die Schraubstation \\ \hline
 	\end{tabular}
 \end{table}
 

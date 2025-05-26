@@ -1,0 +1,21 @@
+\babel@toc {ngerman}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Ablauf des MQTT Publish-/Subscribe-Verfahrens mit Verbindungsaufbau}}{7}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Ein einfacher Node-RED-Flow: Inject → Function → Debug}}{8}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Schematischer Aufbau einer SPS}}{10}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Zyklus einer SPS-Steuerung}}{10}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces MQTT Funktionsblock im TIA Portal \blx@tocontentsinit {0}\autocite {siemensMQTT}}}{12}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Einzelnes Ansprechen der Slaves mittels Slave-Select-Leitungen (MOSI == SDO: Serial Data Out; MISO == SDI: Serial Data In) \blx@tocontentsinit {0}\autocite {mct_spi_2019}}}{14}{figure.caption.15}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Systemarchitektur des NFC-Tracking-Systems (MCU: Microcontroller Unit --> ESP8266)}}{24}{figure.caption.23}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Ablaufdiagramm der Hauptlogik auf dem Mikrocontroller}}{31}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Node-RED-Dashboard des NFC-Tracking-Systems}}{33}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Node-RED-Flow zum Empfang von Nachrichten}}{34}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Node-RED-Flow zum Senden von Nachrichten an Stationen}}{35}{figure.caption.30}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
