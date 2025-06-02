@@ -1,0 +1,43 @@
+
+\begin{thenomenclature} 
+\nomgroup{A}
+  \item [{IoT}]\begingroup Internet of Things\nomeqref {5.0}\nompageref{38}
+  \item [{M2M}]\begingroup Machine to Machine\nomeqref {5.0}\nompageref{38}
+  \item [{NFC}]\begingroup Near Field Communication\nomeqref {5.0}\nompageref{38}
+  \item [{RFID}]\begingroup Radio Frequency Identification\nomeqref {5.0}\nompageref{38}
+\nomgroup{H}
+  \item [{CPU}]\begingroup Central Processing Unit\nomeqref {5.0}\nompageref{38}
+  \item [{EEPROM}]\begingroup Electrically Erasable Programmable Read-Only Memory\nomeqref {5.0}\nompageref{38}
+  \item [{UHF}]\begingroup Ultra High Frequency\nomeqref {5.0}\nompageref{38}
+  \item [{UID}]\begingroup Unique Identifier\nomeqref {5.0}\nompageref{38}
+\nomgroup{K}
+  \item [{CPOL/CPHA}]\begingroup Clock Polarity / Clock Phase\nomeqref {5.0}\nompageref{38}
+  \item [{GPIO}]\begingroup General Purpose Input Output\nomeqref {5.0}\nompageref{38}
+  \item [{MISO}]\begingroup Master In Slave Out\nomeqref {5.0}\nompageref{38}
+  \item [{MOSI}]\begingroup Master Out Slave In\nomeqref {5.0}\nompageref{38}
+  \item [{SCLK}]\begingroup Serial Clock\nomeqref {5.0}\nompageref{38}
+  \item [{SDI}]\begingroup Serial Data In\nomeqref {5.0}\nompageref{38}
+  \item [{SDO}]\begingroup Serial Data Out\nomeqref {5.0}\nompageref{38}
+  \item [{SS/CS}]\begingroup Slave Select / Chip Select\nomeqref {5.0}\nompageref{38}
+\nomgroup{P}
+  \item [{I2C}]\begingroup Inter-Integrated Circuit\nomeqref {5.0}\nompageref{38}
+  \item [{JSON}]\begingroup JavaScript Object Notation\nomeqref {5.0}\nompageref{38}
+  \item [{MQTT}]\begingroup Message Queuing Telemetry Transport\nomeqref {5.0}\nompageref{38}
+  \item [{QoS}]\begingroup Quality of Service\nomeqref {5.0}\nompageref{38}
+  \item [{SPI}]\begingroup Serial Peripheral Interface\nomeqref {5.0}\nompageref{38}
+  \item [{TCP}]\begingroup Transmission Control Protocol\nomeqref {5.0}\nompageref{38}
+  \item [{UTF-8}]\begingroup 8-Bit Unicode Transformation Format\nomeqref {5.0}\nompageref{38}
+  \item [{WiFi}]\begingroup Wireless Fidelity\nomeqref {5.0}\nompageref{38}
+\nomgroup{S}
+  \item [{AWL}]\begingroup Anweisungsliste\nomeqref {5.0}\nompageref{38}
+  \item [{EoL}]\begingroup End of Line\nomeqref {5.0}\nompageref{38}
+  \item [{EVA}]\begingroup Eingabe Verarbeitung Ausgabe\nomeqref {5.0}\nompageref{38}
+  \item [{FUP}]\begingroup Funktionsplan\nomeqref {5.0}\nompageref{38}
+  \item [{KOP}]\begingroup Kontaktplan\nomeqref {5.0}\nompageref{38}
+  \item [{MES}]\begingroup Manufacturing Execution System\nomeqref {5.0}\nompageref{38}
+  \item [{SFC}]\begingroup Sequential Function Chart\nomeqref {5.0}\nompageref{38}
+  \item [{SPS}]\begingroup Speicherprogrammierbare Steuerung\nomeqref {5.0}\nompageref{38}
+  \item [{ST}]\begingroup Structured Text\nomeqref {5.0}\nompageref{38}
+  \item [{TIA Portal}]\begingroup Totally Integrated Automation Portal\nomeqref {5.0}\nompageref{38}
+
+\end{thenomenclature}

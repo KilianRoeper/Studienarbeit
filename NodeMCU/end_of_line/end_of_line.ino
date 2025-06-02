@@ -166,17 +166,6 @@ void loop(void) {
       mqtt_message = false;
 
       if (uidLength == 7) {
-        // processing end of line state
-        success = nfc.mifareultralight_WritePage(END_OF_LINE_BLOCK, io_state_temp);
-        if (success) {
-          memcpy(io_state, io_state_temp, sizeof(io_state_temp));
-          print_block("end of line state", END_OF_LINE_BLOCK, io_state, nfc);
-        }
-        else {
-          DEBUG_PRINT("Unable to write to END_OF_LINE_BLOCK");
-        }
-        io_state_temp[3] = 0x00;
-
         // processing UID
         success = nfc.mifareultralight_ReadPage(UID_BLOCK, uid_data);
         if (success) {
@@ -189,6 +178,17 @@ void loop(void) {
         else {
           DEBUG_PRINTLN("Unable to read/write UID_BLOCK");
         }
+
+        // processing end of line state
+        success = nfc.mifareultralight_WritePage(END_OF_LINE_BLOCK, io_state_temp);
+        if (success) {
+          memcpy(io_state, io_state_temp, sizeof(io_state_temp));
+          print_block("end of line state", END_OF_LINE_BLOCK, io_state, nfc);
+        }
+        else {
+          DEBUG_PRINT("Unable to write to END_OF_LINE_BLOCK");
+        }
+        io_state_temp[3] = 0x00;
 
         // processing tracking state
         success = nfc.mifareultralight_WritePage(TRACKING_BLOCK, to_tracking_data);

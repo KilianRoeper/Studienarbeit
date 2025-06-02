@@ -174,18 +174,6 @@ void loop() {
       mqtt_message = false;
 
       if (uidLength == 7) {
-
-        // processing shelf state
-        success = nfc.mifareultralight_WritePage(SHELF_BLOCK, shelf_data_temp);
-        if (success) {
-          memcpy(shelf_data, shelf_data_temp, sizeof(shelf_data_temp));
-          print_block("shelf state", SHELF_BLOCK, shelf_data, nfc);
-        }
-        else {
-          DEBUG_PRINT("Unable to write to block ");DEBUG_PRINTLN(SHELF_BLOCK);
-        }
-        shelf_data_temp[3] = 0x00;
-
         // processing UID
         success = nfc.mifareultralight_ReadPage(UID_BLOCK, uid_data);
         if (success) {
@@ -198,6 +186,17 @@ void loop() {
         else {
           DEBUG_PRINT("Unable to read/write page ");DEBUG_PRINTLN(UID_BLOCK);
         }
+
+        // processing shelf state
+        success = nfc.mifareultralight_WritePage(SHELF_BLOCK, shelf_data_temp);
+        if (success) {
+          memcpy(shelf_data, shelf_data_temp, sizeof(shelf_data_temp));
+          print_block("shelf state", SHELF_BLOCK, shelf_data, nfc);
+        }
+        else {
+          DEBUG_PRINT("Unable to write to block ");DEBUG_PRINTLN(SHELF_BLOCK);
+        }
+        shelf_data_temp[3] = 0x00;
 
         // processing tracking state
         nfc.mifareultralight_ReadPage(ASSEMBLING_BLOCK, station_io);
