@@ -176,6 +176,7 @@ void loop() {
           }
         }
         else {
+          memset(uid_data, 0, sizeof(uid_data));
           DEBUG_PRINT("Unable to read/write page ");DEBUG_PRINTLN(UID_BLOCK);
         }
         

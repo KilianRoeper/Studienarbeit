@@ -142,7 +142,7 @@ Diese Logik wird fortlaufend in einer Schleife durchlaufen.
 
 \subsection{Kommunikation über MQTT}
 
-Die Kommunikation mit dem Dashboard erfolgt mithilfe eines Raspberry Pi über das MQTT-Protokoll. Jeder Mikrocontroller veröffentlicht Zustandsänderungen auf einem dedizierten Topic wie \texttt{rfid/shelf\_mcu\_send}. Die Daten werden im JSON-Format übertragen [siehe \autoref{lst:mqtt_json}].
+Die Kommunikation mit dem Dashboard erfolgt mithilfe eines Raspberry Pi über das MQTT-Protokoll. Jeder Mikrocontroller veröffentlicht Zustandsänderungen auf einem dedizierten Topic wie \texttt{nfc/shelf\_mcu\_send}. Die Daten werden im JSON-Format übertragen [siehe \autoref{lst:mqtt_json}].
 
 \begin{lstlisting}[language=json, caption={Beispiel einer MQTT JSON Nachricht von der Werkerassistenzstation (0x04: zur Schraubstation, 1: iO) (siehe \autoref{tab:tracking_states})}, label={lst:mqtt_json}]
 	{
@@ -232,14 +232,14 @@ Diese abonnierten Topics ermöglichen es die zur Laufzeit am Bandumlaufsystem er
 	\begin{tabular}{|c|l|}
 		\hline
 		\textbf{Topic} & \textbf{Beschreibung} \\ \hline
-		$rfid/eol\_mcu\_send$ & Datenübertragung von der EOL-Station zum Broker \\ 
-		$rfid/shelf\_mcu\_send$ & Datenübertragung von der Lagerstation zum Broker \\ 
-		$rfid/assembling\_mcu\_send$ & Datenübertragung von der Montage-Station zum Broker \\ 
-		$rfid/screwing\_mcu\_send$ & Datenübertragung von der Schraubstation zum Broker \\ \hline
-		$rfid/eol\_mcu\_receive$ & Datenübertragung vom Broker an die EoL-Station \\ 
-		$rfid/shelf\_mcu\_receive$ & Datenübertragung vom Broker an die Lagerstation\\ 
-		$rfid/assembling\_mcu\_receive$ & Datenübertragung vom Broker an die Montage-Station\\ 
-		$rfid/screwing\_mcu\_receive$ & Datenübertragung vom Broker an die Schraubstation \\ \hline
+		$nfc/eol\_mcu\_send$ & Datenübertragung von der EOL-Station zum Broker \\ 
+		$nfc/shelf\_mcu\_send$ & Datenübertragung von der Lagerstation zum Broker \\ 
+		$nfc/assembling\_mcu\_send$ & Datenübertragung von der Montage-Station zum Broker \\ 
+		$nfc/screwing\_mcu\_send$ & Datenübertragung von der Schraubstation zum Broker \\ \hline
+		$nfc/eol\_mcu\_receive$ & Datenübertragung vom Broker an die EoL-Station \\ 
+		$nfc/shelf\_mcu\_receive$ & Datenübertragung vom Broker an die Lagerstation\\ 
+		$nfc/assembling\_mcu\_receive$ & Datenübertragung vom Broker an die Montage-Station\\ 
+		$nfc/screwing\_mcu\_receive$ & Datenübertragung vom Broker an die Schraubstation \\ \hline
 	\end{tabular}
 \end{table}
 

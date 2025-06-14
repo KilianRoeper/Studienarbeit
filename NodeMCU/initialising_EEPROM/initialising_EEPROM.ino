@@ -4,7 +4,7 @@
 
 
 uint32_t FIRST_UID = 0xABCDEF00;
-uint32_t FIRST_OFFSET = 0x00;
+uint32_t FIRST_OFFSET = 0x02;
 
 
 void initalise_EEPROM_with_first_uid_and_offset(uint32_t first_uid = FIRST_UID, uint32_t first_offset = FIRST_OFFSET){
@@ -19,7 +19,7 @@ void initalise_EEPROM_with_first_uid_and_offset(uint32_t first_uid = FIRST_UID, 
       offset |= (EEPROM.read(i) << (8 * i));
     }
     
-    if(uid == 0xABCDEF00){
+    if(uid == FIRST_UID){
       Serial.println("");
       Serial.print("uid already equal to ");
       Serial.print(uid, HEX);
@@ -30,7 +30,7 @@ void initalise_EEPROM_with_first_uid_and_offset(uint32_t first_uid = FIRST_UID, 
         EEPROM.write(i, (first_uid >> (8 * i)) & 0xFF);
       }
     }
-    if(offset == 0x00){
+    if(offset == FIRST_OFFSET){
       Serial.print("offset already equal to ");
       Serial.print(offset, HEX);
       Serial.println(" in EEPROM");

@@ -176,6 +176,7 @@ void loop(void) {
           DEBUG_PRINTLN();
         }
         else {
+          memset(uid_data, 0, sizeof(uid_data));
           DEBUG_PRINTLN("Unable to read/write UID_BLOCK");
         }
 
