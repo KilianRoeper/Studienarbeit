@@ -1,0 +1,66 @@
+0000 1000
+0000 0000
+
+0000 0000
+0000 0000 += 0000 1000 & 0000 0001 = 0000 0000
+ 000 0100
+
+0000 0000
+0000 0000 +=  000 0100 & 0000 0001 = 0000 0000 
+  00 0010
+
+0000 0000
+0000 0000 +=   00 0010 & 0000 0001 = 0000 0000 
+   0 0001
+
+0000 0000
+0000 0000 +=    0 0001 & 0000 0001 = 0000 0001 
+     0000
+
+0000 0010
+
+…
+
+0001 0000 = 16
+
+
+2c = 0010 1100
+34 = 0011 0100
+
+
+# Addressing states (230 blocks - 4bytes each (00:00:00:00) / first 5 write protected)
+# the Goal is that all products land in the upper shelve
+
+Bock 10: screwed/ not screwed (num_screwed:num_unscrewed:fill:was_screwed)
+Block 11: tacking (X:X:X:was_stacked)
+Block 12: refurbishing (num_refurbishement*:has_to_be_refurbished:to_middle_shelve:to_top_shelve)
+Block 13: processing (X:X:quality(0/1):finished_processing*1)
+
+
+last Block: Date/time of each state changing/ writing Event (consecutive)
+
+
+
+*number of times the product will continue to go on the line. 
+*1 should have finished processing when Quality is high
+
+
+def collect_states_until_finished_processing() -> json_file:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+
+tracking states:
+
+0x01 : to_shelf
+0x02 : at_shelf
+0x03 : in_shelf
+0x04 : to_screwing
+0x05 : at_screwing
+0x06 : to_eol
+0x07 : at_eol
+0x08 : at_assembling
+(0x09 : to_assembling)
+
+ntpd Server chrony
+
+
+blocks in tag:
+
+UID:		    0xA
+assembling: 	    0xB
+shelf:		    0xC
+screwing:	    0xD
+end_of_line:        0xE
+tracking: 	    0xF
+
+
+
+which_station:
+
+0x01: assembling
+0x02: shelf
+0x03: screwing
+0x04: eol
+
+
+
+shelf_positions:
+
+1 | 2 	| 3 	| 4
+5 | 6 	| 7 	| 8
+9 | 10 	| 11 	| 12
